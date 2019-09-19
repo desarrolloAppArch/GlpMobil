@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tvIrLogin"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:padding="10dp"
+        android:text="Inicio"
+        android:onClick="irPaginaLogin"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipo Sujeto: "
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+
+            <TextView
+                android:id="@+id/tvTipoSujetoInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Small"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Código ARCH: "
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+
+            <TextView
+                android:id="@+id/tvCodigoArchInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Small"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RUC: "
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+
+            <TextView
+                android:id="@+id/tvRucInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Small"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre: "
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+
+            <TextView
+                android:id="@+id/tvNombreInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Small"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dirección: "
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+
+            <TextView
+                android:id="@+id/tvDireccionInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Small"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Estado: "
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+
+            <TextView
+                android:id="@+id/tvEstadoInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Small"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Regional: "
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+
+            <TextView
+                android:id="@+id/tvRegionalInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Small"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/tvEtiquetaPlaca"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Placa: "
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+
+            <TextView
+                android:id="@+id/tvPlacaInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Small"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvEtiquetaMarca"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Marca: "
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+
+            <TextView
+                android:id="@+id/tvMarcaInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Small"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvEtiquetaModelo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Modelo: "
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+
+            <TextView
+                android:id="@+id/tvModeloInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Small"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvEtiquetaCapacidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Capacidad: "
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+
+            <TextView
+                android:id="@+id/tvCapacidadInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Small"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/tvEtiquetaDeposito"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Depósito GLP: "
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+
+            <TextView
+                android:id="@+id/tvDepositoInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Small"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Correo: "
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+
+            <EditText
+                android:id="@+id/etCorreo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Correo (repetir): "
+                android:textAppearance="@android:style/TextAppearance.Medium" />
+
+            <EditText
+                android:id="@+id/etCorreoRepetido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:textAppearance="@android:style/TextAppearance.Medium" />
+        </TableRow>
+
+    </TableLayout>
+
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ACEPTAR"
+            android:onClick="registrarUsuario"/>
+    </LinearLayout>
+
+
+</LinearLayout>

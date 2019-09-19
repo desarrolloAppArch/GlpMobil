@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="cabecera_tabla_depositos">
+        <item>Código ARCH</item>
+        <item>Nombre</item>
+        <item>Dirección</item>
+    </string-array>
+    <string-array name="cabecera_tabla_transportes">
+        <item>Código ARCH</item>
+        <item>Propietario</item>
+        <item>Placa</item>
+        <item>Depósito</item>
+        <item>Dirección</item>
+    </string-array>
+    <string-array name="cabecera_tabla_cupos">
+        <item>Parroquia</item>
+        <item>Fecha de Descarga</item>
+        <item>Persona Autorizada</item>
+    </string-array>
+</resources>

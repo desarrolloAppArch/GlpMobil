@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="ec.gob.arch.glpmobil.activities.CuposActivity">
+    <item
+        android:id="@+id/opcion_registrar_venta"
+        android:orderInCategory="100"
+        android:title="@string/opcion_registrar_venta"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/opcion_editar_venta"
+        android:orderInCategory="100"
+        android:title="@string/opcion_editar_venta"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/opcion_enviar_ventas"
+        android:orderInCategory="100"
+        android:title="@string/opcion_enviar_ventas"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/opcion_actualizar_cupos"
+        android:orderInCategory="100"
+        android:title="@string/opcion_actualizar_cupos"
+        app:showAsAction="never" />
+</menu>
