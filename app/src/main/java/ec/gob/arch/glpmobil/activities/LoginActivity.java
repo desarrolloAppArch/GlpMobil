@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         serviciosUsuario = new ServiciosUsuario(this);
         objetosSesion = (ObjetoAplicacion) getApplication();
-
+        Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): PRUEBA CAMBIOS GIT GABY");
 
     }
 
