@@ -68,7 +68,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         serviciosUsuario = new ServiciosUsuario(this);
         objetosSesion = (ObjetoAplicacion) getApplication();
-        Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): prueba desde la PC de GABY");
+
+        Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): Cambio subido desde la laptop");
+
+
+
+        Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): cambio subido desde la pc");
 
     }
 
