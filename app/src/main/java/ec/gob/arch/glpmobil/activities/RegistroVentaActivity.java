@@ -48,7 +48,7 @@ public class RegistroVentaActivity extends AppCompatActivity {
             Log.v("log_glp ---------->", "INFO RegistroVentaActivity --> onOptionsItemSelected(): dio clic en la opción: Registrar venta");
             return true;
         }else if(id == R.id.opcion_editar_venta)       {
-            fm.beginTransaction().replace(R.id.fragment, new CuposFragment()).commit();
+            fm.beginTransaction().replace(R.id.fragment, new ConsultarVentaFragment()).commit();
             Log.v("log_glp ---------->", "INFO RegistroVentaActivity --> onOptionsItemSelected(): dio clic en la opción: Editar venta");
         }else if(id == R.id.opcion_actualizar_cupos)
         {
