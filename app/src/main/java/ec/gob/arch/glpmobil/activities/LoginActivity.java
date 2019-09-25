@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         objetosSesion = (ObjetoAplicacion) getApplication();
 
         Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): cambio realizado XXX");
-
+        Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): cambio subido por Vane");
 
     }
 
