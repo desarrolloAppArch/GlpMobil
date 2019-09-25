@@ -13,7 +13,7 @@ public interface PathWebServices {
 	 * http://localhost:8080/webServiceGlpMobilWeb/rest
 	 */
 
-	String PATH_BASE="http://172.16.15.0:8080/webServiceGlpMobilWeb/rest";
+	String PATH_BASE="http://172.16.14.120:8080/webServiceGlpMobilWeb/rest";
 	String WS_USUARIO = "/ws-usuario";
 	String METODO_OBTENER_DISTRIBUIDORES="/metodo-obtenerDistribuidores";
 	String METODO_LOGIN_USUARIO="/metodo-loginUsuario";

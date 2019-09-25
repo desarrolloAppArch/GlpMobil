@@ -70,6 +70,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         objetosSesion = (ObjetoAplicacion) getApplication();
 
         Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): septimo cambio desde la laptop");
+        Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): octavo cambio desde la laptop");
+        Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): sexto cambio desde la laptop");
 
         Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): cambio subido desde la pc");
 
@@ -223,7 +225,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void iniciarSesionSistema(Usuario usuario)
     {
         objetosSesion.setUsuario(usuario);
-        Intent irPaginaRegistroVenta = new Intent(LoginActivity.this, RegistroVentaActivity.class);
+        Intent irPaginaRegistroVenta = new Intent(LoginActivity.this, CuposActivity.class);
         startActivity(irPaginaRegistroVenta);
         Log.v("log_glp ---------->", "INFO LoginActivity --> ingresar() --: El usuario "+ objetosSesion.getUsuario().getNombre()+ " ha iniciado SESION en la app");
     }
