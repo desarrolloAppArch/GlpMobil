@@ -1,8 +1,10 @@
 package ec.gob.arch.glpmobil.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -41,15 +43,17 @@ public class RegistroVentaActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        FragmentManager fm = getSupportFragmentManager();
         if (id == R.id.opcion_registrar_venta) {
             Log.v("log_glp ---------->", "INFO RegistroVentaActivity --> onOptionsItemSelected(): dio clic en la opción: Registrar venta");
             return true;
-        }else if(id == R.id.opcion_editar_venta)
-        {
+        }else if(id == R.id.opcion_editar_venta)       {
+            fm.beginTransaction().replace(R.id.fragment, new ConsultarVentaFragment()).commit();
             Log.v("log_glp ---------->", "INFO RegistroVentaActivity --> onOptionsItemSelected(): dio clic en la opción: Editar venta");
         }else if(id == R.id.opcion_actualizar_cupos)
         {
             Log.v("log_glp ---------->", "INFO RegistroVentaActivity --> onOptionsItemSelected(): dio clic en la opción: Actualizar cupos");
+            fm.beginTransaction().replace(R.id.fragment, new CuposFragment()).commit();
         }else if(id == R.id.opcion_enviar_ventas)
         {
             Log.v("log_glp ---------->", "INFO RegistroVentaActivity --> onOptionsItemSelected(): dio clic en la opción: Enviar ventas");
