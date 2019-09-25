@@ -21,7 +21,7 @@
         android:id="@+id/tvNombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@android:style/TextAppearance.Small"/>
+        android:textAppearance="@android:style/TextAppearance.Small" />
 
     <TextView
         android:id="@+id/tvDireccion"
