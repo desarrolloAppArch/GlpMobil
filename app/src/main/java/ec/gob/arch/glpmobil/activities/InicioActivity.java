@@ -1,6 +1,5 @@
 package ec.gob.arch.glpmobil.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,12 +13,12 @@ import android.view.View;
 
 import ec.gob.arch.glpmobil.R;
 
-public class RegistroVentaActivity extends AppCompatActivity {
+public class InicioActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registro_venta);
+        setContentView(R.layout.activity_inicio);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -45,18 +44,18 @@ public class RegistroVentaActivity extends AppCompatActivity {
         int id = item.getItemId();
         FragmentManager fm = getSupportFragmentManager();
         if (id == R.id.opcion_registrar_venta) {
-            Log.v("log_glp ---------->", "INFO RegistroVentaActivity --> onOptionsItemSelected(): dio clic en la opción: Registrar venta");
+            Log.v("log_glp ---------->", "INFO InicioActivity --> onOptionsItemSelected(): dio clic en la opción: Registrar venta");
             return true;
         }else if(id == R.id.opcion_editar_venta)       {
             fm.beginTransaction().replace(R.id.fragment, new ConsultarVentaFragment()).commit();
-            Log.v("log_glp ---------->", "INFO RegistroVentaActivity --> onOptionsItemSelected(): dio clic en la opción: Editar venta");
+            Log.v("log_glp ---------->", "INFO InicioActivity --> onOptionsItemSelected(): dio clic en la opción: Editar venta");
         }else if(id == R.id.opcion_actualizar_cupos)
         {
-            Log.v("log_glp ---------->", "INFO RegistroVentaActivity --> onOptionsItemSelected(): dio clic en la opción: Actualizar cupos");
+            Log.v("log_glp ---------->", "INFO InicioActivity --> onOptionsItemSelected(): dio clic en la opción: Actualizar cupos");
             fm.beginTransaction().replace(R.id.fragment, new CuposFragment()).commit();
         }else if(id == R.id.opcion_enviar_ventas)
         {
-            Log.v("log_glp ---------->", "INFO RegistroVentaActivity --> onOptionsItemSelected(): dio clic en la opción: Enviar ventas");
+            Log.v("log_glp ---------->", "INFO InicioActivity --> onOptionsItemSelected(): dio clic en la opción: Enviar ventas");
         }
 
 
