@@ -13,5 +13,10 @@
     <string name="opcion_actualizar_cupos">Actualizar cupos</string>
     <string name="title_activity_cliente_ws">ClienteWSActivity</string>
     <string name="title_activity_cupos">SINCRONIZAR CUPOS</string>
+    <string name="title_activity_consulta_venta">ConsultaVentaActivity</string>
+    <string name="title_activity_buscar_venta">BuscarVentaActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello fragment consultar venta</string>
 
 </resources>

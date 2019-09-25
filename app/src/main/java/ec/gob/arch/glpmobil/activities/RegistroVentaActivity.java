@@ -1,5 +1,6 @@
 package ec.gob.arch.glpmobil.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -44,8 +45,8 @@ public class RegistroVentaActivity extends AppCompatActivity {
         if (id == R.id.opcion_registrar_venta) {
             Log.v("log_glp ---------->", "INFO RegistroVentaActivity --> onOptionsItemSelected(): dio clic en la opción: Registrar venta");
             return true;
-        }else if(id == R.id.opcion_editar_venta)
-        {
+        }else if(id == R.id.opcion_editar_venta)       {
+
             Log.v("log_glp ---------->", "INFO RegistroVentaActivity --> onOptionsItemSelected(): dio clic en la opción: Editar venta");
         }else if(id == R.id.opcion_actualizar_cupos)
         {
