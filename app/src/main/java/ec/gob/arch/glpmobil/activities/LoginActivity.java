@@ -225,7 +225,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void iniciarSesionSistema(Usuario usuario)
     {
         objetosSesion.setUsuario(usuario);
-        Intent irPaginaRegistroVenta = new Intent(LoginActivity.this, CuposActivity.class);
+        Intent irPaginaRegistroVenta = new Intent(LoginActivity.this, RegistroVentaActivity.class);
         startActivity(irPaginaRegistroVenta);
         Log.v("log_glp ---------->", "INFO LoginActivity --> ingresar() --: El usuario "+ objetosSesion.getUsuario().getNombre()+ " ha iniciado SESION en la app");
     }
