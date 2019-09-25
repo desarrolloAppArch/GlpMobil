@@ -72,6 +72,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): cambio realizado XXX");
         Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): cambio subido por Vane");
 
+        Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): cambio usuario");
+
     }
 
 
