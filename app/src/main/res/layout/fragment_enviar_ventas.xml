@@ -5,10 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".activities.EnviarVentasFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/txtTituloVentas"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
+        android:layout_height="48dp"
+        android:text="@string/opcion_enviar_ventas" />
 </FrameLayout>

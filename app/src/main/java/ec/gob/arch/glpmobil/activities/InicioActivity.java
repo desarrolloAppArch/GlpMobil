@@ -56,6 +56,8 @@ public class InicioActivity extends AppCompatActivity {
         }else if(id == R.id.opcion_enviar_ventas)
         {
             Log.v("log_glp ---------->", "INFO InicioActivity --> onOptionsItemSelected(): dio clic en la opción: Enviar ventas");
+            Log.v("log_glp ---------->", "INFO RegistroVentaActivity --> onOptionsItemSelected(): dio clic en la opción: Enviar ventas");
+            fm.beginTransaction().replace(R.id.fragment, new EnviarVentasFragment()).commit();
         }
 
 
