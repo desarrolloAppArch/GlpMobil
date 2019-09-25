@@ -14,6 +14,7 @@ import ec.gob.arch.glpmobil.constantes.PathWebServices;
 import ec.gob.arch.glpmobil.entidades.CupoHogar;
 import ec.gob.arch.glpmobil.entidades.GeVwClientesGlp;
 import ec.gob.arch.glpmobil.entidades.PersonaAutorizada;
+import ec.gob.arch.glpmobil.entidades.Ventas;
 import ec.gob.arch.glpmobil.utils.ClienteWebServices;
 
 public class Sincronizador {
@@ -22,6 +23,7 @@ public class Sincronizador {
     private String url_ws_loginUsuario;
     private String url_ws_registrarUsuario;
     private String url_ws_consultaCupo;
+    private String url_ws_ventas;
 
     /**
      * Constructor
@@ -31,6 +33,7 @@ public class Sincronizador {
         url_ws_loginUsuario = getPathWsUsuario()+PathWebServices.METODO_LOGIN_USUARIO;
         url_ws_registrarUsuario = getPathWsUsuario()+PathWebServices.METODO_REGISTRAR_USUARIO;
         url_ws_consultaCupo = getPathWsCupo()+PathWebServices.METODO_CONSULTA_CUPO;
+        url_ws_ventas=getPathWsVentas()+PathWebServices.METODO_REGISTRO_VENTAS;
     }
 
     /**
@@ -50,6 +53,14 @@ public class Sincronizador {
         return PathWebServices.PATH_BASE+PathWebServices.WS_CUPO;
     }
 
+    /**
+     * @author Blanca Yanguicela
+     * Método que permite la unión del path base y el path del ws ventas
+     * @return
+     */
+    private String getPathWsVentas(){
+        return PathWebServices.PATH_BASE+PathWebServices.WS_USUARIO;
+    }
 
     /**
      * Método que invoca al web service
@@ -155,6 +166,17 @@ public class Sincronizador {
 
         return listahogares;
     }
+    //public List<Ventas> registrarVentasWs(List<Ventas> ventas){
+    //    try{
+     //       Gson gson = new GsonBuilder().create();
+     //       String parametroPeticionWs = gson.toJson(ventas);
+     //       String respuestaWs= ClienteWebServices.recuperarObjetoGson(url_ws_ventas);
+     //       Type type = new TypeToken<List<Ventas>>() {}.getType();
+     //   } catch (Exception e) {
+     //       e.printStackTrace();
+     //   }
+//return
+  //  }
 
 
 
