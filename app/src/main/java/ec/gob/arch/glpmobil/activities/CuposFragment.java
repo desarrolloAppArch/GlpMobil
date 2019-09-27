@@ -40,8 +40,8 @@ public class CuposFragment extends Fragment {
     private VwCupoHogar vwCupoHogar;
     private PersonaAutorizada persona;
     private List<VwCupoHogar> listaCupoHogar;
-    List<PersonaAutorizada> listaPersonas;
-    Button btnSincronizar;
+    private List<PersonaAutorizada> listaPersonas;
+    private Button btnSincronizar;
 
 
 

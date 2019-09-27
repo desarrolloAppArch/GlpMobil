@@ -10,6 +10,7 @@ public class Venta {
     private long codigoCupoMes;
     private String usuarioVenta;
     private String usuarioCompra;
+    private String nombreCompra;
     private String sincronizacion;
     private String latitud;
     private String longitud;
@@ -103,5 +104,13 @@ public class Venta {
 
     public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public String getNombreCompra() {
+        return nombreCompra;
+    }
+
+    public void setNombreCompra(String nombreCompra) {
+        this.nombreCompra = nombreCompra;
     }
 }
