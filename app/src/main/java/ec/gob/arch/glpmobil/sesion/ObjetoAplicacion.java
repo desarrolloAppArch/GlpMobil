@@ -4,7 +4,7 @@ import java.util.List;
 
 import android.app.Application;
 
-import ec.gob.arch.glpmobil.entidades.CupoHogar;
+import ec.gob.arch.glpmobil.entidades.VwCupoHogar;
 import ec.gob.arch.glpmobil.entidades.GeVwClientesGlp;
 import ec.gob.arch.glpmobil.entidades.PersonaAutorizada;
 import ec.gob.arch.glpmobil.entidades.Usuario;
@@ -19,13 +19,13 @@ public class ObjetoAplicacion extends Application {
 	private List<GeVwClientesGlp> listaSujetos;
 	private GeVwClientesGlp sujetoSeleccionado;
 	private Usuario usuario;
-	private List<CupoHogar> listaCupoHogar;
+	private List<VwCupoHogar> listaCupoHogar;
 	private List<PersonaAutorizada> listaPersonas;
 
 	public ObjetoAplicacion() {
 
 		listaSujetos = new ArrayList<GeVwClientesGlp>();
-		listaCupoHogar = new ArrayList<CupoHogar>();
+		listaCupoHogar = new ArrayList<VwCupoHogar>();
 		listaPersonas = new ArrayList<PersonaAutorizada>();
 	}
 
@@ -59,11 +59,11 @@ public class ObjetoAplicacion extends Application {
 		this.usuario = usuario;
 	}
 
-	public List<CupoHogar> getListaCupoHogar() {
+	public List<VwCupoHogar> getListaCupoHogar() {
 		return listaCupoHogar;
 	}
 
-	public void setListaCupoHogar(List<CupoHogar> listaCupoHogar) {
+	public void setListaCupoHogar(List<VwCupoHogar> listaCupoHogar) {
 		this.listaCupoHogar = listaCupoHogar;
 	}
 

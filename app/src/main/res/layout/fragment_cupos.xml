@@ -1,49 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.CuposFragment">
+    android:padding="5dp"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
+    <Button
+        android:id="@+id/btnSincronizar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SINCRONIZAR" />
 
-    <TableLayout
+    <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="414dp"
+        android:scrollbars="horizontal">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        </TableRow>
+            <ListView
+                android:id="@+id/lvPersonas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    </TableLayout>
+            </ListView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        </LinearLayout>
+    </HorizontalScrollView>
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher" />
-        <ImageButton
-            android:id="@+id/imageButton1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher" />
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher" />
-        <ImageButton
-            android:id="@+id/imageButton3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher" />
-    </LinearLayout>
-</FrameLayout>
+
+</LinearLayout>

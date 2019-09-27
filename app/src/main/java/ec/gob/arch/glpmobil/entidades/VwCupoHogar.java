@@ -2,7 +2,7 @@ package ec.gob.arch.glpmobil.entidades;
 
 import java.util.List;
 
-public class CupoHogar {
+public class VwCupoHogar {
 
     private Integer cmhAnio;
 
@@ -22,7 +22,7 @@ public class CupoHogar {
     private String disRegional;
     private List<PersonaAutorizada> lsPersonaAutorizada;
 
-    public CupoHogar() {
+    public VwCupoHogar() {
     }
 
     public Integer getCmhAnio() {

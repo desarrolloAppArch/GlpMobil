@@ -11,10 +11,8 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import ec.gob.arch.glpmobil.constantes.PathWebServices;
-import ec.gob.arch.glpmobil.entidades.CupoHogar;
+import ec.gob.arch.glpmobil.entidades.VwCupoHogar;
 import ec.gob.arch.glpmobil.entidades.GeVwClientesGlp;
-import ec.gob.arch.glpmobil.entidades.PersonaAutorizada;
-import ec.gob.arch.glpmobil.entidades.Ventas;
 import ec.gob.arch.glpmobil.utils.ClienteWebServices;
 
 public class Sincronizador {
@@ -146,17 +144,17 @@ public class Sincronizador {
      * @param usuario
      * @return
      */
-    public List<CupoHogar> consultarCupoWS(CupoHogar usuario){
-        List<CupoHogar> listahogares=null;
+    public List<VwCupoHogar> consultarCupoWS(VwCupoHogar usuario){
+        List<VwCupoHogar> listahogares=null;
         try
         {
             Gson gson = new GsonBuilder().create();
             String parametroPeticionWs = gson.toJson(usuario);
-            String respuestaWs = ClienteWebServices.recuperarObjetoGson(url_ws_consultaCupo);
+            String respuestaWs = ClienteWebServices.recuperarObjetoGson(url_ws_consultaCupo,parametroPeticionWs);
 
-            Type type = new TypeToken<List<CupoHogar>>() {}.getType();
-            listahogares = (List<CupoHogar>) gson.fromJson(respuestaWs,type);
-            Log.i("log_glp ---------->","INFO Sincronizador --> consultarCupoWS() --> transformando el resultado en formato JSON a List<CupoHogar>");
+            Type type = new TypeToken<List<VwCupoHogar>>() {}.getType();
+            listahogares = (List<VwCupoHogar>) gson.fromJson(respuestaWs,type);
+            Log.i("log_glp ---------->","INFO Sincronizador --> consultarCupoWS() --> transformando el resultado en formato JSON a List<VwCupoHogar>");
         }catch (Exception e)
         {
             e.printStackTrace();
