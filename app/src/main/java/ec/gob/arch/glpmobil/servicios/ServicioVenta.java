@@ -58,7 +58,9 @@ public class ServicioVenta extends ServicioBase {
 
     }
     private Venta obtenerVenta(Cursor cursor){
+
         Venta venta = new Venta();
+        
         venta.setId_sqlite(cursor.getInt(0));
         venta.setCodigo(cursor.getInt(1));
         venta.setCodigoCupoMes(cursor.getLong(2));
