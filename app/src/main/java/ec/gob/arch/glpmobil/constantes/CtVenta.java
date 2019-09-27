@@ -1,7 +1,7 @@
 package ec.gob.arch.glpmobil.constantes;
 
-public interface CtVentas {
-    public static final String TABLA_VENTAS = "ventas";
+public interface CtVenta {
+    public static final String TABLA_VENTA = "ventas";
     public static final String ID_SQLITE = "id_sqlite";
     public static final String CODIGO = "codigo";
     public static final String CODIGOCUPOMES = "codigoCupoMes";

@@ -21,7 +21,7 @@ public interface PathWebServices {
 
     String WS_CUPO = "/ws-cupo";
     String METODO_CONSULTA_CUPO="/metodo-consultaCupo";
-    String METODO_REGISTRO_VENTAS="/metodo-registroVenta";
+    String METODO_REGISTRO_VENTA ="/metodo-registroVenta";
 
 
 

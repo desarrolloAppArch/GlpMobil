@@ -3,7 +3,7 @@ package ec.gob.arch.glpmobil.entidades;
 
 import java.util.Date;
 
-public class Ventas {
+public class Venta {
 
     private int id_sqlite;
     private Integer codigo;

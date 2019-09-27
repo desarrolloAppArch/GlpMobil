@@ -31,7 +31,7 @@ public class Sincronizador {
         url_ws_loginUsuario = getPathWsUsuario()+PathWebServices.METODO_LOGIN_USUARIO;
         url_ws_registrarUsuario = getPathWsUsuario()+PathWebServices.METODO_REGISTRAR_USUARIO;
         url_ws_consultaCupo = getPathWsCupo()+PathWebServices.METODO_CONSULTA_CUPO;
-        url_ws_ventas=getPathWsVentas()+PathWebServices.METODO_REGISTRO_VENTAS;
+        url_ws_ventas=getPathWsVentas()+PathWebServices.METODO_REGISTRO_VENTA;
     }
 
     /**
@@ -164,12 +164,12 @@ public class Sincronizador {
 
         return listahogares;
     }
-    //public List<Ventas> registrarVentasWs(List<Ventas> ventas){
+    //public List<Venta> registrarVentasWs(List<Venta> ventas){
     //    try{
      //       Gson gson = new GsonBuilder().create();
      //       String parametroPeticionWs = gson.toJson(ventas);
      //       String respuestaWs= ClienteWebServices.recuperarObjetoGson(url_ws_ventas);
-     //       Type type = new TypeToken<List<Ventas>>() {}.getType();
+     //       Type type = new TypeToken<List<Venta>>() {}.getType();
      //   } catch (Exception e) {
      //       e.printStackTrace();
      //   }

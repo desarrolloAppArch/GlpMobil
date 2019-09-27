@@ -3,6 +3,8 @@ package ec.gob.arch.glpmobil.database;
 import ec.gob.arch.glpmobil.constantes.CtCupoHogar;
 import ec.gob.arch.glpmobil.constantes.CtPersona;
 import ec.gob.arch.glpmobil.constantes.CtUsuario;
+import ec.gob.arch.glpmobil.constantes.CtVenta;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -122,6 +124,29 @@ public class BaseGlp extends SQLiteOpenHelper{
 				+CtPersona.FECHA_EMISION_DOCUMENTO+ " DATE, "
 				+CtPersona.PERMITE_DIGITACION_IDEN+" INTEGER );");
 		Log.v("log_glp ---------->", "INFO: call crearTablaCupoHogar");
+
+	}
+
+	/**
+	 *
+	 * Método de permite crear la tabla VENTA en la base SQLite
+	 * @param db
+	 * @author blanca.yanguicela
+	 */
+	public void crearTablaVenta(SQLiteDatabase db){
+		db.execSQL("CREATE TABLE "+ CtVenta.TABLA_VENTA
+				+ "("+CtVenta.ID_SQLITE+"INTEGER PRIMARY KEY AUTOINCREMENT, "
+				+CtVenta.CODIGO+ " INTEGER, "
+				+CtVenta.CODIGOCUPOMES+" LONG, "
+				+CtVenta.USUARIOVENTA+ " STRING, "
+				+CtVenta.USUARIOCOMPRA+ " STRING, "
+				+CtVenta.SINCRONIZACION+ " STRING, "
+				+CtVenta.LATITUD+ " STRING, "
+				+CtVenta.LONGITUD+ " STRING, "
+				+CtVenta.FECHAVENTA+ " STRING, "
+				+CtVenta.FECHAMODIFICACION+ " STRING, "
+				+CtVenta.CANTIDAD+ " INTEGER );");
+		Log.v("log_glp ---------->", "INFO: call crearTablaVENTA");
 
 	}
 
