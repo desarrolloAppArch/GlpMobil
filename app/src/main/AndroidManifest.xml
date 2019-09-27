@@ -27,7 +27,7 @@
         <activity android:name=".activities.RegistroPaso3Activity" />
         <activity
             android:name=".activities.InicioActivity"
-            android:label="@string/title_activity_registro_venta"
+            android:label="@string/title_activity_usuario_sesion"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

@@ -1,5 +1,6 @@
 package ec.gob.arch.glpmobil.activities;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,7 +14,7 @@ import android.view.View;
 
 import ec.gob.arch.glpmobil.R;
 
-public class InicioActivity extends AppCompatActivity {
+public class InicioActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,4 +65,4 @@ public class InicioActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-}
+  }
