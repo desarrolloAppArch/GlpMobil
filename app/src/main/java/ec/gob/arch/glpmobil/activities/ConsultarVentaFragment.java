@@ -22,6 +22,7 @@ import java.util.List;
 
 import ec.gob.arch.glpmobil.R;
 import ec.gob.arch.glpmobil.entidades.Venta;
+import ec.gob.arch.glpmobil.servicios.ServicioVenta;
 import ec.gob.arch.glpmobil.sesion.ObjetoAplicacion;
 
 
@@ -33,6 +34,7 @@ public class ConsultarVentaFragment extends Fragment {
     private ListView lvVentas;
     private VentasAdapter ventasAdapter;
     private List<Venta> listaVentas;
+    private ServicioVenta servicioVenta;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +50,9 @@ public class ConsultarVentaFragment extends Fragment {
         //Al ser el fragment parte del Activity, puedo obtener el Activity con getActivity() ya que no esta directamente relacionado
         objetosSesion = (ObjetoAplicacion) getActivity().getApplication();
 
+        //Inicializar variables
+        servicioVenta =  new ServicioVenta(getContext());
+
 
         //Método cuando seleccione un elemento del listado
         lvVentas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -62,20 +67,28 @@ public class ConsultarVentaFragment extends Fragment {
         btnBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listaVentas = new ArrayList<>();
+
+                inicializarListaVentas();
                 Venta venta = new Venta();
                 venta.setUsuarioCompra("1720472933");
                 venta.setNombreCompra("Soraya Gabriela Matute Rivera");
-                venta.setCantidad(2);
-                venta.setFechaVenta("01/01/2019");
-                listaVentas.add(venta);
+                venta.setCantidad(3);
+                //venta.setFechaVenta("01/01/2019");
+
                 Venta venta1 = new Venta();
                 venta1.setUsuarioCompra("1452369870");
                 venta1.setNombreCompra("Alejandra Vanessa Nieto Castro");
                 venta1.setCantidad(1);
-                venta1.setFechaVenta("01/01/2019");
-                listaVentas.add(venta1);
+                //venta1.setFechaVenta("01/01/2019");
+
+
+                servicioVenta.insertarVenta(venta);
+                servicioVenta.insertarVenta(venta1);
+
+                listaVentas = servicioVenta.buscarVentaPorIdentificacion(etIdentificacion.getText().toString());
+
                 llenarListaVentas(listaVentas);
+
                 Toast.makeText(getContext(),"Registros encontrado de: "+etIdentificacion.getText(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -88,6 +101,10 @@ public class ConsultarVentaFragment extends Fragment {
     public void llenarListaVentas(List<Venta> ventas){
         ventasAdapter = new VentasAdapter(getActivity().getApplicationContext(), R.layout.fila_venta_edicion_linear, ventas);
         lvVentas.setAdapter(ventasAdapter);
+    }
+
+    public void inicializarListaVentas(){
+        listaVentas = new ArrayList<>();
     }
 
 

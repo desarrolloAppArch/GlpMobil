@@ -23,7 +23,7 @@ public class ServicioBase {
 	 * @author soraya.matute
 	 */
 	public ServicioBase (Context context){
-		Log.v("log_glp >>>", "INFO: call CONSTRUCTOR");
+		Log.v("log_glp ---------->", "INFO ServicioBase --> CONSTRUCTOR ");
 		dbHelper = BaseGlp.getInstance(context);
 
 	}
@@ -35,7 +35,7 @@ public class ServicioBase {
 	 */
 	public void abrir() throws SQLException {
 		db = dbHelper.getWritableDatabase();
-		Log.v("log_glp >>>", "Abriendo conexion con la base de datos");
+		Log.v("log_glp ---------->", "INFO ServicioBase --> abrir(): Abriendo conexion con la base de datos  ");
 	}
 	
 	
@@ -44,7 +44,7 @@ public class ServicioBase {
 	 */
 	public void cerrar(){
 		dbHelper.close();
-		Log.v("log_glp >>>", "Cerrando conexion con la base de datos");
+		Log.v("log_glp ---------->", "INFO ServicioBase --> cerrar(): Cerrando conexion con la base de datos ");
 	}
 
 }

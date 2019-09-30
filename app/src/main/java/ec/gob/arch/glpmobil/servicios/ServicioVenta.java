@@ -1,5 +1,6 @@
 package ec.gob.arch.glpmobil.servicios;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
@@ -12,17 +13,17 @@ import ec.gob.arch.glpmobil.entidades.Venta;
 
 public class ServicioVenta extends ServicioBase {
     String[] columnas = new String[]{CtVenta.ID_SQLITE,
-            CtVenta.CODIGO,
             CtVenta.CODIGOCUPOMES,
             CtVenta.USUARIOVENTA,
             CtVenta.USUARIOCOMPRA,
-            CtVenta.SINCRONIZACION,
+            CtVenta.NOMBRECOMPRA,
             CtVenta.LATITUD,
             CtVenta.LONGITUD,
             CtVenta.FECHAVENTA,
             CtVenta.FECHAMODIFICACION,
             CtVenta.CANTIDAD
     };
+
     /**
      * Constructor
      *
@@ -32,6 +33,30 @@ public class ServicioVenta extends ServicioBase {
     public ServicioVenta(Context context) {
         super(context);
     }
+
+
+    public void insertarVenta(Venta venta){
+        try {
+            abrir();
+            ContentValues cv = new ContentValues();
+            cv.put(CtVenta.CODIGOCUPOMES, venta.getCodigoCupoMes());
+            cv.put(CtVenta.USUARIOVENTA, venta.getUsuarioVenta());
+            cv.put(CtVenta.USUARIOCOMPRA, venta.getUsuarioCompra());
+            cv.put(CtVenta.NOMBRECOMPRA, venta.getNombreCompra());
+            cv.put(CtVenta.LATITUD, venta.getLatitud());
+            cv.put(CtVenta.LONGITUD, venta.getLongitud());
+            cv.put(CtVenta.FECHAVENTA, venta.getFechaVenta());
+            cv.put(CtVenta.CANTIDAD, venta.getCantidad());
+
+            db.insert(CtVenta.TABLA_VENTA, null,cv);
+            Log.v("log_glp ---------->", "INFO ServicioVenta --> insertar() venta : "+ venta.getUsuarioCompra());
+            cerrar();
+        }catch (Exception e){
+            Log.v("log_glp ---------->", "ERROR: ServicioVenta --> insertar() venta : "+ venta.getUsuarioCompra());
+            e.printStackTrace();
+        }
+    }
+
 
     public List<Venta> buscarTodos(){
         List<Venta> listaVentas = new ArrayList<Venta>();
@@ -48,17 +73,17 @@ public class ServicioVenta extends ServicioBase {
             /**if (cursor!=null) {
              cursor.close();
              }**/
-            Log.v("log_glp ---------->", "INFO ServiciosVentas --> buscarTodos()");
+            Log.v("log_glp ---------->", "INFO ServicioVenta --> buscarTodos()");
             cerrar();
         }catch(Exception e){
-            Log.v("log_glp ---------->", "ERROR ServiciosVentas --> buscarTodos()");
+            Log.v("log_glp ---------->", "ERROR ServicioVenta --> buscarTodos()");
             e.printStackTrace();
         }
         return listaVentas;
 
     }
     private Venta obtenerVenta(Cursor cursor){
-
+        Log.v("log_glp ---------->", "ERROR ServicioVenta --> obtenerVenta()");
         Venta venta = new Venta();
         
         venta.setId_sqlite(cursor.getInt(0));
@@ -75,4 +100,34 @@ public class ServicioVenta extends ServicioBase {
         return venta;
 
     }
+
+
+    /**
+     * Busca las ventas por cliente
+     * @param identificacion
+     * @return
+     */
+    public List<Venta> buscarVentaPorIdentificacion(String identificacion)
+    {
+        List<Venta> listaVentas = null;
+        try {
+            abrir();
+            String condicion = CtVenta.USUARIOCOMPRA+"='"+identificacion+"'";
+            Cursor cursor = db.query(CtVenta.TABLA_VENTA, columnas, condicion, null, null, null,null);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast())
+            {
+                Venta venta = obtenerVenta(cursor);
+                listaVentas.add(venta);
+                cursor.moveToNext();
+            }
+            Log.v("log_glp ---------->", "INFO ServicioVenta --> buscarVentaPorIdentificacion(): "+identificacion);
+            cerrar();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  listaVentas;
+
+    }
+
 }

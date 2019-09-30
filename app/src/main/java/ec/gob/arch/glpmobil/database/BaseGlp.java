@@ -21,8 +21,8 @@ public class BaseGlp extends SQLiteOpenHelper{
 	 * Variables globales de BaseGlp 
 	 */
 	public static String NOMBRE_BASE = "baseGlp";
-	public static int VERSION_BASE = 1;
-	private static BaseGlp instanciaBaseGlp;
+	public static int VERSION_BASE = 5;
+	public static BaseGlp instanciaBaseGlp;
 
 	
 	/**
@@ -31,8 +31,8 @@ public class BaseGlp extends SQLiteOpenHelper{
 	 * @author soraya.matute
 	 */
 	public BaseGlp(Context context) {
-
 		super(context, NOMBRE_BASE, null, VERSION_BASE);
+		Log.v("log_glp ---------->", "INFO BaseGlp --> CONSTRUCTOR nombre: "+NOMBRE_BASE+", versión: "+VERSION_BASE );
 	}
 	
 	/**
@@ -45,31 +45,41 @@ public class BaseGlp extends SQLiteOpenHelper{
 		if (instanciaBaseGlp==null) {
 			instanciaBaseGlp=new BaseGlp(context);
             Log.v("log_glp ---------->", "INFO BaseGlp --> getInstance(): Creando nueva instancia");
+
 		}else {
-            Log.v("log_glp ---------->", "INFO BaseGlp --> getInstance(): Existe instancia no se creo una nueva");
+            Log.v("log_glp ---------->", "INFO BaseGlp --> getInstance(): Existe instancia no se creo una nueva "+instanciaBaseGlp.toString());
         }
 		return instanciaBaseGlp;
 	}
 
 	/**
-	 * Método que crea la base de datos
+	 * Método que crea la base de datos, se ejecuta una sola vez la primera vez que se instala la app,
+	 * si desinstalo la app no se borra la base, es decir, nunca vuelve a entrar al oncreate() a menos que borre la base de datos del teléfono
 	 * @author soraya.matute
 	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-        Log.v("log_glp ---------->", "INFO BaseGlp --> call onCreate()");
+        Log.v("log_glp ---------->", "INFO BaseGlp --> onCreate()");
 		crearTablaUsuario(db);
 		crearTablaCupoHogar(db);
 		crearTablaPersona(db);
+		crearTablaVenta(db);
 		
 	}
 	
 	/**
-	 * 
+	 * Método que llama si detecta un cambio de versión en la base de datos
 	 * @author soraya.matute
 	 */
 	@Override
-	public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {		
+	public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
+		Log.v("log_glp ---------->", "INFO BaseGlp --> onUpgrade(): iniciando actualizacion base de datos");
+		db.execSQL("DROP TABLE IF EXISTS "+CtUsuario.TABLA_USUARIO);
+		db.execSQL("DROP TABLE IF EXISTS "+CtCupoHogar.TABLA_CUPO_HOGAR);
+		db.execSQL("DROP TABLE IF EXISTS "+CtPersona.TABLA_PERSONA);
+		db.execSQL("DROP TABLE IF EXISTS "+CtVenta.TABLA_VENTA);
+		Log.v("log_glp ---------->", "INFO BaseGlp --> onUpgrade(): Eliminando tablas");
+		onCreate(db);
 	}
 	
 	
@@ -86,7 +96,7 @@ public class BaseGlp extends SQLiteOpenHelper{
 				  +CtUsuario.CLAVE+ " TEXT, "
 				  +CtUsuario.RUC+ " TEXT, "
 				  +CtUsuario.CORREO+" TEXT );");
-        Log.v("log_glp ---------->", "INFO: call crearTablaUsuario");
+		Log.v("log_glp ---------->", "INFO BaseGlp --> crearTablaUsuario()");
 		
 	}
 
@@ -105,7 +115,7 @@ public class BaseGlp extends SQLiteOpenHelper{
 				+CtCupoHogar.HOG_NUMERO+ " TEXT, "
 				+CtCupoHogar.HOG_PARROQUIA+ " TEXT, "
 				+CtCupoHogar.MES+" INTEGER );");
-		Log.v("log_glp ---------->", "INFO: call crearTablaCupoHogar");
+		Log.v("log_glp ---------->", "INFO BaseGlp --> crearTablaCupoHogar()");
 
 	}
 
@@ -123,7 +133,7 @@ public class BaseGlp extends SQLiteOpenHelper{
 				+CtPersona.IDENTIFICACION+ " TEXT, "
 				+CtPersona.FECHA_EMISION_DOCUMENTO+ " DATE, "
 				+CtPersona.PERMITE_DIGITACION_IDEN+" INTEGER );");
-		Log.v("log_glp ---------->", "INFO: call crearTablaCupoHogar");
+		Log.v("log_glp ---------->", "INFO BaseGlp --> crearTablaPersona()");
 
 	}
 
@@ -135,18 +145,17 @@ public class BaseGlp extends SQLiteOpenHelper{
 	 */
 	public void crearTablaVenta(SQLiteDatabase db){
 		db.execSQL("CREATE TABLE "+ CtVenta.TABLA_VENTA
-				+ "("+CtVenta.ID_SQLITE+"INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+CtVenta.CODIGO+ " INTEGER, "
+				+ "("+CtVenta.ID_SQLITE+" INTEGER PRIMARY KEY AUTOINCREMENT, "
 				+CtVenta.CODIGOCUPOMES+" LONG, "
 				+CtVenta.USUARIOVENTA+ " STRING, "
 				+CtVenta.USUARIOCOMPRA+ " STRING, "
-				+CtVenta.SINCRONIZACION+ " STRING, "
+				+CtVenta.NOMBRECOMPRA+ " STRING, "
 				+CtVenta.LATITUD+ " STRING, "
 				+CtVenta.LONGITUD+ " STRING, "
 				+CtVenta.FECHAVENTA+ " STRING, "
 				+CtVenta.FECHAMODIFICACION+ " STRING, "
 				+CtVenta.CANTIDAD+ " INTEGER );");
-		Log.v("log_glp ---------->", "INFO: call crearTablaVENTA");
+		Log.v("log_glp ---------->", "INFO BaseGlp --> crearTablaVenta()");
 
 	}
 

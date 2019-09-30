@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): Es la  primera vez en la app");
             //Cambio de valor a false para que no vuelva a mostrar nunca más la pantalla de registro
-            //setValuePrimeraVez(getApplicationContext(),false);
+            setValuePrimeraVez(getApplicationContext(),false);
         }else {
             Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): NO es la primera vez en la app");
 
@@ -68,12 +68,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         serviciosUsuario = new ServiciosUsuario(this);
         objetosSesion = (ObjetoAplicacion) getApplication();
-
-        Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): cambio realizado XXX");
-        Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): cambio subido por Vane");
-
-        Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): cambio usuario");
-
     }
 
 
