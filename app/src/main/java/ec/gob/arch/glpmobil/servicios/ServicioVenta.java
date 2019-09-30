@@ -96,7 +96,7 @@ public class ServicioVenta extends ServicioBase {
         venta.setLongitud(cursor.getString(7));
         venta.setFechaVenta(cursor.getString(8));
         venta.setFechaModificacion(cursor.getString(9));
-        venta.setCantidad(cursor.getInt(10));
+        //venta.setCantidad(cursor.getInt(10));
         return venta;
 
     }
@@ -111,6 +111,7 @@ public class ServicioVenta extends ServicioBase {
     {
         List<Venta> listaVentas = null;
         try {
+            listaVentas = new ArrayList<>();
             abrir();
             String condicion = CtVenta.USUARIOCOMPRA+"='"+identificacion+"'";
             Cursor cursor = db.query(CtVenta.TABLA_VENTA, columnas, condicion, null, null, null,null);
@@ -125,6 +126,7 @@ public class ServicioVenta extends ServicioBase {
             cerrar();
         }catch (Exception e){
             e.printStackTrace();
+            Log.v("log_glp ---------->", "ERROR ServicioVenta --> buscarVentaPorIdentificacion(): "+identificacion);
         }
         return  listaVentas;
 

@@ -89,7 +89,7 @@ public class ConsultarVentaFragment extends Fragment {
 
                 llenarListaVentas(listaVentas);
 
-                Toast.makeText(getContext(),"Registros encontrado de: "+etIdentificacion.getText(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),+listaVentas.size()+" Registros encontrado de: "+etIdentificacion.getText(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -171,7 +171,7 @@ public class ConsultarVentaFragment extends Fragment {
             //Setear los valores de la fila de una determinada posicion
             Venta venta = listaVentas.get(position);
             fila.tvIdentificacion.setText(venta.getUsuarioCompra());
-            fila.tvCantidad.setText(venta.getCantidad().toString());
+            //fila.tvCantidad.setText(venta.getCantidad().toString());
             fila.tvNombre.setText(venta.getNombreCompra());
             fila.tvFecha.setText(venta.getFechaVenta());
 
