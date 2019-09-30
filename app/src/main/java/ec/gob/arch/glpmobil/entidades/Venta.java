@@ -5,9 +5,8 @@ import java.util.Date;
 
 public class Venta {
 
-    private int id_sqlite;
-    private Integer codigo;
-    private long codigoCupoMes;
+    private Integer id_sqlite;
+    private Integer codigoCupoMes;
     private String usuarioVenta;
     private String usuarioCompra;
     private String nombreCompra;
@@ -18,27 +17,19 @@ public class Venta {
     private String fechaModificacion;
     private Integer cantidad;
 
-    public int getId_sqlite() {
+    public Integer getId_sqlite() {
         return id_sqlite;
     }
 
-    public void setId_sqlite(int id_sqlite) {
+    public void setId_sqlite(Integer id_sqlite) {
         this.id_sqlite = id_sqlite;
     }
 
-    public Integer getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
-    }
-
-    public long getCodigoCupoMes() {
+    public Integer getCodigoCupoMes() {
         return codigoCupoMes;
     }
 
-    public void setCodigoCupoMes(long codigoCupoMes) {
+    public void setCodigoCupoMes(Integer codigoCupoMes) {
         this.codigoCupoMes = codigoCupoMes;
     }
 
@@ -56,6 +47,14 @@ public class Venta {
 
     public void setUsuarioCompra(String usuarioCompra) {
         this.usuarioCompra = usuarioCompra;
+    }
+
+    public String getNombreCompra() {
+        return nombreCompra;
+    }
+
+    public void setNombreCompra(String nombreCompra) {
+        this.nombreCompra = nombreCompra;
     }
 
     public String getSincronizacion() {
@@ -104,13 +103,5 @@ public class Venta {
 
     public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
-    }
-
-    public String getNombreCompra() {
-        return nombreCompra;
-    }
-
-    public void setNombreCompra(String nombreCompra) {
-        this.nombreCompra = nombreCompra;
     }
 }

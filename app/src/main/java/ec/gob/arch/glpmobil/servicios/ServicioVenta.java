@@ -85,18 +85,16 @@ public class ServicioVenta extends ServicioBase {
     private Venta obtenerVenta(Cursor cursor){
         Log.v("log_glp ---------->", "ERROR ServicioVenta --> obtenerVenta()");
         Venta venta = new Venta();
-        
         venta.setId_sqlite(cursor.getInt(0));
-        venta.setCodigo(cursor.getInt(1));
-        venta.setCodigoCupoMes(cursor.getLong(2));
-        venta.setUsuarioVenta(cursor.getString(3));
-        venta.setUsuarioCompra(cursor.getString(4));
-        venta.setSincronizacion(cursor.getString(5));
-        venta.setLatitud(cursor.getString(6));
-        venta.setLongitud(cursor.getString(7));
-        venta.setFechaVenta(cursor.getString(8));
-        venta.setFechaModificacion(cursor.getString(9));
-        //venta.setCantidad(cursor.getInt(10));
+        venta.setCodigoCupoMes(cursor.getInt(1));
+        venta.setUsuarioVenta(cursor.getString(2));
+        venta.setUsuarioCompra(cursor.getString(3));
+        venta.setSincronizacion(cursor.getString(4));
+        venta.setLatitud(cursor.getString(5));
+        venta.setLongitud(cursor.getString(6));
+        venta.setFechaVenta(cursor.getString(7));
+        venta.setFechaModificacion(cursor.getString(8));
+        venta.setCantidad(cursor.getInt(9));
         return venta;
 
     }

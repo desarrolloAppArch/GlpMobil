@@ -21,7 +21,7 @@ public class BaseGlp extends SQLiteOpenHelper{
 	 * Variables globales de BaseGlp 
 	 */
 	public static String NOMBRE_BASE = "baseGlp";
-	public static int VERSION_BASE = 5;
+	public static int VERSION_BASE = 6;
 	public static BaseGlp instanciaBaseGlp;
 
 	
@@ -145,8 +145,8 @@ public class BaseGlp extends SQLiteOpenHelper{
 	 */
 	public void crearTablaVenta(SQLiteDatabase db){
 		db.execSQL("CREATE TABLE "+ CtVenta.TABLA_VENTA
-				+ "("+CtVenta.ID_SQLITE+" INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+CtVenta.CODIGOCUPOMES+" LONG, "
+				+" ("+CtVenta.ID_SQLITE+" INTEGER PRIMARY KEY AUTOINCREMENT, "
+				+CtVenta.CODIGOCUPOMES+" INTEGER, "
 				+CtVenta.USUARIOVENTA+ " STRING, "
 				+CtVenta.USUARIOCOMPRA+ " STRING, "
 				+CtVenta.NOMBRECOMPRA+ " STRING, "

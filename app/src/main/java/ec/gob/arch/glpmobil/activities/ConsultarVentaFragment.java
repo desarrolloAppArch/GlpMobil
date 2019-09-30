@@ -83,6 +83,7 @@ public class ConsultarVentaFragment extends Fragment {
 
 
                 servicioVenta.insertarVenta(venta);
+
                 servicioVenta.insertarVenta(venta1);
 
                 listaVentas = servicioVenta.buscarVentaPorIdentificacion(etIdentificacion.getText().toString());
@@ -171,7 +172,7 @@ public class ConsultarVentaFragment extends Fragment {
             //Setear los valores de la fila de una determinada posicion
             Venta venta = listaVentas.get(position);
             fila.tvIdentificacion.setText(venta.getUsuarioCompra());
-            //fila.tvCantidad.setText(venta.getCantidad().toString());
+            fila.tvCantidad.setText(venta.getCantidad().toString());
             fila.tvNombre.setText(venta.getNombreCompra());
             fila.tvFecha.setText(venta.getFechaVenta());
 
