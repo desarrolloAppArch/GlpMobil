@@ -66,8 +66,8 @@ public class ServicioVenta extends ServicioBase {
             Cursor cursor = db.query(CtVenta.TABLA_VENTA, columnas, null, null, null, null, null);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-                Venta Ventas = obtenerVenta(cursor);
-                listaVentas.add(Ventas);
+                Venta venta = obtenerVenta(cursor);
+                listaVentas.add(venta);
                 cursor.moveToNext();
             }
             /**if (cursor!=null) {
