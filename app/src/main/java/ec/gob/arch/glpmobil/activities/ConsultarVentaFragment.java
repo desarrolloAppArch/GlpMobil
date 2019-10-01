@@ -24,6 +24,7 @@ import ec.gob.arch.glpmobil.R;
 import ec.gob.arch.glpmobil.entidades.Venta;
 import ec.gob.arch.glpmobil.servicios.ServicioVenta;
 import ec.gob.arch.glpmobil.sesion.ObjetoAplicacion;
+import ec.gob.arch.glpmobil.utils.Convertidor;
 
 
 public class ConsultarVentaFragment extends Fragment {
@@ -69,25 +70,28 @@ public class ConsultarVentaFragment extends Fragment {
             public void onClick(View v) {
 
                 inicializarListaVentas();
+                //simular venta
                 Venta venta = new Venta();
+                venta.setCodigoCupoMes(955);
+                //venta.setUsuarioVenta(objetosSesion.getUsuario().getId());
+                venta.setUsuarioVenta("09GLP-D0715");
                 venta.setUsuarioCompra("1720472933");
                 venta.setNombreCompra("Soraya Gabriela Matute Rivera");
-                venta.setCantidad(3);
-                //venta.setFechaVenta("01/01/2019");
-
-                Venta venta1 = new Venta();
-                venta1.setUsuarioCompra("1452369870");
-                venta1.setNombreCompra("Alejandra Vanessa Nieto Castro");
-                venta1.setCantidad(1);
-                //venta1.setFechaVenta("01/01/2019");
+                venta.setFechaVenta(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
+                venta.setCantidad(2);
 
 
                 servicioVenta.insertarVenta(venta);
 
-                servicioVenta.insertarVenta(venta1);
-
                 listaVentas = servicioVenta.buscarVentaPorIdentificacion(etIdentificacion.getText().toString());
-
+                for (Venta vt:listaVentas) {
+                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getCodigoCupoMes());
+                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getUsuarioVenta());
+                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getUsuarioCompra());
+                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getNombreCompra());
+                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getFechaVenta());
+                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getCantidad());
+                }
                 llenarListaVentas(listaVentas);
 
                 Toast.makeText(getContext(),+listaVentas.size()+" Registros encontrado de: "+etIdentificacion.getText(), Toast.LENGTH_SHORT).show();

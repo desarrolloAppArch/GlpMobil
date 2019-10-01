@@ -89,7 +89,7 @@ public class ServicioVenta extends ServicioBase {
         venta.setCodigoCupoMes(cursor.getInt(1));
         venta.setUsuarioVenta(cursor.getString(2));
         venta.setUsuarioCompra(cursor.getString(3));
-        venta.setSincronizacion(cursor.getString(4));
+        venta.setNombreCompra(cursor.getString(4));
         venta.setLatitud(cursor.getString(5));
         venta.setLongitud(cursor.getString(6));
         venta.setFechaVenta(cursor.getString(7));
