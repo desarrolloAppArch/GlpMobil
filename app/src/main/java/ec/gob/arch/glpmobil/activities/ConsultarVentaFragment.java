@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,6 +61,9 @@ public class ConsultarVentaFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("log_glp ---------->", "click en el elemento " + position + " de mi ListView");
+                //FragmentManager fm = getActivity().getSupportFragmentManager();
+                //fm.beginTransaction().replace(R.id.fragment, new ConsultarVentaFragment()).commit();
+                //continuar aqui
             }
         });
 
