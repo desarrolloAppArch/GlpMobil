@@ -76,12 +76,13 @@ public class ConsultarVentaFragment extends Fragment {
                 inicializarListaVentas();
                 //simular venta
                 Venta venta = new Venta();
-                venta.setCodigoCupoMes(955);
+                venta.setCodigo_cupo_mes(955);
                 //venta.setUsuarioVenta(objetosSesion.getUsuario().getId());
-                venta.setUsuarioVenta("09GLP-D0715");
-                venta.setUsuarioCompra("1720472933");
-                venta.setNombreCompra("Soraya Gabriela Matute Rivera");
-                venta.setFechaVenta(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
+                venta.setUsuario_venta("09GLP-D0715");
+//                venta.setUsuario_venta("04GLP-D0009");
+                venta.setUsuario_compra("1717656712");
+                venta.setNombre_compra("Soraya Gabriela Matute Rivera");
+                venta.setFecha_venta(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
                 venta.setCantidad(2);
 
 
@@ -89,11 +90,11 @@ public class ConsultarVentaFragment extends Fragment {
 
                 listaVentas = servicioVenta.buscarVentaPorIdentificacion(etIdentificacion.getText().toString());
                 for (Venta vt:listaVentas) {
-                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getCodigoCupoMes());
-                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getUsuarioVenta());
-                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getUsuarioCompra());
-                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getNombreCompra());
-                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getFechaVenta());
+                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getCodigo_cupo_mes());
+                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getUsuario_venta());
+                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getUsuario_compra());
+                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getNombre_compra());
+                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getFecha_venta());
                     Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getCantidad());
                 }
                 llenarListaVentas(listaVentas);
@@ -179,10 +180,10 @@ public class ConsultarVentaFragment extends Fragment {
 
             //Setear los valores de la fila de una determinada posicion
             Venta venta = listaVentas.get(position);
-            fila.tvIdentificacion.setText(venta.getUsuarioCompra());
+            fila.tvIdentificacion.setText(venta.getUsuario_compra());
             fila.tvCantidad.setText(venta.getCantidad().toString());
-            fila.tvNombre.setText(venta.getNombreCompra());
-            fila.tvFecha.setText(venta.getFechaVenta());
+            fila.tvNombre.setText(venta.getNombre_compra());
+            fila.tvFecha.setText(venta.getFecha_venta());
 
 
             return convertView;

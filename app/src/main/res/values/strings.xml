@@ -10,12 +10,14 @@
 
     <string name="opcion_registrar_venta">Registrar venta</string>
     <string name="opcion_editar_venta">Editar venta</string>
-    <string name="opcion_enviar_ventas">Enviar ventas</string>
+    <string name="opcion_enviar_ventas">Enviar ventas </string>
     <string name="opcion_actualizar_cupos">Actualizar cupos</string>
     <string name="title_activity_cliente_ws">ClienteWSActivity</string>
     <string name="title_activity_cupos">SINCRONIZAR CUPOS</string>
     <string name="title_activity_consulta_venta">ConsultaVentaActivity</string>
     <string name="title_activity_buscar_venta">BuscarVentaActivity</string>
+    <string name="title_fragment_enviar_ventas">VENTAS PENDIENTES DE ENVIAR</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello fragment consultar venta</string>
@@ -25,6 +27,9 @@
     <string name="selection">
         Seleccione
     </string>
+    <string name="fecha">Fecha</string>
+    <string name="numero_registros">Número de registros</string>
+    <string name="enviarVentas">Enviar Ventas</string>
 
     <string-array name="spinnerDia">
         <item>1</item>

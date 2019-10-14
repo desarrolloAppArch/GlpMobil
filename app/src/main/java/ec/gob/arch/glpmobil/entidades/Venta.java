@@ -6,15 +6,14 @@ import java.util.Date;
 public class Venta {
 
     private Integer id_sqlite;
-    private Integer codigoCupoMes;
-    private String usuarioVenta;
-    private String usuarioCompra;
-    private String nombreCompra;
-    private String sincronizacion;
+    private Integer codigo_cupo_mes;
+    private String usuario_venta;
+    private String usuario_compra;
+    private String nombre_compra;
     private String latitud;
     private String longitud;
-    private String fechaVenta;
-    private String fechaModificacion;
+    private String fecha_venta;
+    private String fecha_modificacion;
     private Integer cantidad;
 
     public Integer getId_sqlite() {
@@ -25,44 +24,36 @@ public class Venta {
         this.id_sqlite = id_sqlite;
     }
 
-    public Integer getCodigoCupoMes() {
-        return codigoCupoMes;
+    public Integer getCodigo_cupo_mes() {
+        return codigo_cupo_mes;
     }
 
-    public void setCodigoCupoMes(Integer codigoCupoMes) {
-        this.codigoCupoMes = codigoCupoMes;
+    public void setCodigo_cupo_mes(Integer codigo_cupo_mes) {
+        this.codigo_cupo_mes = codigo_cupo_mes;
     }
 
-    public String getUsuarioVenta() {
-        return usuarioVenta;
+    public String getUsuario_venta() {
+        return usuario_venta;
     }
 
-    public void setUsuarioVenta(String usuarioVenta) {
-        this.usuarioVenta = usuarioVenta;
+    public void setUsuario_venta(String usuario_venta) {
+        this.usuario_venta = usuario_venta;
     }
 
-    public String getUsuarioCompra() {
-        return usuarioCompra;
+    public String getUsuario_compra() {
+        return usuario_compra;
     }
 
-    public void setUsuarioCompra(String usuarioCompra) {
-        this.usuarioCompra = usuarioCompra;
+    public void setUsuario_compra(String usuario_compra) {
+        this.usuario_compra = usuario_compra;
     }
 
-    public String getNombreCompra() {
-        return nombreCompra;
+    public String getNombre_compra() {
+        return nombre_compra;
     }
 
-    public void setNombreCompra(String nombreCompra) {
-        this.nombreCompra = nombreCompra;
-    }
-
-    public String getSincronizacion() {
-        return sincronizacion;
-    }
-
-    public void setSincronizacion(String sincronizacion) {
-        this.sincronizacion = sincronizacion;
+    public void setNombre_compra(String nombre_compra) {
+        this.nombre_compra = nombre_compra;
     }
 
     public String getLatitud() {
@@ -81,20 +72,20 @@ public class Venta {
         this.longitud = longitud;
     }
 
-    public String getFechaVenta() {
-        return fechaVenta;
+    public String getFecha_venta() {
+        return fecha_venta;
     }
 
-    public void setFechaVenta(String fechaVenta) {
-        this.fechaVenta = fechaVenta;
+    public void setFecha_venta(String fecha_venta) {
+        this.fecha_venta = fecha_venta;
     }
 
-    public String getFechaModificacion() {
-        return fechaModificacion;
+    public String getFecha_modificacion() {
+        return fecha_modificacion;
     }
 
-    public void setFechaModificacion(String fechaModificacion) {
-        this.fechaModificacion = fechaModificacion;
+    public void setFecha_modificacion(String fecha_modificacion) {
+        this.fecha_modificacion = fecha_modificacion;
     }
 
     public Integer getCantidad() {

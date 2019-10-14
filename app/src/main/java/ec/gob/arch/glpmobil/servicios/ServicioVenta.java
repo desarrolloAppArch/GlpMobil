@@ -13,14 +13,14 @@ import ec.gob.arch.glpmobil.entidades.Venta;
 
 public class ServicioVenta extends ServicioBase {
     String[] columnas = new String[]{CtVenta.ID_SQLITE,
-            CtVenta.CODIGOCUPOMES,
-            CtVenta.USUARIOVENTA,
-            CtVenta.USUARIOCOMPRA,
-            CtVenta.NOMBRECOMPRA,
+            CtVenta.CODIGO_CUPO_MES,
+            CtVenta.USUARIO_VENTA,
+            CtVenta.USUARIO_COMPRA,
+            CtVenta.NOMBRE_COMPRA,
             CtVenta.LATITUD,
             CtVenta.LONGITUD,
-            CtVenta.FECHAVENTA,
-            CtVenta.FECHAMODIFICACION,
+            CtVenta.FECHA_VENTA,
+            CtVenta.FECHA_MODIFICACION,
             CtVenta.CANTIDAD
     };
 
@@ -39,20 +39,20 @@ public class ServicioVenta extends ServicioBase {
         try {
             abrir();
             ContentValues cv = new ContentValues();
-            cv.put(CtVenta.CODIGOCUPOMES, venta.getCodigoCupoMes());
-            cv.put(CtVenta.USUARIOVENTA, venta.getUsuarioVenta());
-            cv.put(CtVenta.USUARIOCOMPRA, venta.getUsuarioCompra());
-            cv.put(CtVenta.NOMBRECOMPRA, venta.getNombreCompra());
+            cv.put(CtVenta.CODIGO_CUPO_MES, venta.getCodigo_cupo_mes());
+            cv.put(CtVenta.USUARIO_VENTA, venta.getUsuario_venta());
+            cv.put(CtVenta.USUARIO_COMPRA, venta.getUsuario_compra());
+            cv.put(CtVenta.NOMBRE_COMPRA, venta.getNombre_compra());
             cv.put(CtVenta.LATITUD, venta.getLatitud());
             cv.put(CtVenta.LONGITUD, venta.getLongitud());
-            cv.put(CtVenta.FECHAVENTA, venta.getFechaVenta());
+            cv.put(CtVenta.FECHA_VENTA, venta.getFecha_venta());
             cv.put(CtVenta.CANTIDAD, venta.getCantidad());
 
             db.insert(CtVenta.TABLA_VENTA, null,cv);
-            Log.v("log_glp ---------->", "INFO ServicioVenta --> insertar() venta : "+ venta.getUsuarioCompra());
+            Log.v("log_glp ---------->", "INFO ServicioVenta --> insertar() venta : "+ venta.getUsuario_compra());
             cerrar();
         }catch (Exception e){
-            Log.v("log_glp ---------->", "ERROR: ServicioVenta --> insertar() venta : "+ venta.getUsuarioCompra());
+            Log.v("log_glp ---------->", "ERROR: ServicioVenta --> insertar() venta : "+ venta.getUsuario_compra());
             e.printStackTrace();
         }
     }
@@ -85,19 +85,21 @@ public class ServicioVenta extends ServicioBase {
     private Venta obtenerVenta(Cursor cursor){
         Log.v("log_glp ---------->", "ERROR ServicioVenta --> obtenerVenta()");
         Venta venta = new Venta();
+        
         venta.setId_sqlite(cursor.getInt(0));
-        venta.setCodigoCupoMes(cursor.getInt(1));
-        venta.setUsuarioVenta(cursor.getString(2));
-        venta.setUsuarioCompra(cursor.getString(3));
-        venta.setNombreCompra(cursor.getString(4));
+        venta.setCodigo_cupo_mes(cursor.getInt(1));
+        venta.setUsuario_venta(cursor.getString(2));
+        venta.setUsuario_compra(cursor.getString(3));
+        venta.setNombre_compra(cursor.getString(4));
         venta.setLatitud(cursor.getString(5));
         venta.setLongitud(cursor.getString(6));
-        venta.setFechaVenta(cursor.getString(7));
-        venta.setFechaModificacion(cursor.getString(8));
+        venta.setFecha_venta(cursor.getString(7));
+        venta.setFecha_modificacion(cursor.getString(8));
         venta.setCantidad(cursor.getInt(9));
         return venta;
 
     }
+
 
 
     /**
@@ -111,7 +113,7 @@ public class ServicioVenta extends ServicioBase {
         try {
             listaVentas = new ArrayList<>();
             abrir();
-            String condicion = CtVenta.USUARIOCOMPRA+"='"+identificacion+"'";
+            String condicion = CtVenta.USUARIO_COMPRA +"='"+identificacion+"'";
             Cursor cursor = db.query(CtVenta.TABLA_VENTA, columnas, condicion, null, null, null,null);
             cursor.moveToFirst();
             while (!cursor.isAfterLast())
@@ -129,5 +131,6 @@ public class ServicioVenta extends ServicioBase {
         return  listaVentas;
 
     }
+
 
 }

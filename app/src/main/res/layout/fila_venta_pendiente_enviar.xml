@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ec.gob.arch.glpmobil.componentes.CheckedLinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/selector_filas">
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            <TextView
+                android:id="@+id/textViewFecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha: " />
+            <TextView
+                android:id="@+id/tvFechaVenta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Medium" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            <TextView
+                android:id="@+id/textViewNumeroRegistro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Identificación: " />
+            <TextView
+                android:id="@+id/tvNumeroRegistro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Small" />
+        </TableRow>
+
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            <TextView
+                android:id="@+id/textViewUsuarioVenta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha venta: " />
+            <TextView
+                android:id="@+id/tvUsuarioVenta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Small" />
+        </TableRow>
+
+
+
+    </TableLayout>
+
+
+</ec.gob.arch.glpmobil.componentes.CheckedLinearLayout>

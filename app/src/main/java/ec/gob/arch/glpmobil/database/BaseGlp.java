@@ -4,6 +4,7 @@ import ec.gob.arch.glpmobil.constantes.CtCupoHogar;
 import ec.gob.arch.glpmobil.constantes.CtPersona;
 import ec.gob.arch.glpmobil.constantes.CtUsuario;
 import ec.gob.arch.glpmobil.constantes.CtVenta;
+import ec.gob.arch.glpmobil.constantes.CtVwVentaPendiente;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,7 +22,7 @@ public class BaseGlp extends SQLiteOpenHelper{
 	 * Variables globales de BaseGlp 
 	 */
 	public static String NOMBRE_BASE = "baseGlp";
-	public static int VERSION_BASE = 7;
+	public static int VERSION_BASE = 19;
 	public static BaseGlp instanciaBaseGlp;
 
 	
@@ -64,6 +65,7 @@ public class BaseGlp extends SQLiteOpenHelper{
 		crearTablaCupoHogar(db);
 		crearTablaPersona(db);
 		crearTablaVenta(db);
+		crearViewVwVentaPendiente(db);
 		
 	}
 	
@@ -78,6 +80,7 @@ public class BaseGlp extends SQLiteOpenHelper{
 		db.execSQL("DROP TABLE IF EXISTS "+CtCupoHogar.TABLA_CUPO_HOGAR);
 		db.execSQL("DROP TABLE IF EXISTS "+CtPersona.TABLA_PERSONA);
 		db.execSQL("DROP TABLE IF EXISTS "+CtVenta.TABLA_VENTA);
+		db.execSQL("DROP VIEW IF EXISTS "+CtVwVentaPendiente.VIEW_VENTAS_PENDIENTES);
 		Log.v("log_glp ---------->", "INFO BaseGlp --> onUpgrade(): Eliminando tablas");
 		onCreate(db);
 	}
@@ -146,17 +149,23 @@ public class BaseGlp extends SQLiteOpenHelper{
 	public void crearTablaVenta(SQLiteDatabase db){
 		db.execSQL("CREATE TABLE "+ CtVenta.TABLA_VENTA
 				+" ("+CtVenta.ID_SQLITE+" INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+CtVenta.CODIGOCUPOMES+" INTEGER, "
-				+CtVenta.USUARIOVENTA+ " STRING, "
-				+CtVenta.USUARIOCOMPRA+ " STRING, "
-				+CtVenta.NOMBRECOMPRA+ " STRING, "
+				+CtVenta.CODIGO_CUPO_MES +" INTEGER, "
+				+CtVenta.USUARIO_VENTA + " STRING, "
+				+CtVenta.USUARIO_COMPRA + " STRING, "
+				+CtVenta.NOMBRE_COMPRA + " STRING, "
 				+CtVenta.LATITUD+ " STRING, "
 				+CtVenta.LONGITUD+ " STRING, "
-				+CtVenta.FECHAVENTA+ " STRING, "
-				+CtVenta.FECHAMODIFICACION+ " STRING, "
+				+CtVenta.FECHA_VENTA + " STRING, "
+				+CtVenta.FECHA_MODIFICACION + " STRING, "
 				+CtVenta.CANTIDAD+ " INTEGER );");
 		Log.v("log_glp ---------->", "INFO BaseGlp --> crearTablaVenta()");
 
+	}
+
+	public void crearViewVwVentaPendiente(SQLiteDatabase db){
+		db.execSQL("CREATE VIEW " + CtVwVentaPendiente.VIEW_VENTAS_PENDIENTES +
+				" AS SELECT date("+CtVenta.FECHA_VENTA+") AS "+CtVwVentaPendiente.FECHA_VENTA +","+CtVenta.USUARIO_VENTA+" AS "+CtVwVentaPendiente.USUARIO_VENTA+", COUNT ("+CtVenta.USUARIO_VENTA+") AS "+CtVwVentaPendiente.NUMERO_REGISTROS+" FROM "+CtVenta.TABLA_VENTA+" GROUP BY date(" +CtVenta.FECHA_VENTA +"),"+CtVenta.USUARIO_VENTA+";");
+		Log.v("log_glp ---------->", "INFO BaseGlp --> crearViewVwVentaPendiente()");
 	}
 
 }
