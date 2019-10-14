@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,17 +17,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ec.gob.arch.glpmobil.R;
+import ec.gob.arch.glpmobil.entidades.Venta;
 import ec.gob.arch.glpmobil.entidades.VwVentaPendiente;
+import ec.gob.arch.glpmobil.servicios.ServicioVenta;
 import ec.gob.arch.glpmobil.servicios.ServicioVwVentasPendientes;
 import ec.gob.arch.glpmobil.sesion.ObjetoAplicacion;
 
 
 public class EnviarVentasFragment extends Fragment {
    private ObjetoAplicacion objetosSesion;
-   private ListView lvVentas;
-   private  VentasAdapter ventasAdapter;
+   private ListView lvResumenVentas;
+   private ResumenVentasAdapter resumenVentasAdapter;
    private ServicioVwVentasPendientes servicioVwVentasPendientes;
-   private List<VwVentaPendiente> listaVentas;
+   private ServicioVenta servicioVenta;
+   private List<VwVentaPendiente> listaResumenVentas;
+   private List<Venta> listaVentasPorEnviar;
+   private Button btnEnviarVentas;
 
 
     @Override
@@ -35,21 +41,30 @@ public class EnviarVentasFragment extends Fragment {
         super.onCreate(savedInstanceState);
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_enviar_ventas, container,false);
-        lvVentas= (ListView)view.findViewById(R.id.lvResumenVentasEnviar);
-        //lvVentas.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        lvResumenVentas = (ListView)view.findViewById(R.id.lvResumenVentasEnviar);
+        btnEnviarVentas=(Button)view.findViewById(R.id.btnEnviarVentas) ;
+        //lvResumenVentas.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         //Al ser el fragment parte del Activity, puedo obtener el Activity con getActivity() ya que no esta directamente relacionado
         objetosSesion= (ObjetoAplicacion) getActivity().getApplication();
         servicioVwVentasPendientes = new ServicioVwVentasPendientes(getContext());
-        inicializarListaVentas();
-        listaVentas = servicioVwVentasPendientes.buscarVentaPorVendedor("09GLP-D0715".toString());
-//        listaVentas = servicioVwVentasPendientes.buscarVentaPorVendedor(objetosSesion.getUsuario().getId().toString());
-        for (VwVentaPendiente vt:listaVentas) {
+        inicializarListaResumenVentas();
+        listaResumenVentas = servicioVwVentasPendientes.buscarVentaPorVendedor("09GLP-D0715".toString());
+//        listaResumenVentas = servicioVwVentasPendientes.buscarVentaPorVendedor(objetosSesion.getUsuario().getId().toString());
+        for (VwVentaPendiente vt: listaResumenVentas) {
             Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getUsuario_venta());
             Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getFecha_venta());
         }
-        llenarListaVentasPendientes(listaVentas);
+        llenarListaResumenVentas(listaResumenVentas);
 
-
+btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        servicioVenta = new ServicioVenta(getContext());
+        inicializarListaVentasPorEnviar();
+        listaVentasPorEnviar=servicioVenta.buscarVentaPorUsuarioVenta("09GLP-D0715".toString());
+        Log.i("log_glp ---------->", "INFO listaVentasPorEnviar --> "+listaVentasPorEnviar.size());
+    }
+});
 
 
 
@@ -57,31 +72,45 @@ public class EnviarVentasFragment extends Fragment {
         Log.v("Log_Frang_Ventas ->", "INFO onCreateView --> onCreateView()");
         return view;
     }
-    public void llenarListaVentasPendientes(List<VwVentaPendiente> ventasPendientes){
-        ventasAdapter= new VentasAdapter(getActivity().getApplicationContext(), R.layout.fragment_enviar_ventas, ventasPendientes);
-        lvVentas.setAdapter(ventasAdapter);
+    public void llenarListaResumenVentas(List<VwVentaPendiente> ventasPendientes){
+        resumenVentasAdapter = new ResumenVentasAdapter(getActivity().getApplicationContext(), R.layout.fragment_enviar_ventas, ventasPendientes);
+        lvResumenVentas.setAdapter(resumenVentasAdapter);
 
 
     }
-    public void inicializarListaVentas(){
-        listaVentas = new ArrayList<>();
+    public void llenarVentasPorEnviar(String usuarioVenta){
+
+
     }
+
+    public void inicializarListaResumenVentas(){
+        listaResumenVentas = new ArrayList<>();
+
+    }
+    public void inicializarListaVentasPorEnviar(){
+        listaVentasPorEnviar = new  ArrayList<>();
+
+    }
+
+
+
+
     /**
      * Clase que permitirá adaptar una lista de java.util en un ListView
      */
-    class VentasAdapter extends ArrayAdapter<VwVentaPendiente> {
+    class ResumenVentasAdapter extends ArrayAdapter<VwVentaPendiente> {
         /**
          * variable para manipular la lista de ventas pendientes
          */
         private  List<VwVentaPendiente>listaVentas;
 
         /**
-         *Constructor de VentasAdapter
+         *Constructor de ResumenVentasAdapter
          * @param context
          * @param resource
          * @param listaVentas
          */
-        public VentasAdapter(@NonNull Context context, int resource, List<VwVentaPendiente> listaVentas) {
+        public ResumenVentasAdapter(@NonNull Context context, int resource, List<VwVentaPendiente> listaVentas) {
             super(context, resource,listaVentas);
             this.listaVentas= listaVentas;
         }

@@ -131,6 +131,30 @@ public class ServicioVenta extends ServicioBase {
         return  listaVentas;
 
     }
+    public List<Venta> buscarVentaPorUsuarioVenta(String identificacion)
+    {
+        List<Venta> listaVentas = null;
+        try {
+            listaVentas = new ArrayList<>();
+            abrir();
+            String condicion = CtVenta.USUARIO_VENTA +"='"+identificacion+"'";
+            Cursor cursor = db.query(CtVenta.TABLA_VENTA, columnas, condicion, null, null, null,null);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast())
+            {
+                Venta venta = obtenerVenta(cursor);
+                listaVentas.add(venta);
+                cursor.moveToNext();
+            }
+            Log.v("log_glp ---------->", "INFO ServicioVenta --> buscarVentaPorIdentificacion(): "+identificacion);
+            cerrar();
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.v("log_glp ---------->", "ERROR ServicioVenta --> buscarVentaPorIdentificacion(): "+identificacion);
+        }
+        return  listaVentas;
+
+    }
 
 
 }
