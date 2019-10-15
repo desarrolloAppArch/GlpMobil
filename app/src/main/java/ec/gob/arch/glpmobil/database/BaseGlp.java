@@ -22,7 +22,7 @@ public class BaseGlp extends SQLiteOpenHelper{
 	 * Variables globales de BaseGlp 
 	 */
 	public static String NOMBRE_BASE = "baseGlp";
-	public static int VERSION_BASE = 19;
+	public static int VERSION_BASE = 20;
 	public static BaseGlp instanciaBaseGlp;
 
 	

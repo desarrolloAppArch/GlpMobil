@@ -11,6 +11,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import ec.gob.arch.glpmobil.constantes.PathWebServices;
+import ec.gob.arch.glpmobil.entidades.Venta;
 import ec.gob.arch.glpmobil.entidades.VwCupoHogar;
 import ec.gob.arch.glpmobil.entidades.GeVwClientesGlp;
 import ec.gob.arch.glpmobil.utils.ClienteWebServices;
@@ -57,7 +58,7 @@ public class Sincronizador {
      * @return
      */
     private String getPathWsVentas(){
-        return PathWebServices.PATH_BASE+PathWebServices.WS_USUARIO;
+        return PathWebServices.PATH_BASE+PathWebServices.WS_VENTAS;
     }
 
     /**
@@ -164,17 +165,21 @@ public class Sincronizador {
 
         return listahogares;
     }
-    //public List<Venta> registrarVentasWs(List<Venta> ventas){
-    //    try{
-     //       Gson gson = new GsonBuilder().create();
-     //       String parametroPeticionWs = gson.toJson(ventas);
-     //       String respuestaWs= ClienteWebServices.recuperarObjetoGson(url_ws_ventas);
-     //       Type type = new TypeToken<List<Venta>>() {}.getType();
-     //   } catch (Exception e) {
-     //       e.printStackTrace();
-     //   }
-//return
-  //  }
+
+    public String registrarVentasWs(List<Venta> ventas){
+        String respuesta= null;
+        try{
+            Gson gson = new GsonBuilder().create();
+            String parametroPeticionWs = gson.toJson(ventas);
+            String respuestaWs= ClienteWebServices.recuperarObjetoGson(url_ws_ventas,parametroPeticionWs);
+            respuesta=gson.fromJson(respuestaWs,String.class);
+            Log.i("log_glp ---------->","INFO Sincronizador --> registrarVentasWs() --> transformando el resultado en formato JSON a objeto String");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return respuesta;
+    }
 
 
 

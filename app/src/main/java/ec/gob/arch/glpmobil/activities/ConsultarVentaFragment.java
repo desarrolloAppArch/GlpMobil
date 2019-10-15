@@ -76,14 +76,14 @@ public class ConsultarVentaFragment extends Fragment {
                 inicializarListaVentas();
                 //simular venta
                 Venta venta = new Venta();
-                venta.setCodigo_cupo_mes(955);
+                venta.setCodigo_cupo_mes(1);
                 //venta.setUsuarioVenta(objetosSesion.getUsuario().getId());
                 venta.setUsuario_venta("09GLP-D0715");
 //                venta.setUsuario_venta("04GLP-D0009");
-                venta.setUsuario_compra("1717656712");
-                venta.setNombre_compra("Soraya Gabriela Matute Rivera");
+                venta.setUsuario_compra("0701458374");
+                venta.setNombre_compra("LEON CUN EMMA HAYDEE");
                 venta.setFecha_venta(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
-                venta.setCantidad(2);
+                venta.setCantidad(1);
 
 
                 servicioVenta.insertarVenta(venta);

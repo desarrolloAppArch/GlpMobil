@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import ec.gob.arch.glpmobil.R;
 import ec.gob.arch.glpmobil.entidades.Venta;
@@ -22,6 +23,7 @@ import ec.gob.arch.glpmobil.entidades.VwVentaPendiente;
 import ec.gob.arch.glpmobil.servicios.ServicioVenta;
 import ec.gob.arch.glpmobil.servicios.ServicioVwVentasPendientes;
 import ec.gob.arch.glpmobil.sesion.ObjetoAplicacion;
+import ec.gob.arch.glpmobil.task.TaskEnviarVentas;
 
 
 public class EnviarVentasFragment extends Fragment {
@@ -33,6 +35,7 @@ public class EnviarVentasFragment extends Fragment {
    private List<VwVentaPendiente> listaResumenVentas;
    private List<Venta> listaVentasPorEnviar;
    private Button btnEnviarVentas;
+   private String respuestaEnvio;
 
 
     @Override
@@ -59,10 +62,25 @@ public class EnviarVentasFragment extends Fragment {
 btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        servicioVenta = new ServicioVenta(getContext());
-        inicializarListaVentasPorEnviar();
-        listaVentasPorEnviar=servicioVenta.buscarVentaPorUsuarioVenta("09GLP-D0715".toString());
-        Log.i("log_glp ---------->", "INFO listaVentasPorEnviar --> "+listaVentasPorEnviar.size());
+        try {
+            servicioVenta = new ServicioVenta(getContext());
+            inicializarListaVentasPorEnviar();
+            listaVentasPorEnviar=servicioVenta.buscarVentaPorUsuarioVenta("09GLP-D0715".toString());
+            Log.i("log_glp ---------->", "INFO listaVentasPorEnviar --> "+listaVentasPorEnviar.size());
+            TaskEnviarVentas tarea= new TaskEnviarVentas();
+            tarea.execute(listaVentasPorEnviar);
+
+            respuestaEnvio= (String) tarea.get();
+            if(respuestaEnvio.equals("1")){
+                Log.i("log_glp ---------->", "INFO respuestaEnvio Completo--> "+respuestaEnvio);
+            }else{
+                Log.i("log_glp ---------->", "INFO respuestaEnvio No enviado--> "+respuestaEnvio);
+            }
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 });
 
