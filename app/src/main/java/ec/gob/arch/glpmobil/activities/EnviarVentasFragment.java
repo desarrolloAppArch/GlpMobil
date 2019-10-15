@@ -38,6 +38,7 @@ public class EnviarVentasFragment extends Fragment {
    private String respuestaEnvio;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
