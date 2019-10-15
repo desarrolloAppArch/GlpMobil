@@ -56,6 +56,7 @@ public class EnviarVentasFragment extends Fragment {
 //        listaResumenVentas = servicioVwVentasPendientes.buscarVentaPorVendedor(objetosSesion.getUsuario().getId().toString());
         for (VwVentaPendiente vt: listaResumenVentas) {
             Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getUsuario_venta());
+            Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getNumero_registro());
             Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getFecha_venta());
         }
         llenarListaResumenVentas(listaResumenVentas);

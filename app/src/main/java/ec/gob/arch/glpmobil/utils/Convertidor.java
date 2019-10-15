@@ -75,7 +75,10 @@ public class Convertidor {
 		String strFecha = sdf.format(date); 
 		return strFecha;
 	}
-	
+
+
+
+
 	/**
 	 * 
 	 * @param date

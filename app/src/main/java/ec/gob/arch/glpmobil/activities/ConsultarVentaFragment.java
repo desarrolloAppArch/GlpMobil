@@ -83,7 +83,7 @@ public class ConsultarVentaFragment extends Fragment {
                 venta.setUsuario_compra("0701458374");
                 venta.setNombre_compra("LEON CUN EMMA HAYDEE");
                 venta.setFecha_venta(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
-                venta.setCantidad(1);
+                venta.setCantidad(2);
 
 
                 servicioVenta.insertarVenta(venta);
