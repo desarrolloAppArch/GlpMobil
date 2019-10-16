@@ -4,6 +4,7 @@ import ec.gob.arch.glpmobil.constantes.CtCupoHogar;
 import ec.gob.arch.glpmobil.constantes.CtPersona;
 import ec.gob.arch.glpmobil.constantes.CtUsuario;
 import ec.gob.arch.glpmobil.constantes.CtVenta;
+import ec.gob.arch.glpmobil.constantes.CtHistorialSincroniza;
 import ec.gob.arch.glpmobil.constantes.CtVwVentaPendiente;
 
 import android.content.Context;
@@ -22,7 +23,7 @@ public class BaseGlp extends SQLiteOpenHelper{
 	 * Variables globales de BaseGlp 
 	 */
 	public static String NOMBRE_BASE = "baseGlp";
-	public static int VERSION_BASE = 20;
+	public static int VERSION_BASE = 7;
 	public static BaseGlp instanciaBaseGlp;
 
 	
@@ -65,8 +66,9 @@ public class BaseGlp extends SQLiteOpenHelper{
 		crearTablaCupoHogar(db);
 		crearTablaPersona(db);
 		crearTablaVenta(db);
+		crearTablaHistorialSincronizacion(db);
 		crearViewVwVentaPendiente(db);
-		
+
 	}
 	
 	/**
@@ -80,6 +82,7 @@ public class BaseGlp extends SQLiteOpenHelper{
 		db.execSQL("DROP TABLE IF EXISTS "+CtCupoHogar.TABLA_CUPO_HOGAR);
 		db.execSQL("DROP TABLE IF EXISTS "+CtPersona.TABLA_PERSONA);
 		db.execSQL("DROP TABLE IF EXISTS "+CtVenta.TABLA_VENTA);
+		db.execSQL("DROP TABLE IF EXISTS "+CtHistorialSincroniza.TABLA_HISTORIAL);
 		db.execSQL("DROP VIEW IF EXISTS "+CtVwVentaPendiente.VIEW_VENTAS_PENDIENTES);
 		Log.v("log_glp ---------->", "INFO BaseGlp --> onUpgrade(): Eliminando tablas");
 		onCreate(db);
@@ -159,6 +162,24 @@ public class BaseGlp extends SQLiteOpenHelper{
 				+CtVenta.FECHA_MODIFICACION + " STRING, "
 				+CtVenta.CANTIDAD+ " INTEGER );");
 		Log.v("log_glp ---------->", "INFO BaseGlp --> crearTablaVenta()");
+
+	}
+
+	/**
+	 * Método que permite crear la tabla HistorialSincronizacion en la base SQLite
+	 * @param db
+	 * @author vanessa.ponce
+	 */
+	public void crearTablaHistorialSincronizacion(SQLiteDatabase db){
+		db.execSQL("CREATE TABLE "+ CtHistorialSincroniza.TABLA_HISTORIAL
+				+" ("+ CtHistorialSincroniza.ID_SQLITE+" INTEGER PRIMARY KEY AUTOINCREMENT, "
+				+CtHistorialSincroniza.ID+ " INTEGER, "
+				+CtHistorialSincroniza.FECHA_SINCRONIZA+ " TEXT, "
+				+CtHistorialSincroniza.USUARIO+ " TEXT, "
+				+CtHistorialSincroniza.NUMERO_REGISTROS+ " INTEGER, "
+				+CtHistorialSincroniza.ESTADO+ " INTEGER, "
+				+CtHistorialSincroniza.ACCION+ " TEXT);");
+		Log.v("log_glp ---------->", "INFO BaseGlp --> crearTablaHistorialSincronizacion()");
 
 	}
 

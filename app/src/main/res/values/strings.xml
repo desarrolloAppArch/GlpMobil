@@ -6,7 +6,6 @@
     <string name="titulo_activity_registro_paso4">PASO 4. ACEPTAR TÉRMINOS </string>
     <string name="ok">ACEPTAR</string>
     <string name="title_activity_registro_venta">Registrar venta</string>
-    <string name="title_activity_usuario_sesion">Usuario: </string>
 
     <string name="opcion_registrar_venta">Registrar venta</string>
     <string name="opcion_editar_venta">Editar venta</string>
@@ -21,7 +20,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello fragment consultar venta</string>
-    <string name="title_fragment_consulta_venta">BUSCAR VENTA</string>
 
 
     <string name="selection">
