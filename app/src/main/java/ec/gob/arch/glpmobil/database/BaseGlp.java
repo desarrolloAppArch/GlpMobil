@@ -23,7 +23,7 @@ public class BaseGlp extends SQLiteOpenHelper{
 	 * Variables globales de BaseGlp 
 	 */
 	public static String NOMBRE_BASE = "baseGlp";
-	public static int VERSION_BASE = 7;
+	public static int VERSION_BASE = 20;
 	public static BaseGlp instanciaBaseGlp;
 
 	
@@ -68,7 +68,7 @@ public class BaseGlp extends SQLiteOpenHelper{
 		crearTablaVenta(db);
 		crearTablaHistorialSincronizacion(db);
 		crearViewVwVentaPendiente(db);
-
+		
 	}
 	
 	/**
@@ -153,13 +153,13 @@ public class BaseGlp extends SQLiteOpenHelper{
 		db.execSQL("CREATE TABLE "+ CtVenta.TABLA_VENTA
 				+" ("+CtVenta.ID_SQLITE+" INTEGER PRIMARY KEY AUTOINCREMENT, "
 				+CtVenta.CODIGO_CUPO_MES +" INTEGER, "
-				+CtVenta.USUARIO_VENTA + " STRING, "
-				+CtVenta.USUARIO_COMPRA + " STRING, "
-				+CtVenta.NOMBRE_COMPRA + " STRING, "
-				+CtVenta.LATITUD+ " STRING, "
-				+CtVenta.LONGITUD+ " STRING, "
-				+CtVenta.FECHA_VENTA + " STRING, "
-				+CtVenta.FECHA_MODIFICACION + " STRING, "
+				+CtVenta.USUARIO_VENTA + " TEXT, "
+				+CtVenta.USUARIO_COMPRA + " TEXT, "
+				+CtVenta.NOMBRE_COMPRA + " TEXT, "
+				+CtVenta.LATITUD+ " TEXT, "
+				+CtVenta.LONGITUD+ " TEXT, "
+				+CtVenta.FECHA_VENTA + " TEXT, "
+				+CtVenta.FECHA_MODIFICACION + " TEXT, "
 				+CtVenta.CANTIDAD+ " INTEGER );");
 		Log.v("log_glp ---------->", "INFO BaseGlp --> crearTablaVenta()");
 
