@@ -173,7 +173,6 @@ public class BaseGlp extends SQLiteOpenHelper{
 	public void crearTablaHistorialSincronizacion(SQLiteDatabase db){
 		db.execSQL("CREATE TABLE "+ CtHistorialSincroniza.TABLA_HISTORIAL
 				+" ("+ CtHistorialSincroniza.ID_SQLITE+" INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+CtHistorialSincroniza.ID+ " INTEGER, "
 				+CtHistorialSincroniza.FECHA_SINCRONIZA+ " TEXT, "
 				+CtHistorialSincroniza.USUARIO+ " TEXT, "
 				+CtHistorialSincroniza.NUMERO_REGISTROS+ " INTEGER, "

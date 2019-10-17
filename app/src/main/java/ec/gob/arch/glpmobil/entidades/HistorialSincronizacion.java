@@ -3,7 +3,6 @@ package ec.gob.arch.glpmobil.entidades;
 public class HistorialSincronizacion {
 
     private int id_sqlite;
-    private String id;
     private String fecha_sincroniza;
     private String usuario;
     private Integer numero_registros;
@@ -16,14 +15,6 @@ public class HistorialSincronizacion {
 
     public void setId_sqlite(int id_sqlite) {
         this.id_sqlite = id_sqlite;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getFecha_sincroniza() {
