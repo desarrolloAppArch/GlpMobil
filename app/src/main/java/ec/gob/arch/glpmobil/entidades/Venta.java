@@ -1,9 +1,10 @@
 package ec.gob.arch.glpmobil.entidades;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Venta {
+public class Venta implements Serializable {
 
     private Integer id_sqlite;
     private Integer codigo_cupo_mes;

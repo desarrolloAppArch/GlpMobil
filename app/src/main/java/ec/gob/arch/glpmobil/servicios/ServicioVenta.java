@@ -83,7 +83,7 @@ public class ServicioVenta extends ServicioBase {
 
     }
     private Venta obtenerVenta(Cursor cursor){
-        Log.v("log_glp ---------->", "ERROR ServicioVenta --> obtenerVenta()");
+        Log.v("log_glp ---------->", "INFO ServicioVenta --> obtenerVenta()");
         Venta venta = new Venta();
         
         venta.setId_sqlite(cursor.getInt(0));
@@ -122,7 +122,7 @@ public class ServicioVenta extends ServicioBase {
                 listaVentas.add(venta);
                 cursor.moveToNext();
             }
-            Log.v("log_glp ---------->", "INFO ServicioVenta --> buscarVentaPorIdentificacion(): "+identificacion);
+            Log.v("log_glp ---------->", "INFO ServicioVenta --> buscarVentaPorIdentificacion(): "+identificacion+" , Nro. registros: "+ listaVentas.size());
             cerrar();
         }catch (Exception e){
             e.printStackTrace();

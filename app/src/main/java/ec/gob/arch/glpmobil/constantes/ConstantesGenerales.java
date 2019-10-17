@@ -15,4 +15,6 @@ public interface ConstantesGenerales {
 
 	public final String CODIGO_RESPUESTA_USUARIO_REGISTRADO_EXISTOSAMENTE = "000";
 	public final String CODIGO_RESPUESTA_USUARIO_YA_EXISTE = "001";
+
+	public static final int CODIGO_PERMISOS_CAMARA = 1, CODIGO_INTENT = 2;
 }

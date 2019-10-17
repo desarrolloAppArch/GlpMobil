@@ -1,6 +1,6 @@
 package ec.gob.arch.glpmobil.activities;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,17 +11,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
-
 import ec.gob.arch.glpmobil.R;
 
 public class InicioActivity extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.v("log_glp ---------->", "INFO InicioActivity --> onCreate()");
+
         setContentView(R.layout.activity_inicio);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -34,7 +32,10 @@ public class InicioActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -50,10 +51,11 @@ public class InicioActivity extends AppCompatActivity {
         int id = item.getItemId();
         FragmentManager fm = getSupportFragmentManager();
         if (id == R.id.opcion_registrar_venta) {
-            //fm.beginTransaction().replace(R.id.fragment, new RegistroVentaFragment()).commit();
-            Intent lector = new Intent(this,RegistroVentaActivity.class);
-            startActivity(lector);
+            //Intent lector = new Intent(this,RegistroVentaActivity.class);
+            //startActivity(lector);
+            fm.beginTransaction().replace(R.id.fragment, new VentaFragment()).commit();
             Log.v("log_glp ---------->", "INFO InicioActivity --> onOptionsItemSelected(): dio clic en la opción: Registrar venta");
+            return true;
         }else if(id == R.id.opcion_editar_venta)       {
             fm.beginTransaction().replace(R.id.fragment, new ConsultarVentaFragment()).commit();
             Log.v("log_glp ---------->", "INFO InicioActivity --> onOptionsItemSelected(): dio clic en la opción: Editar venta");
@@ -67,8 +69,13 @@ public class InicioActivity extends AppCompatActivity {
             Log.v("log_glp ---------->", "INFO RegistroVentaActivity --> onOptionsItemSelected(): dio clic en la opción: Enviar ventas");
             fm.beginTransaction().replace(R.id.fragment, new EnviarVentasFragment()).commit();// lleva al fragment
         }
-
-
         return super.onOptionsItemSelected(item);
+
     }
+
+
+
 }
+
+
+
