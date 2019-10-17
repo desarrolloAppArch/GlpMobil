@@ -1,5 +1,9 @@
 package ec.gob.arch.glpmobil.activities;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +15,7 @@ import android.widget.TextView;
 import com.google.zxing.Result;
 
 import ec.gob.arch.glpmobil.R;
+import ec.gob.arch.glpmobil.constantes.ConstantesGenerales;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class RegistroVentaActivity extends AppCompatActivity implements View.OnClickListener {
@@ -25,6 +30,9 @@ public class RegistroVentaActivity extends AppCompatActivity implements View.OnC
     private TextView textIdentificacion;
     private EditText edittextEscrita;
 
+    //Variables para comprobar permisos de camara
+    private boolean permisoCamaraConcedido = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +40,7 @@ public class RegistroVentaActivity extends AppCompatActivity implements View.OnC
         textIdentificacion = findViewById(R.id.tvScan);
         edittextEscrita = findViewById(R.id.EtCe);
         Log.v("log_glp ---------->","Entro en ReistroVentaActivty");
-
+        verificarYPedirPermisosDeCamara();
     }
 
 public class zxingscanner implements ZXingScannerView.ResultHandler{
@@ -50,6 +58,10 @@ public class zxingscanner implements ZXingScannerView.ResultHandler{
             e.printStackTrace();
         }
     }
+}
+
+public void escaer(){
+
 }
 
     @Override
@@ -84,6 +96,20 @@ public class zxingscanner implements ZXingScannerView.ResultHandler{
 
             }
             break;
+        }
+    }
+
+
+    private void verificarYPedirPermisosDeCamara() {
+        int estadoDePermiso = ContextCompat.checkSelfPermission(RegistroVentaActivity.this, Manifest.permission.CAMERA);
+        if (estadoDePermiso == PackageManager.PERMISSION_GRANTED) {
+            // En caso de que haya dado permisos ponemos la bandera en true
+            // y llamar al método
+            permisoCamaraConcedido = true;
+        } else {
+            // Si no, pedimos permisos. Ahora mira onRequestPermissionsResult
+            ActivityCompat.requestPermissions(RegistroVentaActivity.this,
+                    new String[]{Manifest.permission.CAMERA}, ConstantesGenerales.CODIGO_PERMISOS_CAMARA);
         }
     }
 }

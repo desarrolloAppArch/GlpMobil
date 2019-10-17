@@ -20,8 +20,8 @@
 
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello fragment consultar venta</string>
     <string name="title_fragment_consulta_venta">BUSCAR VENTA</string>
+    <string name="title_fragment_editar_venta">EDITAR VENTA</string>
 
 
     <string name="selection">
@@ -79,5 +79,8 @@
         <item>11</item>
         <item>12</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

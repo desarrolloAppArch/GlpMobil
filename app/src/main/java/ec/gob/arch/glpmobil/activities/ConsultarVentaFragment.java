@@ -1,8 +1,10 @@
 package ec.gob.arch.glpmobil.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ec.gob.arch.glpmobil.R;
+import ec.gob.arch.glpmobil.constantes.CtVenta;
 import ec.gob.arch.glpmobil.entidades.Venta;
 import ec.gob.arch.glpmobil.servicios.ServicioVenta;
 import ec.gob.arch.glpmobil.sesion.ObjetoAplicacion;
@@ -38,10 +41,13 @@ public class ConsultarVentaFragment extends Fragment {
     private List<Venta> listaVentas;
     private ServicioVenta servicioVenta;
 
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        Log.i("log_glp_cupo ---->","INFO ConsultarVentaFragment --> onCreateView():" );
+        Log.i("log_glp_cupo ---->","INFO ConsultarVentaFragment --> onCreateView()" );
 
         //Para relacionar y manipular los componentes con findViewById en un Fragment es necesario obtener la vista del fragment
         View view = inflater.inflate(R.layout.fragment_consultar_venta, container, false);
@@ -61,9 +67,18 @@ public class ConsultarVentaFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("log_glp ---------->", "click en el elemento " + position + " de mi ListView");
-                //FragmentManager fm = getActivity().getSupportFragmentManager();
-                //fm.beginTransaction().replace(R.id.fragment, new ConsultarVentaFragment()).commit();
-                //continuar aqui
+                //Obtengo la venta seleccionada de la lista
+                Venta ventaSeleccionada = (Venta) lvVentas.getItemAtPosition(position);
+
+                //Creo ub objeto Bundle para enviarlo al siguiente Fragment
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(CtVenta.CLAVE_VENTA_EDITAR,ventaSeleccionada);//Para que esto funcione la clase Venta debe implementar la interfaz Serializable
+                EditarVentaFragment editarVentaFragment = new EditarVentaFragment();
+                editarVentaFragment.setArguments(bundle);
+
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                fm.beginTransaction().replace(R.id.fragment, editarVentaFragment).commit();
+
             }
         });
 
@@ -80,8 +95,8 @@ public class ConsultarVentaFragment extends Fragment {
                 //venta.setUsuarioVenta(objetosSesion.getUsuario().getId());
                 venta.setUsuario_venta("09GLP-D0715");
 //                venta.setUsuario_venta("04GLP-D0009");
-                venta.setUsuario_compra("0701458374");
-                venta.setNombre_compra("LEON CUN EMMA HAYDEE");
+                venta.setUsuario_compra("1720472933");
+                venta.setNombre_compra("GABRIELA MATUTE");
                 venta.setFecha_venta(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
                 venta.setCantidad(2);
 
@@ -189,9 +204,6 @@ public class ConsultarVentaFragment extends Fragment {
             return convertView;
         }
     }
-
-
-
 
 
 }

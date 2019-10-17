@@ -12,4 +12,6 @@ public interface CtVenta {
     public static final String FECHA_VENTA = "fecha_venta";
     public static final String FECHA_MODIFICACION = "fecha_modificacion";
     public static final String CANTIDAD = "cantidad";
+
+    public static final String CLAVE_VENTA_EDITAR = "VENTA_E";
 }
