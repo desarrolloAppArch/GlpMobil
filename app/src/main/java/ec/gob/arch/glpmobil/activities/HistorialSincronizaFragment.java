@@ -15,8 +15,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import ec.gob.arch.glpmobil.R;
@@ -35,7 +33,7 @@ import ec.gob.arch.glpmobil.utils.TituloInfo;
 import ec.gob.arch.glpmobil.utils.UtilMensajes;
 
 
-public class CuposFragment extends Fragment {
+public class HistorialSincronizaFragment extends Fragment {
 
     private ObjetoAplicacion objetoSesion;
     private ListView lvCupoHogar;
@@ -55,7 +53,7 @@ public class CuposFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_cupos, container, false);
+        View view = inflater.inflate(R.layout.fragment_historial_sincroniza, container, false);
         // Inflate the layout for this fragment
 
         lvCupoHogar = (ListView) view.findViewById(R.id.lvCupoHogar);
@@ -105,7 +103,7 @@ public class CuposFragment extends Fragment {
     }
 
     public void llenarListaPersonas(List<HistorialSincronizacion> lsHistorialSincronizacion){
-        historialSincronizacionAdapter = new HistorialSincronizacionAdapter(getContext(), R.layout.fila_persona_linear, lsHistorialSincronizacion);
+        historialSincronizacionAdapter = new HistorialSincronizacionAdapter(getContext(), R.layout.fila_historial_linear, lsHistorialSincronizacion);
         lvCupoHogar.setAdapter(historialSincronizacionAdapter);
         Log.i("log_glp_cupo ---->","INFO CupoFragment --> llenarListaPersonas() --> lvCupoHogar despues:"+lsHistorialSincronizacion.size());
     }
@@ -120,10 +118,10 @@ public class CuposFragment extends Fragment {
                 tarea.execute(vwCupoHogar);
                 List<VwCupoHogar> listaResultado = (List<VwCupoHogar>) tarea.get();
                 if (listaResultado!=null && listaResultado.size()>0 ){
-                    Log.i("log_glp_cupo ---->","INFO CuposFragment --> obtenerCupo() --> RESULTADO:" +listaResultado.size());
+                    Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> obtenerCupo() --> RESULTADO:" +listaResultado.size());
                     objetoSesion.setListaCupoHogar(listaResultado);
                 }else {
-                    Log.i("log_glp_cupo ---->","INFO CuposFragment --> obtenerCupo() --> RESULTADO: NINGUNO");
+                    Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> obtenerCupo() --> RESULTADO: NINGUNO");
                     UtilMensajes.mostrarMsjInfo(MensajeInfo.SIN_RESULTADOS, TituloInfo.TITULO_INFO, getContext());
                 }
             }
@@ -180,16 +178,16 @@ public class CuposFragment extends Fragment {
 
             if(convertView == null){
                 LayoutInflater layout = (LayoutInflater) getActivity().getApplication().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = layout.inflate(R.layout.fila_persona_linear, null);
+                convertView = layout.inflate(R.layout.fila_historial_linear, null);
                 fila = new Fila();
                 fila.tvUsuario = (TextView) convertView.findViewById(R.id.tvUsuario);
                 fila.tvFechaSincroniza = (TextView) convertView.findViewById(R.id.tvFechaSincroniza);
                 fila.tvEstado = (TextView) convertView.findViewById(R.id.tvEstado);
                 fila.tvNumeroHogares = (TextView) convertView.findViewById(R.id.tvNumeroHogares);
                 convertView.setTag(fila);
-                Log.v("log_glp ---------->", "INFO CuposFragment --> getView() --> entro al if");
+                Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> getView() --> entro al if");
             }else{
-                Log.v("log_glp ---------->", "INFO CuposFragment --> getView() --> entra al else");
+                Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> getView() --> entra al else");
                 fila = (Fila) convertView.getTag();
             }
 
@@ -197,7 +195,7 @@ public class CuposFragment extends Fragment {
             fila.tvParroquia.setText(cupoHogar.getDisIdentifica());
             //fila.tvFechaDescarga.set( new Date());
             fila.tvNombre.setText(cupoHogar.getHogNumero());
-            Log.v("log_glp ---------->", "INFO CuposFragment --> getView() --> despues del llenar la vista "+convertView);
+            Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> getView() --> despues del llenar la vista "+convertView);
 
             return convertView;
         }
@@ -252,16 +250,16 @@ public class CuposFragment extends Fragment {
 
                  if(convertView == null){
                      LayoutInflater layout = (LayoutInflater) getActivity().getApplication().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                     convertView = layout.inflate(R.layout.fila_persona_linear, null);
+                     convertView = layout.inflate(R.layout.fila_historial_linear, null);
                      fila = new Fila();
                      fila.tvFechaSincroniza = (TextView) convertView.findViewById(R.id.tvFechaSincroniza);
                      fila.tvUsuario = (TextView) convertView.findViewById(R.id.tvUsuario);
                      fila.tvEstado = (TextView) convertView.findViewById(R.id.tvEstado);
                      fila.tvNumeroHogares = (TextView) convertView.findViewById(R.id.tvNumeroHogares);
                      convertView.setTag(fila);
-                     Log.v("log_glp ---------->", "INFO CuposFragment --> getView() --> entro al if");
+                     Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> getView() --> entro al if");
                  }else{
-                     Log.v("log_glp ---------->", "INFO CuposFragment --> getView() --> entra al else");
+                     Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> getView() --> entra al else");
                      fila = (Fila) convertView.getTag();
                  }
 
@@ -271,7 +269,7 @@ public class CuposFragment extends Fragment {
                  fila.tvEstado.setText(historialSincronizacion.getEstado().toString());
                  fila.tvNumeroHogares.setText(historialSincronizacion.getNumero_registros().toString());
 
-                 Log.v("log_glp ---------->", "INFO CuposFragment --> getView() --> despues del llenar la vista "+convertView);
+                 Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> getView() --> despues del llenar la vista "+convertView);
 
                  return convertView;
              }
@@ -279,7 +277,7 @@ public class CuposFragment extends Fragment {
          }
 
     public void guardarPersona(){
-        Log.v("log_glp ---------->", "INFO CuposFragment --> guardarPersona() --> intentando guardar en tabla PersonaAutorizada ");
+        Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> guardarPersona() --> intentando guardar en tabla PersonaAutorizada ");
 
         try
         {
