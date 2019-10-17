@@ -62,7 +62,7 @@ public class InicioActivity extends AppCompatActivity {
         }else if(id == R.id.opcion_actualizar_cupos)
         {
             Log.v("log_glp ---------->", "INFO InicioActivity --> onOptionsItemSelected(): dio clic en la opción: Actualizar cupos");
-            fm.beginTransaction().replace(R.id.fragment, new CuposFragment()).commit();
+            fm.beginTransaction().replace(R.id.fragment, new HistorialSincronizaFragment()).commit();
         }else if(id == R.id.opcion_enviar_ventas)
         {
             Log.v("log_glp ---------->", "INFO InicioActivity --> onOptionsItemSelected(): dio clic en la opción: Enviar ventas");
