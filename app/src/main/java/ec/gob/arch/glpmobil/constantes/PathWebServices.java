@@ -10,7 +10,7 @@ public interface PathWebServices {
 	 * http://localhost:8080/webServiceGlpMobilWeb/rest
 	 *
 	 *  PATH_BASE DE PRODUCCION
-	 * http://localhost:8080/webServiceGlpMobilWeb/rest
+	 * http://127.0.0.1:8080/webServiceGlpMobilWeb/rest
 	 */
 
 	String PATH_BASE="http://172.16.15.45:8080/webServiceGlpMobilWeb/rest";

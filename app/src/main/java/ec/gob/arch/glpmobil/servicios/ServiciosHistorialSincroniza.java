@@ -102,4 +102,30 @@ public class ServiciosHistorialSincroniza extends ServicioBase{
 
         return historial;
     }
+
+    public List<HistorialSincronizacion> buscarVentaPorUsuarioAcccion(String usuario, String accion)
+    {
+        List<HistorialSincronizacion> listaHistorial = null;
+        try {
+            listaHistorial = new ArrayList<>();
+            abrir();
+            String condicion = CtHistorialSincroniza.USUARIO +"='"+usuario+"' and "+CtHistorialSincroniza.ACCION+ "='"+accion+"'" ;
+            String orderby = CtHistorialSincroniza.ID_SQLITE+" desc LIMIT 5";
+                    Cursor cursor = db.query(CtHistorialSincroniza.TABLA_HISTORIAL, columnas, condicion, null, null, null,orderby);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast())
+            {
+                HistorialSincronizacion venta = obtenerHistorial(cursor);
+                listaHistorial.add(venta);
+                cursor.moveToNext();
+            }
+            Log.v("log_glp ---------->", "INFO ServiciosHistorialSincroniza --> buscarVentaPorUsuarioAcccion(): "+usuario);
+            cerrar();
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.v("log_glp ---------->", "ERROR ServiciosHistorialSincroniza --> buscarVentaPorUsuarioAcccion(): "+usuario);
+        }
+        return  listaHistorial;
+
+    }
 }

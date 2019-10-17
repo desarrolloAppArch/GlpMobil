@@ -56,6 +56,20 @@ public class ServicioVenta extends ServicioBase {
             e.printStackTrace();
         }
     }
+    public void eliminarVentasEnviadasPorUsuario(String usuarioVenta){
+        try {
+
+            abrir();
+            String condicion = CtVenta.USUARIO_VENTA +"='"+usuarioVenta+"'";
+            long response= db.delete(CtVenta.TABLA_VENTA,condicion, null);
+            Log.v("log_glp ---------->", "INFO ServicioVenta --> eliminar() venta : "+ usuarioVenta);
+            cerrar();
+
+        } catch (Exception e) {
+            Log.v("log_glp ---------->", "ERROR: ServicioVenta --> eliminar() venta : "+ usuarioVenta);
+            e.printStackTrace();
+        }
+    }
 
 
     public List<Venta> buscarTodos(){

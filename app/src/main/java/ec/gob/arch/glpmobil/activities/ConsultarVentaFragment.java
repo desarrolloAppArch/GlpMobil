@@ -23,6 +23,7 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import ec.gob.arch.glpmobil.EditarVentaFragment;
 import ec.gob.arch.glpmobil.R;
 import ec.gob.arch.glpmobil.constantes.CtVenta;
 import ec.gob.arch.glpmobil.entidades.Venta;
@@ -70,7 +71,7 @@ public class ConsultarVentaFragment extends Fragment {
                 //Obtengo la venta seleccionada de la lista
                 Venta ventaSeleccionada = (Venta) lvVentas.getItemAtPosition(position);
 
-                //Creo ub objeto Bundle para enviarlo al siguiente Fragment
+                //Creo un objeto Bundle para enviarlo al siguiente Fragment
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(CtVenta.CLAVE_VENTA_EDITAR,ventaSeleccionada);//Para que esto funcione la clase Venta debe implementar la interfaz Serializable
                 EditarVentaFragment editarVentaFragment = new EditarVentaFragment();
@@ -91,14 +92,14 @@ public class ConsultarVentaFragment extends Fragment {
                 inicializarListaVentas();
                 //simular venta
                 Venta venta = new Venta();
-                venta.setCodigo_cupo_mes(1);
-                //venta.setUsuarioVenta(objetosSesion.getUsuario().getId());
+                venta.setCodigo_cupo_mes(2);
+  //              venta.setUsuario_venta(objetosSesion.getUsuario().getId());
                 venta.setUsuario_venta("09GLP-D0715");
 //                venta.setUsuario_venta("04GLP-D0009");
-                venta.setUsuario_compra("1720472933");
-                venta.setNombre_compra("GABRIELA MATUTE");
+                venta.setUsuario_compra("0932269939");
+                venta.setNombre_compra("LEON CUN EZEQUIEL ALFONSO");
                 venta.setFecha_venta(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
-                venta.setCantidad(2);
+                venta.setCantidad(1);
 
 
                 servicioVenta.insertarVenta(venta);

@@ -3,6 +3,7 @@ package ec.gob.arch.glpmobil.entidades;
 public class HistorialSincronizacion {
 
     private int id_sqlite;
+    private String id;
     private String fecha_sincroniza;
     private String usuario;
     private Integer numero_registros;

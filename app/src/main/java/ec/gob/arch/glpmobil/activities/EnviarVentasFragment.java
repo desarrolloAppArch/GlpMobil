@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.util.MonthDisplayHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,31 +13,44 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import ec.gob.arch.glpmobil.R;
+import ec.gob.arch.glpmobil.entidades.HistorialSincronizacion;
 import ec.gob.arch.glpmobil.entidades.Venta;
 import ec.gob.arch.glpmobil.entidades.VwVentaPendiente;
 import ec.gob.arch.glpmobil.servicios.ServicioVenta;
 import ec.gob.arch.glpmobil.servicios.ServicioVwVentasPendientes;
+import ec.gob.arch.glpmobil.servicios.ServiciosHistorialSincroniza;
 import ec.gob.arch.glpmobil.sesion.ObjetoAplicacion;
 import ec.gob.arch.glpmobil.task.TaskEnviarVentas;
+import ec.gob.arch.glpmobil.utils.Convertidor;
 
 
 public class EnviarVentasFragment extends Fragment {
    private ObjetoAplicacion objetosSesion;
    private ListView lvResumenVentas;
    private ResumenVentasAdapter resumenVentasAdapter;
-   private ServicioVwVentasPendientes servicioVwVentasPendientes;
-   private ServicioVenta servicioVenta;
+
    private List<VwVentaPendiente> listaResumenVentas;
    private List<Venta> listaVentasPorEnviar;
+   private HistorialSincronizacion historialventa;
    private Button btnEnviarVentas;
-   private String respuestaEnvio;
-
+   private String respuestaEnvio; //1: realizado 0: no realizado
+   private String usuarioVenta="09GLP-D0715";
+//    private String usuarioVenta=objetosSesion.getUsuario().getId();
+   private String accionHistorial="1" ;//envio venta
+    /**
+     * Servicios
+     */
+    private ServicioVwVentasPendientes servicioVwVentasPendientes;
+    private ServicioVenta servicioVenta;
+    private ServiciosHistorialSincroniza serviciosHistorialSincroniza;
 
 
     @Override
@@ -52,7 +66,7 @@ public class EnviarVentasFragment extends Fragment {
         objetosSesion= (ObjetoAplicacion) getActivity().getApplication();
         servicioVwVentasPendientes = new ServicioVwVentasPendientes(getContext());
         inicializarListaResumenVentas();
-        listaResumenVentas = servicioVwVentasPendientes.buscarVentaPorVendedor("09GLP-D0715".toString());
+        listaResumenVentas = servicioVwVentasPendientes.buscarVentaPorVendedor(usuarioVenta.toString());
 //        listaResumenVentas = servicioVwVentasPendientes.buscarVentaPorVendedor(objetosSesion.getUsuario().getId().toString());
         for (VwVentaPendiente vt: listaResumenVentas) {
             Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getUsuario_venta());
@@ -67,17 +81,26 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
         try {
             servicioVenta = new ServicioVenta(getContext());
             inicializarListaVentasPorEnviar();
-            listaVentasPorEnviar=servicioVenta.buscarVentaPorUsuarioVenta("09GLP-D0715".toString());
+            listaVentasPorEnviar=servicioVenta.buscarVentaPorUsuarioVenta(usuarioVenta.toString());
             Log.i("log_glp ---------->", "INFO listaVentasPorEnviar --> "+listaVentasPorEnviar.size());
             TaskEnviarVentas tarea= new TaskEnviarVentas();
             tarea.execute(listaVentasPorEnviar);
 
             respuestaEnvio= (String) tarea.get();
+            cargarHistorial();
+            if(null==respuestaEnvio){
+                respuestaEnvio= "0";
+            }
             if(respuestaEnvio.equals("1")){
+                eliminarVentas(usuarioVenta);
                 Log.i("log_glp ---------->", "INFO respuestaEnvio Completo--> "+respuestaEnvio);
+                Toast.makeText(getContext(), "Envio Exitoso", Toast.LENGTH_LONG).show();
             }else{
                 Log.i("log_glp ---------->", "INFO respuestaEnvio No enviado--> "+respuestaEnvio);
+                Toast.makeText(getContext(), "Envio Fallido", Toast.LENGTH_LONG).show();
             }
+
+
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -109,6 +132,25 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
     }
     public void inicializarListaVentasPorEnviar(){
         listaVentasPorEnviar = new  ArrayList<>();
+
+    }
+    public void inicializarHistorialSincronizacionVenta(){
+         historialventa= new HistorialSincronizacion();
+    }
+    public void cargarHistorial(){
+        serviciosHistorialSincroniza= new ServiciosHistorialSincroniza(getContext());
+        inicializarHistorialSincronizacionVenta();
+        historialventa.setAccion(accionHistorial);
+        historialventa.setEstado(Integer.parseInt(respuestaEnvio));//1: realizado 0: no realizado
+        historialventa.setFecha_sincroniza(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
+        historialventa.setNumero_registros(listaVentasPorEnviar.size());
+        historialventa.setUsuario(usuarioVenta);
+
+        serviciosHistorialSincroniza.insertar(historialventa);
+    }
+    public void eliminarVentas(String usuario){
+        servicioVenta = new ServicioVenta(getContext());
+        servicioVenta.eliminarVentasEnviadasPorUsuario(usuario);
 
     }
 
