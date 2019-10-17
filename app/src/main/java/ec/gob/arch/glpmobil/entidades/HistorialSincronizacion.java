@@ -10,7 +10,7 @@ public class HistorialSincronizacion {
     private Integer estado; //1 exitoso, 0 fallido
     private String accion;
 
-    public int getId_sqlite() {
+    public int getId_sqlite(int anInt) {
         return id_sqlite;
     }
 
