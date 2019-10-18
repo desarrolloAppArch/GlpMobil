@@ -50,6 +50,8 @@ public class HistorialSincronizaFragment extends Fragment {
     List<HistorialSincronizacion> lsHistorialSincronizacion;
     private String accion= null;
     private String usuario= null;
+    private int estado;
+    private int numero_registros;
 
     /**
      *
@@ -79,6 +81,7 @@ public class HistorialSincronizaFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_historial_sincroniza, container, false);
         // Inflate the layout for this fragment
         Log.i("log_glp_historial ---->","INFO HistorialFragment --> accion() --> accion:" + accion);
+
         if(null==accion){
             lvCupoHogar = (ListView) view.findViewById(R.id.lvCupoHogar);
             objetoSesion = (ObjetoAplicacion) getActivity().getApplication();
@@ -92,8 +95,7 @@ public class HistorialSincronizaFragment extends Fragment {
                 @Override
                 public void onClick(View v){
                     try {
-                        int estado;
-                        int numero_registros;
+
                         Log.i("log_glp_cupo ---->","INFO CupoFragment --> Sincronizar() --> ingresa a Onclick:" );
                         // vwCupoHogarAdapter.obtenerListaPersonas();
                         listaCupoHogar = obtenerCupos();
