@@ -17,6 +17,11 @@ public class Venta implements Serializable {
     private String fecha_modificacion;
     private Integer cantidad;
 
+    //variables temporales solo para mostrar información
+    private Integer cupo;
+
+
+
     public Integer getId_sqlite() {
         return id_sqlite;
     }
@@ -95,5 +100,13 @@ public class Venta implements Serializable {
 
     public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public Integer getCupo() {
+        return cupo;
+    }
+
+    public void setCupo(Integer cupo) {
+        this.cupo = cupo;
     }
 }

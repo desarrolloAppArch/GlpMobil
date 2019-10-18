@@ -72,8 +72,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): cambio realizado XXX");
         Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): cambio subido por Vane");
 
-        Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): cambio usuario");
-
     }
 
 
@@ -118,7 +116,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void irPaginaInicioPruebas(View v){
         Intent irPaginaInicio = new Intent(LoginActivity.this, InicioActivity.class);
         startActivity(irPaginaInicio);
+
     }
+
 
 
     /**
@@ -252,4 +252,3 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
 }
-

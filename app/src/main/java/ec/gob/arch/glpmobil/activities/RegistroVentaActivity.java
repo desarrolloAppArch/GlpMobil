@@ -60,10 +60,6 @@ public class zxingscanner implements ZXingScannerView.ResultHandler{
     }
 }
 
-public void escaer(){
-
-}
-
     @Override
     public void onClick(View v) { // falta solucionar el problema de la accion de cada boton
     switch (v.getId()){

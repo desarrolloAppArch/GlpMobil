@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.VentaPaso2Fragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/textView31"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CLIENTE"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/textView29"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Identificación: "/>
+
+                <TextView
+                    android:id="@+id/tvIdentificacionVenta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="tvIdentificacionVenta"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+                <TextView
+                    android:id="@+id/textView30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre: "/>
+
+                <TextView
+                    android:id="@+id/tvNombreVenta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="tvNombreVenta"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+                <TextView
+                    android:id="@+id/textView32"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre: "/>
+
+                <TextView
+                    android:id="@+id/tvCupoVenta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="tvCupoVenta"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </TableLayout>
+    </LinearLayout>
+</FrameLayout>

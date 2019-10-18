@@ -71,11 +71,11 @@ public class ConsultarVentaFragment extends Fragment {
                 //Obtengo la venta seleccionada de la lista
                 Venta ventaSeleccionada = (Venta) lvVentas.getItemAtPosition(position);
 
-                //Creo un objeto Bundle para enviarlo al siguiente Fragment
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(CtVenta.CLAVE_VENTA_EDITAR,ventaSeleccionada);//Para que esto funcione la clase Venta debe implementar la interfaz Serializable
+                //Creo ub objeto Bundle para enviarlo al siguiente Fragment
+                Bundle parametrosEnvio = new Bundle();
+                parametrosEnvio.putSerializable(CtVenta.CLAVE_VENTA_EDITAR,ventaSeleccionada);//Para que esto funcione la clase Venta debe implementar la interfaz Serializable
                 EditarVentaFragment editarVentaFragment = new EditarVentaFragment();
-                editarVentaFragment.setArguments(bundle);
+                editarVentaFragment.setArguments(parametrosEnvio);
 
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 fm.beginTransaction().replace(R.id.fragment, editarVentaFragment).commit();
@@ -96,8 +96,8 @@ public class ConsultarVentaFragment extends Fragment {
   //              venta.setUsuario_venta(objetosSesion.getUsuario().getId());
                 venta.setUsuario_venta("09GLP-D0715");
 //                venta.setUsuario_venta("04GLP-D0009");
-                venta.setUsuario_compra("0932269939");
-                venta.setNombre_compra("LEON CUN EZEQUIEL ALFONSO");
+                venta.setUsuario_compra("1720472933");
+                venta.setNombre_compra("GABRIELA MATUTE");
                 venta.setFecha_venta(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
                 venta.setCantidad(1);
 

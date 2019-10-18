@@ -14,4 +14,5 @@ public interface CtVenta {
     public static final String CANTIDAD = "cantidad";
 
     public static final String CLAVE_VENTA_EDITAR = "VENTA_E";
+    public static final String CLAVE_CUPO_VENTA = "VENTA_C";
 }
