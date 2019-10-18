@@ -163,78 +163,7 @@ public class HistorialSincronizaFragment extends Fragment {
         return objetoSesion.getListaCupoHogar();
     }
 
-    /****
-     * Clase VwCupoHogarAdapter
-
-
-    class VwCupoHogarAdapter extends ArrayAdapter<VwCupoHogar> {
-        List<VwCupoHogar> lsVwCupoHogar;
-
-        /**
-         * Constructor de VwCupoHogarAdapter
-         * @param context
-         * @param resource
-         * @param lsVwCupoHogar
-
-
-        public VwCupoHogarAdapter(@NonNull Context context, int resource, @NonNull List<VwCupoHogar> lsVwCupoHogar){
-            super(context, resource, lsVwCupoHogar);
-            this.lsVwCupoHogar = lsVwCupoHogar;
-        }
-
-        /**
-         * Método que declara las variables para las filas de la tabla
-         *
-
-        private class Fila{
-            TextView tvUsuario;
-            TextView tvFechaSincroniza;
-            TextView tvEstado;
-            TextView tvNumeroHogares;
-
-        }
-
-        /**
-         * Método que obtiene la vista del listado
-         * @param posicion
-         * @param convertView
-         * @param parent
-         * @return
-
-        @RequiresApi(api = Build.VERSION_CODES.M)
-        @Override
-        public View getView(final int posicion, View convertView, ViewGroup parent){
-
-            Fila fila = null;
-
-            if(convertView == null){
-                LayoutInflater layout = (LayoutInflater) getActivity().getApplication().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = layout.inflate(R.layout.fila_historial_linear, null);
-                fila = new Fila();
-                fila.tvUsuario = (TextView) convertView.findViewById(R.id.tvUsuario);
-                fila.tvFechaSincroniza = (TextView) convertView.findViewById(R.id.tvFechaSincroniza);
-                fila.tvEstado = (TextView) convertView.findViewById(R.id.tvEstado);
-                fila.tvNumeroHogares = (TextView) convertView.findViewById(R.id.tvNumeroHogares);
-                convertView.setTag(fila);
-                Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> getView() --> entro al if");
-            }else{
-                Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> getView() --> entra al else");
-                fila = (Fila) convertView.getTag();
-            }
-
-            VwCupoHogar cupoHogar = lsVwCupoHogar.get(posicion);
-            fila.tvParroquia.setText(cupoHogar.getDisIdentifica());
-            //fila.tvFechaDescarga.set( new Date());
-            fila.tvNombre.setText(cupoHogar.getHogNumero());
-            Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> getView() --> despues del llenar la vista "+convertView);
-
-            return convertView;
-        }
-
-    } */
-
-
-
+    
     /**
      * Clase HistorialSincronizacionAdapter
      */
@@ -262,7 +191,7 @@ public class HistorialSincronizaFragment extends Fragment {
             TextView tvUsuario;
             TextView tvFechaSincroniza;
             TextView tvEstado;
-            TextView tvNumeroHogares;
+            TextView tvNumeroRegistros;
 
         }
 
@@ -286,7 +215,7 @@ public class HistorialSincronizaFragment extends Fragment {
                      fila.tvFechaSincroniza = (TextView) convertView.findViewById(R.id.tvFechaSincroniza);
                      fila.tvUsuario = (TextView) convertView.findViewById(R.id.tvUsuario);
                      fila.tvEstado = (TextView) convertView.findViewById(R.id.tvEstado);
-                     fila.tvNumeroHogares = (TextView) convertView.findViewById(R.id.tvNumeroHogares);
+                     fila.tvNumeroRegistros = (TextView) convertView.findViewById(R.id.tvNumeroRegistro);
                      convertView.setTag(fila);
                      Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> getView() --> entro al if");
                  }else{
@@ -298,7 +227,7 @@ public class HistorialSincronizaFragment extends Fragment {
                  fila.tvFechaSincroniza.setText(historialSincronizacion.getFecha_sincroniza());
                  fila.tvUsuario.setText(historialSincronizacion.getUsuario());
                  fila.tvEstado.setText(historialSincronizacion.getEstado().toString());
-                 fila.tvNumeroHogares.setText(historialSincronizacion.getNumero_registros().toString());
+                 fila.tvNumeroRegistros.setText(historialSincronizacion.getNumero_registros().toString());
 
                  Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> getView() --> despues del llenar la vista "+convertView);
 

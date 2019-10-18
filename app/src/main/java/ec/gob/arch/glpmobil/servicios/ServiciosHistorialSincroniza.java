@@ -89,7 +89,6 @@ public class ServiciosHistorialSincroniza extends ServicioBase{
 
     private HistorialSincronizacion obtenerHistorial(Cursor cursor){
 
-        Log.v("log_glp ---------->", "ERROR ServiciosHistorialSincroniza --> obtenerHistorial()");
         HistorialSincronizacion historial = new HistorialSincronizacion();
 
         historial.setId_sqlite(cursor.getInt(0));
