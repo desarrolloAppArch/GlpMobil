@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.util.MonthDisplayHelper;
 import android.view.LayoutInflater;
@@ -93,6 +94,13 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
             }
             if(respuestaEnvio.equals("1")){
                 eliminarVentas(usuarioVenta);
+                Bundle bundle= new Bundle();
+                bundle.putString("accion", "1");
+                HistorialSincronizaFragment historialSincronizaFragment= new HistorialSincronizaFragment();
+                historialSincronizaFragment.setArguments(bundle);
+
+                FragmentManager fm= getActivity().getSupportFragmentManager();
+                fm.beginTransaction().replace(R.id.fragment, historialSincronizaFragment).commit();
                 Log.i("log_glp ---------->", "INFO respuestaEnvio Completo--> "+respuestaEnvio);
                 Toast.makeText(getContext(), "Envio Exitoso", Toast.LENGTH_LONG).show();
             }else{

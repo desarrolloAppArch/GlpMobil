@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import ec.gob.arch.glpmobil.EditarVentaFragment;
 import ec.gob.arch.glpmobil.R;
 import ec.gob.arch.glpmobil.entidades.HistorialSincronizacion;
 import ec.gob.arch.glpmobil.entidades.VwCupoHogar;
@@ -34,7 +35,8 @@ import ec.gob.arch.glpmobil.utils.UtilMensajes;
 
 
 public class HistorialSincronizaFragment extends Fragment {
-
+    private static final String ARG_PARAM1 = "param1";
+    private String mParam1;
     private ObjetoAplicacion objetoSesion;
     private ListView lvCupoHogar;
     //private VwCupoHogarAdapter vwCupoHogarAdapter;
@@ -46,60 +48,87 @@ public class HistorialSincronizaFragment extends Fragment {
     private Button btnSincronizar;
     private ServiciosHistorialSincroniza serviciosHistorialSincroniza;
     List<HistorialSincronizacion> lsHistorialSincronizacion;
+    private String accion= null;
+    private String usuario= null;
 
-
+    /**
+     *
+     * @param param1
+     * @return
+     */
+    public static EditarVentaFragment newInstance(String param1) {
+        EditarVentaFragment fragment = new EditarVentaFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        fragment.setArguments(args);
+        return fragment;
+    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(null!=getArguments()){
+            accion = getArguments().getString("accion","0");
+            Log.i("log_glp_historial ---->","INFO HistorialFragment --> accion() --> accion:" + accion);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+//       super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_historial_sincroniza, container, false);
         // Inflate the layout for this fragment
+        Log.i("log_glp_historial ---->","INFO HistorialFragment --> accion() --> accion:" + accion);
+        if(null==accion){
+            lvCupoHogar = (ListView) view.findViewById(R.id.lvCupoHogar);
+            objetoSesion = (ObjetoAplicacion) getActivity().getApplication();
+            //usuario=objetoSesion.getUsuario().getId();
+            usuario="09GLP-D0715";
+            Log.i("log_glp_cupo ---->","INFO CupoFragment --> Usuario() --> RESULTADO:" + usuario);
 
-        lvCupoHogar = (ListView) view.findViewById(R.id.lvCupoHogar);
-        objetoSesion = (ObjetoAplicacion) getActivity().getApplication();
-        Log.i("log_glp_cupo ---->","INFO CupoFragment --> Usuario() --> RESULTADO:" + objetoSesion.getUsuario().getId());
 
-
-        btnSincronizar = (Button)view.findViewById(R.id.btnSincronizar);
-        btnSincronizar.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                try {
-                    Log.i("log_glp_cupo ---->","INFO CupoFragment --> Sincronizar() --> ingresa a Onclick:" );
-                    // vwCupoHogarAdapter.obtenerListaPersonas();
-                    listaCupoHogar = obtenerCupos();
-                    if(listaCupoHogar.size()>0){
-                        serviciosHistorialSincroniza = new ServiciosHistorialSincroniza(getContext());
-                        HistorialSincronizacion historialNuevo = new HistorialSincronizacion();
-                        historialNuevo.setAccion("ConsultaCupo");
-                        historialNuevo.setUsuario(objetoSesion.getUsuario().getNombre());
-                        historialNuevo.setFecha_sincroniza(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
-                        historialNuevo.setEstado(1);
-                        historialNuevo.setNumero_registros(listaCupoHogar.size());
-                        serviciosHistorialSincroniza.insertar(historialNuevo);
-                    }else{
-                        serviciosHistorialSincroniza = new ServiciosHistorialSincroniza(getContext());
-                        HistorialSincronizacion historialNuevo = new HistorialSincronizacion();
-                        historialNuevo.setAccion("ConsultaCupo");
-                        historialNuevo.setUsuario(objetoSesion.getUsuario().getNombre());
-                        historialNuevo.setFecha_sincroniza(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
-                        historialNuevo.setEstado(0);
-                        historialNuevo.setNumero_registros(listaCupoHogar.size());
-                        serviciosHistorialSincroniza.insertar(historialNuevo);
+            btnSincronizar = (Button)view.findViewById(R.id.btnSincronizar);
+            btnSincronizar.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    try {
+                        int estado;
+                        int numero_registros;
+                        Log.i("log_glp_cupo ---->","INFO CupoFragment --> Sincronizar() --> ingresa a Onclick:" );
+                        // vwCupoHogarAdapter.obtenerListaPersonas();
+                        listaCupoHogar = obtenerCupos();
+                        numero_registros=listaCupoHogar.size();
+                        if(listaCupoHogar.size()>0){
+                            estado=1;
+                            insertarHistorial(accion, usuario,estado,numero_registros);
+                        }else{
+                            estado=0;
+                            insertarHistorial(accion, usuario,estado,numero_registros);
+                        }
+                        lsHistorialSincronizacion = serviciosHistorialSincroniza.buscarTodos();
+                        llenarListaPersonas(lsHistorialSincronizacion);
+                        Log.i("log_glp_cupo ---->","INFO CupoFragment --> Sincronizar() --> después de ejecutar:"+objetoSesion.getListaCupoHogar().size() );
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
-                    lsHistorialSincronizacion = serviciosHistorialSincroniza.buscarTodos();
-                    llenarListaPersonas(lsHistorialSincronizacion);
-                    Log.i("log_glp_cupo ---->","INFO CupoFragment --> Sincronizar() --> después de ejecutar:"+objetoSesion.getListaCupoHogar().size() );
-                }catch (Exception e){
-                    e.printStackTrace();
+
                 }
+            });
 
-            }
-        });
+        }else{
 
-
+        }
         return view;
+    }
+    public void insertarHistorial(String accion, String usuario,  Integer estado, Integer numero_registros){
+        serviciosHistorialSincroniza = new ServiciosHistorialSincroniza(getContext());
+        HistorialSincronizacion historialNuevo = new HistorialSincronizacion();
+        historialNuevo.setAccion(accion);
+        historialNuevo.setUsuario(usuario);
+        historialNuevo.setFecha_sincroniza(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
+        historialNuevo.setEstado(estado);
+        historialNuevo.setNumero_registros(numero_registros);
+        serviciosHistorialSincroniza.insertar(historialNuevo);
     }
 
     public void llenarListaPersonas(List<HistorialSincronizacion> lsHistorialSincronizacion){
@@ -113,7 +142,7 @@ public class HistorialSincronizaFragment extends Fragment {
 
         try {
             if (ClienteWebServices.validarConexionRed(getContext())){
-                vwCupoHogar.setDisIdentifica(this.objetoSesion.getUsuario().getId());
+                vwCupoHogar.setDisIdentifica(usuario);
                 TaskConsultarCupo tarea = new TaskConsultarCupo();
                 tarea.execute(vwCupoHogar);
                 List<VwCupoHogar> listaResultado = (List<VwCupoHogar>) tarea.get();
