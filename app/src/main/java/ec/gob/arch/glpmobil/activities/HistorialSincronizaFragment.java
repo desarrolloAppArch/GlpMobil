@@ -106,7 +106,7 @@ public class HistorialSincronizaFragment extends Fragment {
                             insertarHistorial(accion, usuario,estado,numero_registros);
                         }
                         lsHistorialSincronizacion = serviciosHistorialSincroniza.buscarTodos();
-                        llenarListaPersonas(lsHistorialSincronizacion);
+                        llenarListaHistorial(lsHistorialSincronizacion);
                         Log.i("log_glp_cupo ---->","INFO CupoFragment --> Sincronizar() --> después de ejecutar:"+objetoSesion.getListaCupoHogar().size() );
                     }catch (Exception e){
                         e.printStackTrace();
@@ -115,7 +115,7 @@ public class HistorialSincronizaFragment extends Fragment {
                 }
             });
 
-        }else{
+        }else if(accion.equals("1")){
 
         }
         return view;
@@ -131,10 +131,10 @@ public class HistorialSincronizaFragment extends Fragment {
         serviciosHistorialSincroniza.insertar(historialNuevo);
     }
 
-    public void llenarListaPersonas(List<HistorialSincronizacion> lsHistorialSincronizacion){
+    public void llenarListaHistorial(List<HistorialSincronizacion> lsHistorialSincronizacion){
         historialSincronizacionAdapter = new HistorialSincronizacionAdapter(getContext(), R.layout.fila_historial_linear, lsHistorialSincronizacion);
         lvCupoHogar.setAdapter(historialSincronizacionAdapter);
-        Log.i("log_glp_cupo ---->","INFO CupoFragment --> llenarListaPersonas() --> lvCupoHogar despues:"+lsHistorialSincronizacion.size());
+        Log.i("log_glp_cupo ---->","INFO CupoFragment --> llenarListaHistorial() --> lvCupoHogar despues:"+lsHistorialSincronizacion.size());
     }
 
     public List<VwCupoHogar> obtenerCupos(){
