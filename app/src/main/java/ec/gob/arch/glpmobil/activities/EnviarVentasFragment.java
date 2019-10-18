@@ -88,10 +88,11 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
             tarea.execute(listaVentasPorEnviar);
 
             respuestaEnvio= (String) tarea.get();
-            cargarHistorial();
+
             if(null==respuestaEnvio){
                 respuestaEnvio= "0";
             }
+            cargarHistorial();
             if(respuestaEnvio.equals("1")){
                 eliminarVentas(usuarioVenta);
                 Bundle bundle= new Bundle();
