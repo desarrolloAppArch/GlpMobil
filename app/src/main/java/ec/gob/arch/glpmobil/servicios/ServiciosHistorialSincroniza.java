@@ -18,7 +18,6 @@ public class ServiciosHistorialSincroniza extends ServicioBase{
      * Columnas a recuperar de la tabla HistorialSincronizacion
      */
     String[] columnas = new String[]{CtHistorialSincroniza.ID_SQLITE,
-            CtHistorialSincroniza.ID,
             CtHistorialSincroniza.FECHA_SINCRONIZA,
             CtHistorialSincroniza.USUARIO,
             CtHistorialSincroniza.NUMERO_REGISTROS,
