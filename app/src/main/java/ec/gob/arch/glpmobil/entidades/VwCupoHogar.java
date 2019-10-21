@@ -6,7 +6,7 @@ public class VwCupoHogar {
 
     private Integer cmhAnio;
 
-    private Integer cmhCodigo;
+    private Integer cmhCodigo; //
     private Integer cmhCupo;
     private Integer cmhDisponible;
     private Integer cmhMes;

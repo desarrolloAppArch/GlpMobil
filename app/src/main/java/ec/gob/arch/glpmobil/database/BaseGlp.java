@@ -117,9 +117,7 @@ public class BaseGlp extends SQLiteOpenHelper{
 				+CtCupoHogar.ID+ " INTEGER, "
 				+CtCupoHogar.CUPO_DISPONIBLE+ " INTEGER, "
 				+CtCupoHogar.HOG_CODIGO+ " INTEGER, "
-				+CtCupoHogar.HOG_NUM_INTEGRANTES+ " INTEGER, "
-				+CtCupoHogar.HOG_NUMERO+ " TEXT, "
-				+CtCupoHogar.HOG_PARROQUIA+ " TEXT, "
+				+CtCupoHogar.ANIO+ " INTEGER, "
 				+CtCupoHogar.MES+" INTEGER );");
 		Log.v("log_glp ---------->", "INFO BaseGlp --> crearTablaCupoHogar()");
 

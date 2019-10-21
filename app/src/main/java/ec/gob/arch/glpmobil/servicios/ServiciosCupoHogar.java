@@ -29,15 +29,13 @@ public class ServiciosCupoHogar extends ServicioBase{
         try {
             abrir();
             ContentValues cv = new ContentValues();
+            cv.put(CtCupoHogar.ID, cupoHogar.getCmhCodigo());
             cv.put(CtCupoHogar.CUPO_DISPONIBLE, cupoHogar.getCmhDisponible());
-            cv.put(CtCupoHogar.MES, cupoHogar.getCmhMes());
             cv.put(CtCupoHogar.HOG_CODIGO, cupoHogar.getHogCodigo());
-            cv.put(CtCupoHogar.HOG_NUM_INTEGRANTES, cupoHogar.getHogNumeroIntegrantes());
-            cv.put(CtCupoHogar.HOG_PARROQUIA, cupoHogar.getHogParroquia());
-            cv.put(CtCupoHogar.HOG_NUMERO, cupoHogar.getHogNumero());
-
+            cv.put(CtCupoHogar.ANIO, cupoHogar.getCmhAnio());
+            cv.put(CtCupoHogar.MES, cupoHogar.getCmhMes());
             db.insert(CtCupoHogar.TABLA_CUPO_HOGAR, null,cv);
-            Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> insertar() cupoHogar id: "+ cupoHogar.getHogNumero());
+            Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> insertar() cupoHogar id: "+ cupoHogar.getCmhCodigo());
             cerrar();
 
         }catch (Exception e) {

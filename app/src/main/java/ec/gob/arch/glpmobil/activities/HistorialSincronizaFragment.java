@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ec.gob.arch.glpmobil.EditarVentaFragment;
@@ -22,6 +23,7 @@ import ec.gob.arch.glpmobil.R;
 import ec.gob.arch.glpmobil.entidades.HistorialSincronizacion;
 import ec.gob.arch.glpmobil.entidades.VwCupoHogar;
 import ec.gob.arch.glpmobil.entidades.PersonaAutorizada;
+import ec.gob.arch.glpmobil.servicios.ServiciosCupoHogar;
 import ec.gob.arch.glpmobil.servicios.ServiciosHistorialSincroniza;
 import ec.gob.arch.glpmobil.sesion.ObjetoAplicacion;
 import ec.gob.arch.glpmobil.task.TaskConsultarCupo;
@@ -47,6 +49,7 @@ public class HistorialSincronizaFragment extends Fragment {
     private List<PersonaAutorizada> listaPersonas;
     private Button btnSincronizar;
     private ServiciosHistorialSincroniza serviciosHistorialSincroniza;
+    private ServiciosCupoHogar serviciosCupoHogar;
     List<HistorialSincronizacion> lsHistorialSincronizacion;
     private String accion= null;
     private String usuario= null;
@@ -71,17 +74,23 @@ public class HistorialSincronizaFragment extends Fragment {
         if(null!=getArguments()){
             accion = getArguments().getString("accion","0");
             Log.i("log_glp_historial ---->","INFO HistorialFragment --> accion() --> accion:" + accion);
-
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//       super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_historial_sincroniza, container, false);
         // Inflate the layout for this fragment
         Log.i("log_glp_historial ---->","INFO HistorialFragment --> accion() --> accion:" + accion);
+
+        if(null==accion){
+            lvCupoHogar = (ListView) view.findViewById(R.id.lvCupoHogar);
+            objetoSesion = (ObjetoAplicacion) getActivity().getApplication();
+            usuario=objetoSesion.getUsuario().getId();
+            //usuario="09GLP-D0715";
+            Log.i("log_glp_cupo ---->","INFO CupoFragment --> Usuario() --> RESULTADO:" + usuario);
 
 
         btnSincronizar = (Button)view.findViewById(R.id.btnSincronizar);
@@ -96,11 +105,11 @@ public class HistorialSincronizaFragment extends Fragment {
                 try {
 
                     Log.i("log_glp_cupo ---->","INFO CupoFragment --> Sincronizar() --> ingresa a Onclick:" );
-                    // vwCupoHogarAdapter.obtenerListaPersonas();
+
                     listaCupoHogar = obtenerCupos();
                     numero_registros=listaCupoHogar.size();
                     if(listaCupoHogar.size()>0){
-                        estado=1;
+                        estado=1;insertarCupoHogar(listaCupoHogar);
                         insertarHistorial(accion, usuario,estado,numero_registros);
                     }else{
                         estado=0;
@@ -172,9 +181,70 @@ public class HistorialSincronizaFragment extends Fragment {
         return objetoSesion.getListaCupoHogar();
     }
 
-    
+
+    public void insertarCupoHogar(List<VwCupoHogar> listaCupoHogar){
+        Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> insertarCupoHogar() --> intentando guardar en tabla PersonaAutorizada ");
+        serviciosCupoHogar = new ServiciosCupoHogar(getContext());
+        try
+        {
+            if(listaCupoHogar.size()>0){
+                for (VwCupoHogar p:listaCupoHogar){
+                    VwCupoHogar cupoHogarNuevo = new VwCupoHogar();
+                    cupoHogarNuevo.setCmhCodigo(p.getCmhCodigo());
+                    cupoHogarNuevo.setCmhDisponible(p.getCmhDisponible());
+                    cupoHogarNuevo.setCmhCodigo(p.getHogCodigo());
+                    cupoHogarNuevo.setCmhAnio(p.getCmhAnio());
+                    cupoHogarNuevo.setCmhMes(p.getCmhMes());
+                    serviciosCupoHogar.insertar(cupoHogarNuevo);
+                    insertarPersona(p.getLsPersonaAutorizada());
+                }
+            }
+            else
+            {
+                UtilMensajes.mostrarMsjError(MensajeError.LOGIN_CONEXION_NULL, TituloError.TITULO_ERROR, getActivity().getApplication().getApplicationContext());
+            }
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    public void insertarPersona(List<PersonaAutorizada> listaPersonas){
+        Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> insertarPersona() --> intentando guardar en tabla PersonaAutorizada ");
+
+        try
+        {
+            if(listaPersonas.size()>0){
+                for (PersonaAutorizada p:listaPersonas){
+                    PersonaAutorizada personaAutorizada = new PersonaAutorizada();
+                    personaAutorizada.setCodigo(p.getCodigo());
+                    personaAutorizada.setHogCodigo(p.getHogCodigo());
+                    personaAutorizada.setPerApellidoNombre(p.getPerApellidoNombre());
+                    personaAutorizada.setPerNumeroDocumento(p.getPerNumeroDocumento());
+                    personaAutorizada.setPerFechaEmisionDocumento(p.getPerFechaEmisionDocumento());
+                    personaAutorizada.setPerPermitirDigitacionIden(p.getPerPermitirDigitacionIden());
+                }
+
+            }
+            else
+            {
+                UtilMensajes.mostrarMsjError(MensajeError.LOGIN_CONEXION_NULL, TituloError.TITULO_ERROR, getActivity().getApplication().getApplicationContext());
+            }
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+
     /**
      * Clase HistorialSincronizacionAdapter
+     * @autor vanessa.ponce
      */
 
     class  HistorialSincronizacionAdapter extends ArrayAdapter<HistorialSincronizacion> {
@@ -245,33 +315,6 @@ public class HistorialSincronizaFragment extends Fragment {
 
          }
 
-    public void guardarPersona(){
-        Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> guardarPersona() --> intentando guardar en tabla PersonaAutorizada ");
 
-        try
-        {
-            if(listaPersonas.size()>0){
-                for (PersonaAutorizada p:listaPersonas){
-                    p.setCodigo(persona.getCodigo());
-                    p.setHogCodigo(persona.getHogCodigo());
-                    p.setPerApellidoNombre(persona.getPerApellidoNombre());
-                    p.setPerNumeroDocumento(persona.getPerNumeroDocumento());
-                    p.setPerFechaEmisionDocumento(persona.getPerFechaEmisionDocumento());
-                    p.setPerParroquia(persona.getPerParroquia());
-                    p.setPerPermitirDigitacionIden(persona.getPerPermitirDigitacionIden());
-
-                }
-
-            }
-            else
-            {
-                UtilMensajes.mostrarMsjError(MensajeError.LOGIN_CONEXION_NULL, TituloError.TITULO_ERROR, getActivity().getApplication().getApplicationContext());
-            }
-        }catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-    }
 
 }
