@@ -1,8 +1,11 @@
 package ec.gob.arch.glpmobil.servicios;
 
 import android.content.Context;
+import android.database.Cursor;
 
 import ec.gob.arch.glpmobil.constantes.CtPersona;
+import ec.gob.arch.glpmobil.entidades.PersonaAutorizada;
+import ec.gob.arch.glpmobil.entidades.Usuario;
 
 public class ServiciosPersona extends ServicioBase {
 
@@ -19,6 +22,17 @@ public class ServiciosPersona extends ServicioBase {
      */
     public ServiciosPersona(Context context) {
         super(context);
+
+
+    }
+
+    public void buscarPorIdentificacion(String identificacion){
+
+        PersonaAutorizada personaAutorizada = null;
+        String condicion = CtPersona.IDENTIFICACION+"='"+identificacion+"'";
+       // Cursor cursor = db.query()
+
+        //continuar aqui
     }
 
 
