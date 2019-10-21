@@ -5,6 +5,13 @@
     android:padding="5dp"
     android:orientation="vertical">
 
+
+    <TextView
+        android:id="@+id/tvTituloHistorial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/titulo_historial" />
+
     <Button
         android:id="@+id/btnSincronizar"
         android:layout_width="wrap_content"

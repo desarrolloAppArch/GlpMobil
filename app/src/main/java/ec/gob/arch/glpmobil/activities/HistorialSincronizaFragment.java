@@ -37,7 +37,7 @@ import ec.gob.arch.glpmobil.utils.UtilMensajes;
 
 
 public class HistorialSincronizaFragment extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
+    private static final String ACCION_VENTAS = "1";
     private String mParam1;
     private ObjetoAplicacion objetoSesion;
     private ListView lvCupoHogar;
@@ -48,6 +48,7 @@ public class HistorialSincronizaFragment extends Fragment {
     private List<VwCupoHogar> listaCupoHogar;
     private List<PersonaAutorizada> listaPersonas;
     private Button btnSincronizar;
+    private TextView tvTituloHistorial;
     private ServiciosHistorialSincroniza serviciosHistorialSincroniza;
     private ServiciosCupoHogar serviciosCupoHogar;
     List<HistorialSincronizacion> lsHistorialSincronizacion;
@@ -56,24 +57,14 @@ public class HistorialSincronizaFragment extends Fragment {
     private int estado;
     private int numero_registros;
 
-    /**
-     *
-     * @param param1
-     * @return
-     */
-    public static EditarVentaFragment newInstance(String param1) {
-        EditarVentaFragment fragment = new EditarVentaFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(null!=getArguments()){
             accion = getArguments().getString("accion","0");
             Log.i("log_glp_historial ---->","INFO HistorialFragment --> accion() --> accion:" + accion);
+
         }
     }
 
@@ -84,20 +75,20 @@ public class HistorialSincronizaFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_historial_sincroniza, container, false);
         // Inflate the layout for this fragment
         Log.i("log_glp_historial ---->","INFO HistorialFragment --> accion() --> accion:" + accion);
-
-        if(null==accion){
-            lvCupoHogar = (ListView) view.findViewById(R.id.lvCupoHogar);
-            objetoSesion = (ObjetoAplicacion) getActivity().getApplication();
-            usuario=objetoSesion.getUsuario().getId();
-            //usuario="09GLP-D0715";
-            Log.i("log_glp_cupo ---->","INFO CupoFragment --> Usuario() --> RESULTADO:" + usuario);
-
-
+        objetoSesion = (ObjetoAplicacion) getActivity().getApplication();
+        //usuario="09GLP-D0715";
+        usuario=objetoSesion.getUsuario().getId();
         btnSincronizar = (Button)view.findViewById(R.id.btnSincronizar);
-        if(accion.equals("1")){
+        tvTituloHistorial= (TextView)view.findViewById(R.id.tvTituloHistorial);
+        if(accion.equals(ACCION_VENTAS)){
             btnSincronizar.setVisibility(View.GONE);
+            tvTituloHistorial.setVisibility(view.VISIBLE);
+            lsHistorialSincronizacion = serviciosHistorialSincroniza.buscarVentaPorUsuarioAcccion(usuario, accion);
+            llenarListaHistorial(lsHistorialSincronizacion);
         }else{
             btnSincronizar.setVisibility(View.VISIBLE);
+            tvTituloHistorial.setVisibility(view.GONE);
+            lvCupoHogar = (ListView) view.findViewById(R.id.lvCupoHogar);
         }
         btnSincronizar.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -124,20 +115,7 @@ public class HistorialSincronizaFragment extends Fragment {
 
             }
         });
-        if(null==accion){//
-            accion= "0";
-            lvCupoHogar = (ListView) view.findViewById(R.id.lvCupoHogar);
-            objetoSesion = (ObjetoAplicacion) getActivity().getApplication();
-            //usuario=objetoSesion.getUsuario().getId();
-            usuario="09GLP-D0715";
-            Log.i("log_glp_cupo ---->","INFO CupoFragment --> Usuario() --> RESULTADO:" + usuario);
 
-
-
-
-        }else if(accion.equals("1")){
-
-        }
         return view;
     }
     public void insertarHistorial(String accion, String usuario,  Integer estado, Integer numero_registros){
