@@ -92,11 +92,15 @@ public class ServiciosHistorialSincroniza extends ServicioBase{
         HistorialSincronizacion historial = new HistorialSincronizacion();
 
         historial.setId_sqlite(cursor.getInt(0));
-        historial.setAccion(cursor.getString(1));
+        historial.setFecha_sincroniza(cursor.getString(1));
         historial.setUsuario(cursor.getString(2));
-        historial.setFecha_sincroniza(cursor.getString(3));
+        historial.setNumero_registros(cursor.getInt(3));
         historial.setEstado(cursor.getInt(4));
-        historial.setNumero_registros(cursor.getInt(5));
+        historial.setAccion(cursor.getString(5));
+
+
+
+
 
         return historial;
     }
