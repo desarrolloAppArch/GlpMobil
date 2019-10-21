@@ -96,8 +96,8 @@ public class ConsultarVentaFragment extends Fragment {
   //              venta.setUsuario_venta(objetosSesion.getUsuario().getId());
                 venta.setUsuario_venta("09GLP-D0715");
 //                venta.setUsuario_venta("04GLP-D0009");
-                venta.setUsuario_compra("1720472933");
-                venta.setNombre_compra("GABRIELA MATUTE");
+                venta.setUsuario_compra("0932269939");
+                venta.setNombre_compra("LEON CUN EZEQUIEL ALFONSO");
                 venta.setFecha_venta(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
                 venta.setCantidad(1);
 

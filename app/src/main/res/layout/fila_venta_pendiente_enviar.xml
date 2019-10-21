@@ -17,7 +17,7 @@
                 android:id="@+id/textViewFecha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fecha: " />
+                android:text="Fecha de Venta: " />
             <TextView
                 android:id="@+id/tvFechaVenta"
                 android:layout_width="match_parent"
@@ -32,7 +32,7 @@
                 android:id="@+id/textViewNumeroRegistro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Identificación: " />
+                android:text="N° Registros: " />
             <TextView
                 android:id="@+id/tvNumeroRegistro"
                 android:layout_width="match_parent"

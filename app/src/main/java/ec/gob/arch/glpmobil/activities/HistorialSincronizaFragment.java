@@ -82,15 +82,17 @@ public class HistorialSincronizaFragment extends Fragment {
         usuario=objetoSesion.getUsuario().getId();
         btnSincronizar = (Button)view.findViewById(R.id.btnSincronizar);
         tvTituloHistorial= (TextView)view.findViewById(R.id.tvTituloHistorial);
+        lvCupoHogar = (ListView) view.findViewById(R.id.lvCupoHogar);
         if(accion.equals(ACCION_VENTAS)){
             btnSincronizar.setVisibility(View.GONE);
             tvTituloHistorial.setVisibility(view.VISIBLE);
+            serviciosHistorialSincroniza= new ServiciosHistorialSincroniza(getContext());
             lsHistorialSincronizacion = serviciosHistorialSincroniza.buscarVentaPorUsuarioAcccion(usuario, accion);
             llenarListaHistorial(lsHistorialSincronizacion);
         }else{
             btnSincronizar.setVisibility(View.VISIBLE);
             tvTituloHistorial.setVisibility(view.GONE);
-            lvCupoHogar = (ListView) view.findViewById(R.id.lvCupoHogar);
+
         }
         btnSincronizar.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -109,6 +111,14 @@ public class HistorialSincronizaFragment extends Fragment {
                         insertarHistorial(accion, usuario,estado,numero_registros);
                     }
                     lsHistorialSincronizacion = serviciosHistorialSincroniza.buscarTodos();
+                    for (HistorialSincronizacion vt: lsHistorialSincronizacion) {
+                        Log.i("log_glp ---------->", "INFO setOnClickListener getUsuario--> "+vt.getUsuario());
+                        Log.i("log_glp ---------->", "INFO setOnClickListener getAccion--> "+vt.getAccion());
+                        Log.i("log_glp ---------->", "INFO setOnClickListener getFecha_sincroniza--> "+vt.getFecha_sincroniza());
+                        Log.i("log_glp ---------->", "INFO setOnClickListener getEstado--> "+vt.getEstado());
+                        Log.i("log_glp ---------->", "INFO setOnClickListener getNumero_registros--> "+vt.getNumero_registros());
+
+                         }
                     llenarListaHistorial(lsHistorialSincronizacion);
                     Log.i("log_glp_cupo ---->","INFO CupoFragment --> Sincronizar() --> después de ejecutar:"+objetoSesion.getListaCupoHogar().size() );
                 }catch (Exception e){
