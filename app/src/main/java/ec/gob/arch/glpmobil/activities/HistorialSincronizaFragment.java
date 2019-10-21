@@ -25,6 +25,7 @@ import ec.gob.arch.glpmobil.entidades.VwCupoHogar;
 import ec.gob.arch.glpmobil.entidades.PersonaAutorizada;
 import ec.gob.arch.glpmobil.servicios.ServiciosCupoHogar;
 import ec.gob.arch.glpmobil.servicios.ServiciosHistorialSincroniza;
+import ec.gob.arch.glpmobil.servicios.ServiciosPersona;
 import ec.gob.arch.glpmobil.sesion.ObjetoAplicacion;
 import ec.gob.arch.glpmobil.task.TaskConsultarCupo;
 import ec.gob.arch.glpmobil.utils.ClienteWebServices;
@@ -38,10 +39,10 @@ import ec.gob.arch.glpmobil.utils.UtilMensajes;
 
 public class HistorialSincronizaFragment extends Fragment {
     private static final String ACCION_VENTAS = "1";
+    private static final String ACCION_CUPOS = "0";
     private String mParam1;
     private ObjetoAplicacion objetoSesion;
     private ListView lvCupoHogar;
-    //private VwCupoHogarAdapter vwCupoHogarAdapter;
     private HistorialSincronizacionAdapter historialSincronizacionAdapter;
     private VwCupoHogar vwCupoHogar;
     private PersonaAutorizada persona;
@@ -50,6 +51,7 @@ public class HistorialSincronizaFragment extends Fragment {
     private Button btnSincronizar;
     private TextView tvTituloHistorial;
     private ServiciosHistorialSincroniza serviciosHistorialSincroniza;
+    private ServiciosPersona serviciosPersona;
     private ServiciosCupoHogar serviciosCupoHogar;
     List<HistorialSincronizacion> lsHistorialSincronizacion;
     private String accion= null;
@@ -132,7 +134,6 @@ public class HistorialSincronizaFragment extends Fragment {
     public void llenarListaHistorial(List<HistorialSincronizacion> lsHistorialSincronizacion){
         historialSincronizacionAdapter = new HistorialSincronizacionAdapter(getContext(), R.layout.fila_historial_linear, lsHistorialSincronizacion);
         lvCupoHogar.setAdapter(historialSincronizacionAdapter);
-        Log.i("log_glp_cupo ---->","INFO CupoFragment --> llenarListaHistorial() --> lvCupoHogar despues:"+lsHistorialSincronizacion.size());
     }
 
     public List<VwCupoHogar> obtenerCupos(){
@@ -173,8 +174,9 @@ public class HistorialSincronizaFragment extends Fragment {
                     cupoHogarNuevo.setCmhCodigo(p.getHogCodigo());
                     cupoHogarNuevo.setCmhAnio(p.getCmhAnio());
                     cupoHogarNuevo.setCmhMes(p.getCmhMes());
-                    serviciosCupoHogar.insertar(cupoHogarNuevo);
                     insertarPersona(p.getLsPersonaAutorizada());
+                    serviciosCupoHogar.insertar(cupoHogarNuevo);
+
                 }
             }
             else
@@ -191,7 +193,7 @@ public class HistorialSincronizaFragment extends Fragment {
 
     public void insertarPersona(List<PersonaAutorizada> listaPersonas){
         Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> insertarPersona() --> intentando guardar en tabla PersonaAutorizada ");
-
+        serviciosPersona = new ServiciosPersona(getContext());
         try
         {
             if(listaPersonas.size()>0){
@@ -203,8 +205,13 @@ public class HistorialSincronizaFragment extends Fragment {
                     personaAutorizada.setPerNumeroDocumento(p.getPerNumeroDocumento());
                     personaAutorizada.setPerFechaEmisionDocumento(p.getPerFechaEmisionDocumento());
                     personaAutorizada.setPerPermitirDigitacionIden(p.getPerPermitirDigitacionIden());
+                    serviciosPersona.insertar(personaAutorizada);
                 }
-
+                listaPersonas = new ArrayList<>();
+                for (PersonaAutorizada p:listaPersonas){
+                    p = new PersonaAutorizada();
+                    Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> imprimirPersona() --> PersonaAutorizada "+p.getPerApellidoNombre());
+                }
             }
             else
             {
@@ -274,9 +281,7 @@ public class HistorialSincronizaFragment extends Fragment {
                      fila.tvEstado = (TextView) convertView.findViewById(R.id.tvEstado);
                      fila.tvNumeroRegistros = (TextView) convertView.findViewById(R.id.tvNumeroRegistro);
                      convertView.setTag(fila);
-                     Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> getView() --> entro al if");
                  }else{
-                     Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> getView() --> entra al else");
                      fila = (Fila) convertView.getTag();
                  }
 

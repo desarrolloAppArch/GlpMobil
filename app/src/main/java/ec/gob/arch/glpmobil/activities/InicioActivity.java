@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
 import ec.gob.arch.glpmobil.R;
 
 public class InicioActivity extends AppCompatActivity {
@@ -32,8 +34,6 @@ public class InicioActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
-
     }
 
 
@@ -62,7 +62,13 @@ public class InicioActivity extends AppCompatActivity {
         }else if(id == R.id.opcion_actualizar_cupos)
         {
             Log.v("log_glp ---------->", "INFO InicioActivity --> onOptionsItemSelected(): dio clic en la opción: Actualizar cupos");
-            fm.beginTransaction().replace(R.id.fragment, new HistorialSincronizaFragment()).commit();
+
+            Bundle bundle = new Bundle();
+            bundle.putString("accion","0");
+            HistorialSincronizaFragment historialSincronizaFragment = new HistorialSincronizaFragment();
+            historialSincronizaFragment.setArguments(bundle);
+            fm.beginTransaction().replace(R.id.fragment, historialSincronizaFragment).commit();
+
         }else if(id == R.id.opcion_enviar_ventas)
         {
             Log.v("log_glp ---------->", "INFO InicioActivity --> onOptionsItemSelected(): dio clic en la opción: Enviar ventas");
