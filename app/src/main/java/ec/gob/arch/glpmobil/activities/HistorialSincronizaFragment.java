@@ -298,7 +298,7 @@ public class HistorialSincronizaFragment extends Fragment {
                  HistorialSincronizacion historialSincronizacion = lsHistorialSincronizacion.get(posicion);
                  fila.tvFechaSincroniza.setText(historialSincronizacion.getFecha_sincroniza());
                  fila.tvUsuario.setText(historialSincronizacion.getUsuario());
-                 fila.tvEstado.setText(historialSincronizacion.getEstado().toString());
+                 fila.tvEstado.setText(historialSincronizacion.getDescripcionEstado());
                  fila.tvNumeroRegistros.setText(historialSincronizacion.getNumero_registros().toString());
 
                  Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> getView() --> despues del llenar la vista "+convertView);

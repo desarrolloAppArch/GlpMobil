@@ -8,6 +8,7 @@ public class HistorialSincronizacion {
     private Integer numero_registros;
     private Integer estado; //1 exitoso, 0 fallido
     private String accion;
+    private String descripcionEstado;
 
     public int getId_sqlite(int anInt) {
         return id_sqlite;
@@ -46,6 +47,11 @@ public class HistorialSincronizacion {
     }
 
     public void setEstado(Integer estado) {
+        if(estado==1){
+            setDescripcionEstado("Exitoso");
+        }else{
+            setDescripcionEstado("Fallido");
+        }
         this.estado = estado;
     }
 
@@ -55,5 +61,18 @@ public class HistorialSincronizacion {
 
     public void setAccion(String accion) {
         this.accion = accion;
+    }
+
+    public String getDescripcionEstado() {
+        if(getEstado()==1){
+            setDescripcionEstado("Exitoso");
+        }else{
+            setDescripcionEstado("Fallido");
+        }
+        return descripcionEstado;
+    }
+
+    public void setDescripcionEstado(String descripcionEstado) {
+        this.descripcionEstado = descripcionEstado;
     }
 }
