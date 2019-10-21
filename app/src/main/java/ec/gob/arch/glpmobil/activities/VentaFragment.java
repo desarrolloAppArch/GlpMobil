@@ -16,10 +16,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import ec.gob.arch.glpmobil.R;
-import ec.gob.arch.glpmobil.constantes.CtCupoHogar;
 import ec.gob.arch.glpmobil.constantes.CtVenta;
 import ec.gob.arch.glpmobil.entidades.Venta;
-import ec.gob.arch.glpmobil.entidades.VwCupoHogar;
+import ec.gob.arch.glpmobil.servicios.ServiciosPersona;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +34,11 @@ public class VentaFragment extends Fragment{
     private TextView tvCodigoLeidoFragment;
     private EditText etCodigoLeidoFragment;
     private Button btnBuscarFragment;
+    private Boolean seleccionoOpcionEscanear;
+    /**
+     * SERVICIOS
+     */
+    ServiciosPersona serviciosPersona;
 
 
     /**
@@ -43,6 +47,8 @@ public class VentaFragment extends Fragment{
     public VentaFragment() {
         Log.v("log_glp ----------> ", "INFO VentaFragment --> VentaFragment() CONSTRUCTOR");
     }
+
+
 
 
     /**
@@ -66,7 +72,7 @@ public class VentaFragment extends Fragment{
         tvCodigoLeidoFragment = vistaVentaFragment.findViewById(R.id.tvCodigoLeidoFragment);
         etCodigoLeidoFragment = vistaVentaFragment.findViewById(R.id.etCodigoLeidoFragment);
         etCodigoLeidoFragment.setVisibility(View.GONE);
-
+        serviciosPersona = new ServiciosPersona(getContext());
 
 
         /**
@@ -81,6 +87,7 @@ public class VentaFragment extends Fragment{
                 Log.v("log_glp ----------> ", "INFO VentaFragment --> onCreateView() --> btnEscanearFragment.setOnClickListener()");
                 inicializarEscaneo();
                 escanear();
+                seleccionoOpcionEscanear =true;
             }
         });
 
@@ -94,6 +101,7 @@ public class VentaFragment extends Fragment{
             public void onClick(View v) {
                 Log.v("log_glp ----------> ", "INFO VentaFragment --> onCreateView() --> btnDigitarFragment.setOnClickListener()");
                inicializarDigitacion();
+               seleccionoOpcionEscanear =false;
             }
         });
 
@@ -110,7 +118,17 @@ public class VentaFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Log.v("log_glp ----------> ", "INFO VentaFragment --> onCreateView() --> btnBuscarFragment.setOnClickListener()");
-                //Valido cupo
+                //Valido identificación de la persona que retira el GLP
+                String identificacion;
+                if(seleccionoOpcionEscanear){
+                    Log.v("log_glp ----------> ", "INFO VentaFragment --> onCreateView() --> btnBuscarFragment.setOnClickListener()");
+                    identificacion=tvCodigoLeidoFragment.getText().toString();
+                }else {
+                    identificacion=etCodigoLeidoFragment.getText().toString();
+                }
+                //serviciosPersona.buscarPorIdentificacion(identificacion); PROBAR CUANDO VANE ACABE DE REGISTRAR AL MENOS UNA PERSONA
+
+
                 Venta venta = new Venta();
                 venta.setCupo(4);
 

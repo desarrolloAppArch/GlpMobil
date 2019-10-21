@@ -39,21 +39,20 @@ public class PersonaAutorizada {
         this.perApellidoNombre = perApellidoNombre;
     }
 
-    public String getPerFechaEmisionDocumento() {
-        return perFechaEmisionDocumento;
-    }
-
-    public void setPerFechaEmisionDocumento(String perFechaEmisionDocumento) {
-        this.perFechaEmisionDocumento = perFechaEmisionDocumento;
-    }
-
-
     public String getPerNumeroDocumento() {
         return perNumeroDocumento;
     }
 
     public void setPerNumeroDocumento(String perNumeroDocumento) {
         this.perNumeroDocumento = perNumeroDocumento;
+    }
+
+    public Date getPerFechaEmisionDocumento() {
+        return perFechaEmisionDocumento;
+    }
+
+    public void setPerFechaEmisionDocumento(Date perFechaEmisionDocumento) {
+        this.perFechaEmisionDocumento = perFechaEmisionDocumento;
     }
 
     public Integer getPerPermitirDigitacionIden() {

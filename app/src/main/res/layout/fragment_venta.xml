@@ -64,7 +64,77 @@
 
             </TableRow>
 
+            <TextView
+                android:layout_marginTop="20dp"
+                android:id="@+id/textView35"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha emisión del documento de identificación"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
             <TableRow
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/textView26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Año: "
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+                <EditText
+                    android:id="@+id/editText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="4"
+                    android:inputType="number"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/tvMes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mes: "
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+                <Spinner
+                    android:id="@+id/spinnerMes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/spinnerMes"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/textView34"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Día"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+                <Spinner
+                    android:id="@+id/spinnerDia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/spinnerDia"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
 

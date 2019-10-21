@@ -70,13 +70,13 @@ public class ConsultarVentaFragment extends Fragment {
                 Log.i("log_glp ---------->", "click en el elemento " + position + " de mi ListView");
                 //Obtengo la venta seleccionada de la lista
                 Venta ventaSeleccionada = (Venta) lvVentas.getItemAtPosition(position);
-
+                Log.i("log_glp ---------->", "parametrosEnvio: "+ventaSeleccionada.getNombre_compra());
                 //Creo ub objeto Bundle para enviarlo al siguiente Fragment
                 Bundle parametrosEnvio = new Bundle();
                 parametrosEnvio.putSerializable(CtVenta.CLAVE_VENTA_EDITAR,ventaSeleccionada);//Para que esto funcione la clase Venta debe implementar la interfaz Serializable
                 EditarVentaFragment editarVentaFragment = new EditarVentaFragment();
                 editarVentaFragment.setArguments(parametrosEnvio);
-
+                Log.i("log_glp ---------->", "parametrosEnvio: "+parametrosEnvio);
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 fm.beginTransaction().replace(R.id.fragment, editarVentaFragment).commit();
 
