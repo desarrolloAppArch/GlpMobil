@@ -81,35 +81,37 @@ public class ConsultarVentaFragment extends Fragment {
             }
         });
 
-
-
+        /**
+         * Coloco la escucha al botón btnBuscar
+         */
         btnBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 inicializarListaVentas();
-                //simular venta
+
+                //SIMULAR LA INSERCION DE VENTAS
                 Venta venta = new Venta();
                 venta.setCodigo_cupo_mes(2);
-  //              venta.setUsuario_venta(objetosSesion.getUsuario().getId());
+                //venta.setUsuario_venta(objetosSesion.getUsuario().getId());
                 venta.setUsuario_venta("09GLP-D0715");
-//                venta.setUsuario_venta("04GLP-D0009");
-                venta.setUsuario_compra("0932269939");
-                venta.setNombre_compra("LEON CUN EZEQUIEL ALFONSO");
+                //venta.setUsuario_venta("04GLP-D0009");
+                venta.setUsuario_compra("1720472933");
+                venta.setNombre_compra("SORAYA MATUTE");
                 venta.setFecha_venta(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
                 venta.setCantidad(1);
-
-
                 servicioVenta.insertarVenta(venta);
 
+                //Busco las ventas de la base de datos
                 listaVentas = servicioVenta.buscarVentaPorIdentificacion(etIdentificacion.getText().toString());
                 for (Venta vt:listaVentas) {
-                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getCodigo_cupo_mes());
-                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getUsuario_venta());
-                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getUsuario_compra());
-                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getNombre_compra());
-                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getFecha_venta());
-                    Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getCantidad());
+                    Log.i("log_glp ---------->", "INFO getCodigo_cupo_mes --> "+vt.getCodigo_cupo_mes());
+                    Log.i("log_glp ---------->", "INFO getUsuario_venta --> "+vt.getUsuario_venta());
+                    Log.i("log_glp ---------->", "INFO getUsuario_compra --> "+vt.getUsuario_compra());
+                    Log.i("log_glp ---------->", "INFO getNombre_compra --> "+vt.getNombre_compra());
+                    Log.i("log_glp ---------->", "INFO getFecha_venta --> "+vt.getFecha_venta());
+                    Log.i("log_glp ---------->", "INFO getCantidad --> "+vt.getCantidad());
+                    Log.i("log_glp ---------->", "--------------------------------------- ");
                 }
                 llenarListaVentas(listaVentas);
 
@@ -130,6 +132,8 @@ public class ConsultarVentaFragment extends Fragment {
     public void inicializarListaVentas(){
         listaVentas = new ArrayList<>();
     }
+
+
 
 
 
@@ -186,8 +190,6 @@ public class ConsultarVentaFragment extends Fragment {
                 //Si la vista no es nula debo obtener las relaciones de los componenetes de la vista a mi objeto fila
                 fila = (Fila) convertView.getTag();
             }
-
-
 
 
 
