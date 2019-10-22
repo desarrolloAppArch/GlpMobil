@@ -5,17 +5,37 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activities.EditarVentaFragment"
-    android:id="@+id/fragment_editar_venta">
+    android:id="@+id/fragment_editar_venta"
+    android:layout_margin="10dp">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/title_fragment_editar_venta" />
 
     <TableLayout
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView33"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Identificación cliente: "/>
+
+            <TextView
+                android:id="@+id/tvIdentificacionSeleccionada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
@@ -25,39 +45,94 @@
                 android:id="@+id/textView20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre:" />
+                android:text="Nombre cliente:" />
 
             <TextView
                 android:id="@+id/tvNombreSeleccionada"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView37"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha/hora venta: " />
+
+            <TextView
+                android:id="@+id/tvFechaSeleccionada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView36"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Usuario venta: " />
+
+            <TextView
+                android:id="@+id/tvUsuarioVentaSeleccionada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView39"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No. cilindros vendidos: " />
+
+            <EditText
+                android:id="@+id/etCilindrosSeleccionada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number"
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+        </TableRow>
     </TableLayout>
 
-    <Button
-        android:id="@+id/btnAceptarEdicion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ACEPTAR" />
 
-    <Button
-        android:id="@+id/btnCancelarEdicion"
+    <TableLayout
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CANCELAR" />
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Button
+                android:id="@+id/btnAceptarEdicion"
+                android:layout_width="192dp"
+                android:layout_height="71dp"
+                android:text="ACEPTAR" />
+
+            <Button
+                android:id="@+id/btnCancelarEdicion"
+                android:layout_width="192dp"
+                android:layout_height="71dp"
+                android:text="CANCELAR" />
+        </TableRow>
+
+    </TableLayout>
 
 
 </LinearLayout>

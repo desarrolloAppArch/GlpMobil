@@ -10,5 +10,7 @@ public interface MensajeInfo {
 	public static String LOGIN_USUARIO_REGISTRADO ="Usuario registrado exitosamente en la base del telefono";
 	public static String LOGIN_O ="Usuario encontrado";
 
+	public static String VENTA_ACTUALIZADA_OK ="Venta actualizada exitosamente";
+
 	
 }
