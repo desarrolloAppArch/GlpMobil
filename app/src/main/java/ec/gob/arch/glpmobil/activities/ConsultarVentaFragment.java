@@ -1,10 +1,7 @@
 package ec.gob.arch.glpmobil.activities;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -23,7 +20,6 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import ec.gob.arch.glpmobil.EditarVentaFragment;
 import ec.gob.arch.glpmobil.R;
 import ec.gob.arch.glpmobil.constantes.CtVenta;
 import ec.gob.arch.glpmobil.entidades.Venta;

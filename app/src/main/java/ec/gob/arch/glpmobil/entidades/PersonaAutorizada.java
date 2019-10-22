@@ -47,14 +47,6 @@ public class PersonaAutorizada {
         this.perNumeroDocumento = perNumeroDocumento;
     }
 
-    public Date getPerFechaEmisionDocumento() {
-        return perFechaEmisionDocumento;
-    }
-
-    public void setPerFechaEmisionDocumento(Date perFechaEmisionDocumento) {
-        this.perFechaEmisionDocumento = perFechaEmisionDocumento;
-    }
-
     public Integer getPerPermitirDigitacionIden() {
         return perPermitirDigitacionIden;
     }
@@ -69,5 +61,14 @@ public class PersonaAutorizada {
 
     public void setPerParroquia(String perParroquia) {
         this.perParroquia = perParroquia;
+    }
+
+
+    public String getPerFechaEmisionDocumento() {
+        return perFechaEmisionDocumento;
+    }
+
+    public void setPerFechaEmisionDocumento(String perFechaEmisionDocumento) {
+        this.perFechaEmisionDocumento = perFechaEmisionDocumento;
     }
 }

@@ -18,7 +18,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import ec.gob.arch.glpmobil.EditarVentaFragment;
 import ec.gob.arch.glpmobil.R;
 import ec.gob.arch.glpmobil.entidades.HistorialSincronizacion;
 import ec.gob.arch.glpmobil.entidades.VwCupoHogar;
