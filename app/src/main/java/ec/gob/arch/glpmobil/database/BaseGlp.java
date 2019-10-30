@@ -23,7 +23,7 @@ public class BaseGlp extends SQLiteOpenHelper{
 	 * Variables globales de BaseGlp 
 	 */
 	public static String NOMBRE_BASE = "baseGlp";
-	public static int VERSION_BASE = 31;
+	public static int VERSION_BASE = 32;
 	public static BaseGlp instanciaBaseGlp;
 
 	
@@ -135,7 +135,9 @@ public class BaseGlp extends SQLiteOpenHelper{
 				+CtPersona.HOG_CODIGO+ " INTEGER, "
 				+CtPersona.NOMBRE+ " TEXT, "
 				+CtPersona.IDENTIFICACION+ " TEXT, "
-				+CtPersona.FECHA_EMISION_DOCUMENTO+ " DATE, "
+				+CtPersona.FECHA_EMISION_DOCUMENTO_ANIO+ " INTEGER, "
+				+CtPersona.FECHA_EMISION_DOCUMENTO_MES+ " INTEGER, "
+				+CtPersona.FECHA_EMISION_DOCUMENTO_DIA+ " INTEGER, "
 				+CtPersona.PERMITE_DIGITACION_IDEN+" INTEGER );");
 		Log.v("log_glp ---------->", "INFO BaseGlp --> crearTablaPersona()");
 

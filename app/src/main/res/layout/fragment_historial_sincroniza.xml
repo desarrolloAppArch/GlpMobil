@@ -1,43 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="5dp">
 
 
     <TextView
         android:id="@+id/tvTituloHistorial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:text="@string/titulo_historial"
-        android:textSize="16sp" />
+        android:textSize="16sp"/>
 
-    <Button
-        android:id="@+id/btnSincronizar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SINCRONIZAR" />
-
-    <HorizontalScrollView
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="660dp"
-        android:scrollbars="horizontal">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent" >
 
-            <ListView
-                android:id="@+id/lvCupoHogar"
+
+                <TextView
+                    android:id="@+id/txtFechaUltimaAct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Última Actualización: " />
+
+                <TextView
+                    android:id="@+id/tvFechaUltimaAct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textAppearance="@android:style/TextAppearance.Medium"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/txtEstado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Estado:" />
+
+                <TextView
+                    android:id="@+id/tvEstadoUltimo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textAppearance="@android:style/TextAppearance.Medium"/>
+        </TableRow>
+
+    </TableLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
+
+        <Button
+            android:id="@+id/btnSincronizar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_Actualizar" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="448dp"
+            android:scrollbars="horizontal">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="618dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            </ListView>
-
-        </LinearLayout>
-    </HorizontalScrollView>
-
-
+                <ListView
+                    android:id="@+id/lvCupoHogar"
+                    android:layout_width="match_parent"
+                    android:layout_height="451dp">
+                </ListView>
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
 </LinearLayout>

@@ -20,7 +20,8 @@ public class VwCupoHogar {
     private String hogNumero;
     private String hogRegional;
     private String disRegional;
-    private List<PersonaAutorizada> lsPersonaAutorizada;
+    private List<VwPersonaAutorizada> lsPersonaAutorizada;
+    private String codigoRespuesta;
 
     public VwCupoHogar() {
     }
@@ -145,11 +146,19 @@ public class VwCupoHogar {
         this.disRegional = disRegional;
     }
 
-    public List<PersonaAutorizada> getLsPersonaAutorizada() {
+    public List<VwPersonaAutorizada> getLsPersonaAutorizada() {
         return lsPersonaAutorizada;
     }
 
-    public void setLsPersonaAutorizada(List<PersonaAutorizada> lsPersonaAutorizada) {
+    public void setLsPersonaAutorizada(List<VwPersonaAutorizada> lsPersonaAutorizada) {
         this.lsPersonaAutorizada = lsPersonaAutorizada;
+    }
+
+    public String getCodigoRespuesta() {
+        return codigoRespuesta;
+    }
+
+    public void setCodigoRespuesta(String codigoRespuesta) {
+        this.codigoRespuesta = codigoRespuesta;
     }
 }

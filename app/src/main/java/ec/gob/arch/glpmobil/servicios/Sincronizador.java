@@ -147,16 +147,15 @@ public class Sincronizador {
      * @return
      */
     public List<VwCupoHogar> consultarCupoWS(VwCupoHogar usuario){
-        List<VwCupoHogar> listahogares=null;
+        ArrayList<VwCupoHogar> listahogares=null;
         try
         {
-            Gson gson = new GsonBuilder().create();
+            Gson gson = new Gson();
             String parametroPeticionWs = gson.toJson(usuario);
             String respuestaWs = ClienteWebServices.recuperarObjetoGson(url_ws_consultaCupo,parametroPeticionWs);
-
-            Type type = new TypeToken<List<VwCupoHogar>>() {}.getType();
-            listahogares = (List<VwCupoHogar>) gson.fromJson(respuestaWs,type);
-            Log.i("log_glp ---------->","INFO Sincronizador --> consultarCupoWS() --> transformando el resultado en formato JSON a List<VwCupoHogar>");
+            Type type = new TypeToken<ArrayList<VwCupoHogar>>() {}.getType();
+            listahogares = gson.fromJson(respuestaWs,type);
+            Log.i("log_glp ---------->","INFO Sincronizador --> consultarCupoWS() --> transformando el resultado en formato JSON a List<VwCupoHogar>+listahogares.get(0).getLsPersonaAutorizada().get(0).getNumeroDocumento()");
         }catch (Exception e)
         {
             e.printStackTrace();

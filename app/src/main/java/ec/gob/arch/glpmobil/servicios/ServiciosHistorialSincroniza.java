@@ -87,6 +87,30 @@ public class ServiciosHistorialSincroniza extends ServicioBase{
         return lsHistorial;
     }
 
+    public HistorialSincronizacion buscarUltimo(){
+        HistorialSincronizacion historialUltimo = null;
+        try {
+            abrir();
+            String orderby = CtHistorialSincroniza.ID_SQLITE+" desc LIMIT 1";
+            Cursor cursor = db.query(CtHistorialSincroniza.TABLA_HISTORIAL, columnas, null, null, null, null, orderby);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                historialUltimo = obtenerHistorial(cursor);
+                cursor.moveToNext();
+            }
+            /**if (cursor!=null) {
+             cursor.close();
+             }**/
+            Log.v("log_glp ---------->", "INFO ServiciosHistorialSincroniza --> buscarTodos()");
+            cerrar();
+
+        }catch (Exception e){
+            Log.v("log_glp ---------->", "ERROR ServiciosHistorialSincroniza --> buscarTodos()");
+            e.printStackTrace();
+        }
+        return historialUltimo;
+    }
+
     private HistorialSincronizacion obtenerHistorial(Cursor cursor){
 
         HistorialSincronizacion historial = new HistorialSincronizacion();

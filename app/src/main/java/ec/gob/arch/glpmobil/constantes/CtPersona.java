@@ -8,7 +8,9 @@ public interface CtPersona {
 	public static final String HOG_CODIGO = "hog_codigo";
 	public static final String NOMBRE = "nombre";
 	public static final String IDENTIFICACION = "identificacion";
-	public static final String FECHA_EMISION_DOCUMENTO = "fecha_emision_documento";
+	public static final String FECHA_EMISION_DOCUMENTO_ANIO = "anio";
+	public static final String FECHA_EMISION_DOCUMENTO_MES = "mes";
+	public static final String FECHA_EMISION_DOCUMENTO_DIA = "dia";
 	public static final String PERMITE_DIGITACION_IDEN = "permite_digitacion_iden";
 
 }
