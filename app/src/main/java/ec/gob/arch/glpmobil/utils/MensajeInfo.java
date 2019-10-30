@@ -12,5 +12,9 @@ public interface MensajeInfo {
 
 	public static String VENTA_ACTUALIZADA_OK ="Venta actualizada exitosamente";
 
+	//SINCRONIZA CUPO
+
+	public static String HISTORIAL_SINCRONIZA_OK ="La actualización fue realizada exitosamente";
+
 	
 }
