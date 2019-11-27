@@ -1,8 +1,6 @@
 package ec.gob.arch.glpmobil.utils;
 
 public interface MensajeError {
-
-	//USUARIO
 	 
 	public static String LOGIN_USUARIO_CLAVE_NULOS ="Ingrese usuario y contraseña";
 	public static String LOGIN_CLAVE_INCORRECTA ="Contraseña incorrecta";
@@ -16,9 +14,11 @@ public interface MensajeError {
 	public static String CONEXION_NULL ="Compruebe su conexión de Internet para poder realizar esta acción";
 	public static String LOGIN_CONEXION_NULL ="Compruebe su conexión de Internet para poder logearse en línea";
 
+	public static String VENTA_IDENTIFICACION_NULL ="Digitar o escanear la identificación";
+
 	//SINCRONIZA CUPO
 
 	public static String HISTORIAL_SINCRONIZA_ERROR ="La actualización NO fue realizada";
 	public static String HISTORIAL_SINCRONIZA_VENTA_LLENA ="Para actualizar primero debe enviar las ventas pendientes";
-	
+
 }

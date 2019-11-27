@@ -30,7 +30,12 @@ public class ServiciosPersona extends ServicioBase {
 
     }
 
-    public void buscarPorIdentificacion(String identificacion){
+    /**
+     * Método que busca una persona por su identificación
+     * @param identificacion
+     * @return PersonaAutorizada
+     */
+    public VwPersonaAutorizada buscarPorIdentificacion(String identificacion){
 
         VwPersonaAutorizada persona = null;
         try {
@@ -48,9 +53,9 @@ public class ServiciosPersona extends ServicioBase {
             Log.v("log_glp ---------->", "ERROR ServiciosPersona --> buscarPorIdentificacion() --> EXCEPCION AL BUSCAR: "+identificacion);
             e.printStackTrace();
         }
-
-        //continuar aqui
+        return  persona;
     }
+
 
     public void insertar(VwPersonaAutorizada personaAutorizada){
         try {

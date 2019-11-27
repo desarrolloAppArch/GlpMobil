@@ -7,6 +7,7 @@
 
 
     <LinearLayout
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -16,12 +17,13 @@
             android:id="@+id/textView31"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="CLIENTE"
+            android:text="REGISTRAR VENTA"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
         <TableLayout
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -31,13 +33,12 @@
                     android:id="@+id/textView29"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Identificación: "/>
+                    android:text="Identificación cliente: "/>
 
                 <TextView
-                    android:id="@+id/tvIdentificacionVenta"
+                    android:id="@+id/tvIdentificacionVentaRegistro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="tvIdentificacionVenta"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
             </TableRow>
 
@@ -48,13 +49,12 @@
                     android:id="@+id/textView30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nombre: "/>
+                    android:text="Nombre cliente: "/>
 
                 <TextView
-                    android:id="@+id/tvNombreVenta"
+                    android:id="@+id/tvNombreVentaRegistro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="tvNombreVenta"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
             </TableRow>
 
@@ -65,19 +65,96 @@
                     android:id="@+id/textView32"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nombre: "/>
+                    android:text="Cupo: "/>
 
                 <TextView
-                    android:id="@+id/tvCupoVenta"
+                    android:id="@+id/tvCupoVentaRegistro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="tvCupoVenta"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/textView38"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha venta: " />
+
+                <TextView
+                    android:id="@+id/tvFechaVentaRegistro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/textView43"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Usuario venta:" />
+
+                <TextView
+                    android:id="@+id/tvUsuarioVentaRegistro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/textView41"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No. cilindros vendidos: " />
+
+                <EditText
+                    android:id="@+id/etCilindrosVentaRegistro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="3"
+                    android:inputType="number"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            </TableRow>
+
+
+
         </TableLayout>
+
+        <TableLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <Button
+                    android:id="@+id/btnRegistrarVenta"
+                    android:layout_width="190dp"
+                    android:layout_height="71dp"
+                    android:text="ACEPTAR" />
+
+                <Button
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/btnCancelarVenta"
+                    android:layout_width="190dp"
+                    android:layout_height="71dp"
+                    android:text="CANCELAR" />
+            </TableRow>
+
+        </TableLayout>
+
     </LinearLayout>
 </FrameLayout>

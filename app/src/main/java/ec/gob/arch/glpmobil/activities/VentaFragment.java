@@ -17,8 +17,15 @@ import android.widget.TextView;
 
 import ec.gob.arch.glpmobil.R;
 import ec.gob.arch.glpmobil.constantes.CtVenta;
+import ec.gob.arch.glpmobil.entidades.VwPersonaAutorizada;
 import ec.gob.arch.glpmobil.entidades.Venta;
+import ec.gob.arch.glpmobil.entidades.VwPersonaAutorizada;
 import ec.gob.arch.glpmobil.servicios.ServiciosPersona;
+import ec.gob.arch.glpmobil.utils.MensajeError;
+import ec.gob.arch.glpmobil.utils.MensajeInfo;
+import ec.gob.arch.glpmobil.utils.TituloError;
+import ec.gob.arch.glpmobil.utils.TituloInfo;
+import ec.gob.arch.glpmobil.utils.UtilMensajes;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -119,28 +126,24 @@ public class VentaFragment extends Fragment{
             public void onClick(View v) {
                 Log.v("log_glp ----------> ", "INFO VentaFragment --> onCreateView() --> btnBuscarFragment.setOnClickListener()");
                 //Valido identificación de la persona que retira el GLP
-                String identificacion;
-                if(seleccionoOpcionEscanear){
-                    Log.v("log_glp ----------> ", "INFO VentaFragment --> onCreateView() --> btnBuscarFragment.setOnClickListener()");
-                    identificacion=tvCodigoLeidoFragment.getText().toString();
+                String identificacion=null;
+                if(seleccionoOpcionEscanear!=null){
+                    if(seleccionoOpcionEscanear){
+                        Log.v("log_glp ----------> ", "INFO VentaFragment --> onCreateView() --> btnBuscarFragment.setOnClickListener()");
+                        identificacion=tvCodigoLeidoFragment.getText().toString();
+                    }else {
+                        identificacion=etCodigoLeidoFragment.getText().toString();
+                    }
+                    if(identificacion.compareTo("")!=0){
+                        buscarCupo(identificacion);
+                    }else{
+                        UtilMensajes.mostrarMsjError(MensajeError.VENTA_IDENTIFICACION_NULL, TituloError.TITULO_ERROR, getContext());
+                    }
                 }else {
-                    identificacion=etCodigoLeidoFragment.getText().toString();
+                    UtilMensajes.mostrarMsjError(MensajeError.VENTA_IDENTIFICACION_NULL, TituloError.TITULO_ERROR, getContext());
                 }
-                //serviciosPersona.buscarPorIdentificacion(identificacion); PROBAR CUANDO VANE ACABE DE REGISTRAR AL MENOS UNA PERSONA
 
 
-                Venta venta = new Venta();
-                venta.setCupo(4);
-
-                //Creo un objeto Bundle para enviarlo al siguiente fragment
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(CtVenta.CLAVE_CUPO_VENTA,venta);
-                VentaPaso2Fragment ventaPaso2Fragment = new VentaPaso2Fragment();
-                ventaPaso2Fragment.setArguments(bundle);
-
-                //Creo el siguiente fragment
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                fm.beginTransaction().replace(R.id.fragment, ventaPaso2Fragment).commit();
 
             }
         });
@@ -201,6 +204,31 @@ public class VentaFragment extends Fragment{
         }
     }
 
+    public void buscarCupo(String identificacion){
+        //PROBAR CUANDO VANE ACABE DE REGISTRAR AL MENOS UNA PERSONA
+        VwPersonaAutorizada persona = serviciosPersona.buscarPorIdentificacion(identificacion);
 
+        //Falta comprobar que la persona tenga cupo, hacer método en ServiciosCupoHogar
+
+        //--------------- SIMULO QUE ENCONTRO CUPO
+        //Envio la venta con todos los posibles datos en esta instancia, para completarlos en el siguiente fragment
+        Venta venta = new Venta();
+        venta.setUsuario_compra(identificacion);
+        //venta.setUsuario_venta(objetosSesion.getUsuario().getId());
+        venta.setUsuario_venta("09GLP-D0715");
+        venta.setCupo(4);
+        venta.setCodigo_cupo_mes(3);
+        venta.setNombre_compra("SORAYA MATUTE");
+
+        //Creo un objeto Bundle para enviarlo al siguiente fragment
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(CtVenta.CLAVE_CUPO_VENTA,venta);
+        VentaPaso2Fragment ventaPaso2Fragment = new VentaPaso2Fragment();
+        ventaPaso2Fragment.setArguments(bundle);
+
+        //Creo el siguiente fragment
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.fragment, ventaPaso2Fragment).commit();
+    }
 
 }

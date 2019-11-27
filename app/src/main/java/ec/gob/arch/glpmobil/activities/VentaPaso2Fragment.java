@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import ec.gob.arch.glpmobil.R;
 import ec.gob.arch.glpmobil.constantes.CtVenta;
@@ -18,6 +19,11 @@ import ec.gob.arch.glpmobil.entidades.Venta;
  */
 public class VentaPaso2Fragment extends Fragment {
 
+    private TextView tvIdentificacion;
+    private TextView tvNombre;
+    private TextView tvCupo;
+    private TextView tvFecha;
+    private TextView tvUsuarioVenta;
 
     public VentaPaso2Fragment() {
         // Required empty public constructor
@@ -38,7 +44,14 @@ public class VentaPaso2Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.v("log_glp ----------> ", "INFO VentaPaso2Fragment --> onCreateView()");
-        return inflater.inflate(R.layout.fragment_venta_paso2, container, false);
+        View view = inflater.inflate(R.layout.fragment_venta_paso2, container, false);
+        tvIdentificacion = (TextView) view.findViewById(R.id.tvIdentificacionVentaRegistro);
+        tvNombre = (TextView) view.findViewById(R.id.tvNombreVentaRegistro);
+        tvCupo = (TextView) view.findViewById(R.id.tvCupoVentaRegistro);
+        tvFecha = (TextView) view.findViewById(R.id.tvFechaVentaRegistro);
+        tvUsuarioVenta = (TextView) view.findViewById(R.id.tvUsuarioVentaRegistro);
+
+        return view;
     }
 
 }
