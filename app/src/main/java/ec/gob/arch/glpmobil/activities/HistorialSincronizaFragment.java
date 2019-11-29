@@ -109,11 +109,7 @@ public class HistorialSincronizaFragment extends Fragment {
             tvFechaUltimaAct.setVisibility(View.VISIBLE);
             txtEstado.setVisibility(View.VISIBLE);
             tvEstadoUltimo.setVisibility(View.VISIBLE);
-            serviciosHistorialSincroniza= new ServiciosHistorialSincroniza(getContext());
-            HistorialSincronizacion ultimaActualizacion = serviciosHistorialSincroniza.buscarUltimo();
-
-            tvFechaUltimaAct.setText(ultimaActualizacion.getFecha_sincroniza());
-            tvEstadoUltimo.setText(ultimaActualizacion.getDescripcionEstado());
+            mostrarUltimoHistorialActualiza();
 
         }
         btnSincronizar.setOnClickListener(new View.OnClickListener(){
@@ -134,8 +130,8 @@ public class HistorialSincronizaFragment extends Fragment {
                             insertarHistorial(accion, usuario,estado,numero_registros);
                         }
                         lsHistorialSincronizacion = serviciosHistorialSincroniza.buscarTodos();
-
                         llenarListaHistorial(lsHistorialSincronizacion);
+                        mostrarUltimoHistorialActualiza();
                         Log.i("log_glp_cupo ---->","INFO CupoFragment --> Sincronizar() --> después de ejecutar:"+objetoSesion.getListaCupoHogar().size() );
                     }else
                         {
@@ -270,7 +266,15 @@ public class HistorialSincronizaFragment extends Fragment {
         return estaVacia;
     }
 
+    public void mostrarUltimoHistorialActualiza(){
+        serviciosHistorialSincroniza= new ServiciosHistorialSincroniza(getContext());
+        HistorialSincronizacion ultimaActualizacion = serviciosHistorialSincroniza.buscarUltimo();
+        if( null!=ultimaActualizacion){
+            tvFechaUltimaAct.setText(ultimaActualizacion.getFecha_sincroniza());
+            tvEstadoUltimo.setText(ultimaActualizacion.getDescripcionEstado());
+        }
 
+    }
 
 
     /**
