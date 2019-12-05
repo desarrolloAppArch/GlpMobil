@@ -87,6 +87,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:entries="@array/spinnerDia"
+        android:maxLength="4"
         android:prompt="@string/selection"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"

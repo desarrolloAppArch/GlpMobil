@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.Application;
 
+import ec.gob.arch.glpmobil.entidades.Venta;
 import ec.gob.arch.glpmobil.entidades.VwCupoHogar;
 import ec.gob.arch.glpmobil.entidades.GeVwClientesGlp;
 import ec.gob.arch.glpmobil.entidades.VwPersonaAutorizada;
@@ -21,6 +22,7 @@ public class ObjetoAplicacion extends Application {
 	private Usuario usuario;
 	private List<VwCupoHogar> listaCupoHogar;
 	private List<VwPersonaAutorizada> listaPersonas;
+	private Venta venta;
 
 	public ObjetoAplicacion() {
 
@@ -73,5 +75,12 @@ public class ObjetoAplicacion extends Application {
 
 	public void setListaPersonas(List<VwPersonaAutorizada> listaPersonas) {
 		this.listaPersonas = listaPersonas;
+	}
+	public Venta getVenta() {
+		return venta;
+	}
+
+	public void setVenta(Venta venta) {
+		this.venta = venta;
 	}
 }

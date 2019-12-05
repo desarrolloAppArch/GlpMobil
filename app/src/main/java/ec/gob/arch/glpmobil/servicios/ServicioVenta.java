@@ -169,6 +169,27 @@ public class ServicioVenta extends ServicioBase {
         return  listaVentas;
 
     }
+    // Método para actalizar la base de datos
+    public void actualizar( Venta ventaAActualizar ){
+
+        int idSqlite = ventaAActualizar.getId_sqlite();
+        try {
+            Log.v("log_glp---------->","VERBOSE: Ingreso al metodo actualizar ");
+            abrir();//abrimos la conexión con la base de datos
+            ContentValues cv = new ContentValues();//Crea el contenedor de valores
+            cv.put(CtVenta.CANTIDAD, ventaAActualizar.getCantidad());//Campo en donde se actualizara el dato
+            cv.put(CtVenta.FECHA_MODIFICACION, ventaAActualizar.getFecha_modificacion());
+            Log.v("log_glp ---------->", "INFO ServicioVenta --> EL VALOR ES: "+ ventaAActualizar.getCantidad().toString());
+
+            db.update(CtVenta.TABLA_VENTA,cv, CtVenta.ID_SQLITE+"="+idSqlite,null);
+
+            Log.v("log_glp ---------->", "INFO ServicioVenta --> EL VALOR ES: "+ ventaAActualizar.getCantidad().toString());
+            cerrar();// cerramos la conexión con la b<se de datos
+        }catch (Exception e){
+            Log.e("log_glp ---------->", "ERROR: ServicioVenta --> actualizar() : "+ ventaAActualizar);
+            e.printStackTrace();
+        }
+    }
 
 
 }
