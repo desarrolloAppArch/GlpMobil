@@ -22,4 +22,9 @@
         android:orderInCategory="100"
         android:title="Actualizar cupos"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/opcion_historial"
+        android:orderInCategory="100"
+        android:title="Historial envio ventas"
+        app:showAsAction="never" />
 </menu>

@@ -1,6 +1,7 @@
 package ec.gob.arch.glpmobil.utils;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -24,10 +25,10 @@ public class ClienteWebServices {
 	 * @param requestJson request en formato json
 	 * @return la respuesta como String en formato json
 	 */
-	public static String recuperarObjetoGson(String urlString, String requestJson) {
-		String respuesta = "";
+	public static String recuperarObjetoGson(String urlString, String requestJson) throws IOException {
+		String respuesta ;
+		Log.i("log_glp ---------->", "INFO ingresa recuperarObjetoGson ");
 
-		try {
 			URL url = new URL(urlString);
 			HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
 
@@ -47,6 +48,7 @@ public class ClienteWebServices {
 
 			// Escribir en la conexion
 			OutputStream stream = conexion.getOutputStream();
+		Log.i("log_glp ---------->", "INFO recuperarObjetoGson stream"+ stream);
 			OutputStreamWriter envia = new OutputStreamWriter(stream);
 			envia.write(requestJson);
 			envia.close();
@@ -55,15 +57,14 @@ public class ClienteWebServices {
 			InputStreamReader recibe = new InputStreamReader(conexion.getInputStream());
 			BufferedReader lectura = new BufferedReader(recibe);
 			respuesta = lectura.readLine();
+		Log.i("log_glp ---------->", "INFO recuperarObjetoGson respuesta"+ respuesta);
 			if (conexion!=null){
-				Log.i("log_glp ---------->", "INFO ClienteWebServices --> recuperarObjetoGson -- > PETICION: " +urlString + " PARAMETRO ENVIADO: " + requestJson + " CODIGO RESPUESTA: "+conexion.getResponseCode() + " RESPUESTA: "+ respuesta);
+				Log.i("log_glp ---------->", "ERROR ClienteWebServices --> recuperarObjetoGson -- > PETICION: " +urlString + " PARAMETRO ENVIADO: " + requestJson + " CODIGO RESPUESTA: "+conexion.getResponseCode() + " RESPUESTA: "+ respuesta);
+
 			}
+		Log.i("log_glp ---------->", "INFO respuesta "+ respuesta);
 
 
-		} catch (Exception e) {
-			Log.i("log_glp ---------->", "INFO ClienteWebServices --> recuperarObjetoGson -- > PETICION: " +urlString + " PARAMETRO ENVIADO: " + requestJson + " ERROR: "+e.getMessage());
-			e.printStackTrace();
-		}
 		return respuesta;
 	}
 

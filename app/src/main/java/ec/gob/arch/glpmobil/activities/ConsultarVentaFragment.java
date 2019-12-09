@@ -92,15 +92,25 @@ public class ConsultarVentaFragment extends Fragment {
 
                 //SIMULAR LA INSERCION DE VENTAS
                 Venta venta = new Venta();
-                venta.setCodigo_cupo_mes(2);
+                venta.setCodigo_cupo_mes(126);
                 //venta.setUsuario_venta(objetosSesion.getUsuario().getId());
-                venta.setUsuario_venta("09GLP-D0715");
+                venta.setUsuario_venta("07GLP-D0045");
                 //venta.setUsuario_venta("04GLP-D0009");
-                venta.setUsuario_compra("1720472933");
-                venta.setNombre_compra("SORAYA MATUTE");
+                venta.setUsuario_compra("1717656712");
+                venta.setNombre_compra("Blanca Yanguicela");
                 venta.setFecha_venta(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
                 venta.setCantidad(1);
                 servicioVenta.insertarVenta(venta);
+                Venta venta1 = new Venta();
+                venta1.setCodigo_cupo_mes(128);
+                //venta.setUsuario_venta(objetosSesion.getUsuario().getId());
+                venta1.setUsuario_venta("07GLP-D0045");
+                //venta.setUsuario_venta("04GLP-D0009");
+                venta1.setUsuario_compra("1722689724");
+                venta1.setNombre_compra("Galo Lamar");
+                venta1.setFecha_venta(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
+                venta1.setCantidad(1);
+                servicioVenta.insertarVenta(venta1);
 
                 //Busco las ventas de la base de datos
                 listaVentas = servicioVenta.buscarVentaPorIdentificacion(etIdentificacion.getText().toString());

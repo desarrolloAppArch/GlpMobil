@@ -169,14 +169,17 @@ public class Sincronizador {
     public String registrarVentasWs(List<Venta> ventas){
         String respuesta= null;
         try{
+            Log.i("log_glp ---------->","INFO ingresa registrarVentasWs: ");
             Gson gson = new GsonBuilder().create();
             String parametroPeticionWs = gson.toJson(ventas);
             String respuestaWs= ClienteWebServices.recuperarObjetoGson(url_ws_ventas,parametroPeticionWs);
+            Log.i("log_glp ---------->","INFO Sincronizador --> respuestaWs() "+respuestaWs);
             respuesta=gson.fromJson(respuestaWs,String.class);
-            Log.i("log_glp ---------->","INFO Sincronizador --> registrarVentasWs() --> transformando el resultado en formato JSON a objeto String");
+            Log.i("log_glp ---------->","INFO Sincronizador --> registrarVentasWs() respuesta-->"+respuesta);
 
         } catch (Exception e) {
             e.printStackTrace();
+            Log.i("log_glp ---------->","ERROR catch --> registrarVentasWs() -->"+e.getMessage());
         }
         return respuesta;
     }

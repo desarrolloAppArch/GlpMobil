@@ -43,4 +43,14 @@ public class ServiciosCupoHogar extends ServicioBase{
             e.printStackTrace();
         }
     }
+    public void eliminarCupos(){
+        try {
+            abrir();
+            long response= db.delete(CtCupoHogar.TABLA_CUPO_HOGAR,null, null);
+            Log.v("log_glp ---------->", "INFO ServicioVenta --> eliminar() CtCupoHogar : "+ response);
+            cerrar();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

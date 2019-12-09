@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,7 @@ public class HistorialSincronizaFragment extends Fragment {
     private List<VwCupoHogar> listaCupoHogar;
     private List<VwPersonaAutorizada> listaPersonas;
     private Button btnSincronizar;
+    private Button btnRegresar;
     private TextView tvTituloHistorial;
     private TextView tvFechaUltimaAct;
     private TextView txtFechaUltimaAct;
@@ -86,6 +88,7 @@ public class HistorialSincronizaFragment extends Fragment {
         usuario="07GLP-D0045";
         //usuario=objetoSesion.getUsuario().getId();
         btnSincronizar = (Button)view.findViewById(R.id.btnSincronizar);
+        btnRegresar = (Button)view.findViewById(R.id.btnRegresar);
         tvTituloHistorial= (TextView)view.findViewById(R.id.tvTituloHistorial);
         txtFechaUltimaAct = view.findViewById(R.id.txtFechaUltimaAct);
         tvFechaUltimaAct = view.findViewById(R.id.tvFechaUltimaAct);
@@ -94,6 +97,7 @@ public class HistorialSincronizaFragment extends Fragment {
         lvCupoHogar = (ListView) view.findViewById(R.id.lvCupoHogar);
         if(accion.equals(ACCION_VENTAS)){
             btnSincronizar.setVisibility(View.GONE);
+            btnRegresar.setVisibility(View.VISIBLE);
             txtFechaUltimaAct.setVisibility(View.GONE);
             tvFechaUltimaAct.setVisibility(View.GONE);
             txtEstado.setVisibility(View.GONE);
@@ -103,6 +107,7 @@ public class HistorialSincronizaFragment extends Fragment {
             lsHistorialSincronizacion = serviciosHistorialSincroniza.buscarVentaPorUsuarioAcccion(usuario, accion);
             llenarListaHistorial(lsHistorialSincronizacion);
         }else{
+            btnRegresar.setVisibility(View.GONE);
             btnSincronizar.setVisibility(View.VISIBLE);
             tvTituloHistorial.setVisibility(view.VISIBLE);
             txtFechaUltimaAct.setVisibility(View.VISIBLE);
@@ -112,6 +117,18 @@ public class HistorialSincronizaFragment extends Fragment {
             mostrarUltimoHistorialActualiza();
 
         }
+        btnRegresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("accion", "1");
+                EnviarVentasFragment enviarVentasFragment = new EnviarVentasFragment();
+                enviarVentasFragment.setArguments(bundle);
+
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                fm.beginTransaction().replace(R.id.fragment, enviarVentasFragment).commit();
+            }
+        });
         btnSincronizar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){

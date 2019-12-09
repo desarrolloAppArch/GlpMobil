@@ -27,6 +27,7 @@ import ec.gob.arch.glpmobil.entidades.Venta;
 import ec.gob.arch.glpmobil.entidades.VwVentaPendiente;
 import ec.gob.arch.glpmobil.servicios.ServicioVenta;
 import ec.gob.arch.glpmobil.servicios.ServicioVwVentasPendientes;
+import ec.gob.arch.glpmobil.servicios.ServiciosCupoHogar;
 import ec.gob.arch.glpmobil.servicios.ServiciosHistorialSincroniza;
 import ec.gob.arch.glpmobil.sesion.ObjetoAplicacion;
 import ec.gob.arch.glpmobil.task.TaskEnviarVentas;
@@ -43,7 +44,7 @@ public class EnviarVentasFragment extends Fragment {
    private HistorialSincronizacion historialventa;
    private Button btnEnviarVentas;
    private String respuestaEnvio; //1: realizado 0: no realizado
-   private String usuarioVenta="09GLP-D0715";
+   private String usuarioVenta="07GLP-D0045";
 //    private String usuarioVenta=objetosSesion.getUsuario().getId();
    private String accionHistorial="1" ;//envio venta
     /**
@@ -51,6 +52,7 @@ public class EnviarVentasFragment extends Fragment {
      */
     private ServicioVwVentasPendientes servicioVwVentasPendientes;
     private ServicioVenta servicioVenta;
+    private ServiciosCupoHogar serviciosCupoHogar;
     private ServiciosHistorialSincroniza serviciosHistorialSincroniza;
 
 
@@ -83,36 +85,47 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
             servicioVenta = new ServicioVenta(getContext());
             inicializarListaVentasPorEnviar();
             listaVentasPorEnviar=servicioVenta.buscarVentaPorUsuarioVenta(usuarioVenta.toString());
-            Log.i("log_glp ---------->", "INFO listaVentasPorEnviar --> "+listaVentasPorEnviar.size());
-            TaskEnviarVentas tarea= new TaskEnviarVentas();
-            tarea.execute(listaVentasPorEnviar);
+            if(listaVentasPorEnviar.size()>0) {
+                Log.i("log_glp ---------->", "INFO listaVentasPorEnviar --> " + listaVentasPorEnviar.size());
+                TaskEnviarVentas tarea = new TaskEnviarVentas();
+                tarea.execute(listaVentasPorEnviar);
+                Log.i("log_glp ---------->", "INFO tarea.get() --> " + tarea.get());
 
-            respuestaEnvio= (String) tarea.get();
+                respuestaEnvio = (String) tarea.get();
 
-            if(null==respuestaEnvio){
-                respuestaEnvio= "0";
-            }
-            cargarHistorial();
-            if(respuestaEnvio.equals("1")){
-                eliminarVentas(usuarioVenta);
-                Bundle bundle= new Bundle();
-                bundle.putString("accion", "1");
-                HistorialSincronizaFragment historialSincronizaFragment= new HistorialSincronizaFragment();
-                historialSincronizaFragment.setArguments(bundle);
+                if (null == respuestaEnvio) {
+                    Toast.makeText(getContext(), "No se a podido conectar con ARCH", Toast.LENGTH_LONG).show();
+                }else {
+                    cargarHistorial();
+                    if (respuestaEnvio.equals("1")) {
+                        eliminarVentas(usuarioVenta);
+                        eliminarCupos();
+                        // crea variable para el envio de parametros
+                        Bundle bundle = new Bundle();
+                        bundle.putString("accion", "1");
+                        HistorialSincronizaFragment historialSincronizaFragment = new HistorialSincronizaFragment();
+                        historialSincronizaFragment.setArguments(bundle);
 
-                FragmentManager fm= getActivity().getSupportFragmentManager();
-                fm.beginTransaction().replace(R.id.fragment, historialSincronizaFragment).commit();
-                Log.i("log_glp ---------->", "INFO respuestaEnvio Completo--> "+respuestaEnvio);
-                Toast.makeText(getContext(), "Envio Exitoso", Toast.LENGTH_LONG).show();
+                        FragmentManager fm = getActivity().getSupportFragmentManager();
+                        fm.beginTransaction().replace(R.id.fragment, historialSincronizaFragment).commit();
+                        Log.i("log_glp ---------->", "INFO respuestaEnvio Completo--> " + respuestaEnvio);
+                        Toast.makeText(getContext(), "Envio Exitoso", Toast.LENGTH_LONG).show();
+                    } else {
+                        Log.i("log_glp ---------->", "INFO respuestaEnvio No enviado--> " + respuestaEnvio);
+                        Toast.makeText(getContext(), "Envio Fallido", Toast.LENGTH_LONG).show();
+                    }
+                }
             }else{
-                Log.i("log_glp ---------->", "INFO respuestaEnvio No enviado--> "+respuestaEnvio);
-                Toast.makeText(getContext(), "Envio Fallido", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "No tiene, Venta pendientes de enviar", Toast.LENGTH_LONG).show();
             }
+
 
 
         } catch (ExecutionException e) {
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         } catch (InterruptedException e) {
+            Toast.makeText(getContext(),  e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
@@ -160,6 +173,11 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
     public void eliminarVentas(String usuario){
         servicioVenta = new ServicioVenta(getContext());
         servicioVenta.eliminarVentasEnviadasPorUsuario(usuario);
+
+    }
+    public void eliminarCupos(){
+        serviciosCupoHogar= new ServiciosCupoHogar(getContext());
+        serviciosCupoHogar.eliminarCupos();
 
     }
 

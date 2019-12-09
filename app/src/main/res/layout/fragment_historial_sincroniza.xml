@@ -68,9 +68,9 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp">
+        android:layout_height="429dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/btnSincronizar"
@@ -80,7 +80,7 @@
 
         <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="448dp"
+            android:layout_height="384dp"
             android:scrollbars="horizontal">
 
             <LinearLayout
@@ -91,9 +91,14 @@
                 <ListView
                     android:id="@+id/lvCupoHogar"
                     android:layout_width="match_parent"
-                    android:layout_height="451dp">
-                </ListView>
+                    android:layout_height="match_parent"></ListView>
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnRegresar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/regresar" />
 </LinearLayout>

@@ -84,5 +84,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="titulo_historial">Historial de ventas enviadas</string>
     <string name="btn_Actualizar">ACTUALIZAR</string>
+    <string name="regresar">Regresar</string>
 
 </resources>
