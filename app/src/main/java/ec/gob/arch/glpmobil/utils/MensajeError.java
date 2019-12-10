@@ -6,6 +6,7 @@ public interface MensajeError {
 	public static String LOGIN_CLAVE_INCORRECTA ="Contraseña incorrecta";
 	public static String LOGIN_NO_TIENE_PERMISOS ="Usuario NO tiene permisos para esta aplicación";
 	public static String LOGIN_USUARIO_NO_EXISTE ="EL usuario NO existe o se encuentra INACTIVO";
+
 	public static String REGISTRO_TIPO_SUJETO_NULL ="Seleccione el tipo de sujeto que desea registrar";
 	public static String REGISTRO_RUC_SUJETO_NULL ="Ingrese el RUC del sujeto para realizar la búsqueda";
 	public static String REGISTRO_CORREO_NO_IGUAL ="Los correos ingresados no coinciden";
@@ -23,5 +24,7 @@ public interface MensajeError {
 
 	public static String HISTORIAL_SINCRONIZA_ERROR ="La actualización NO fue realizada";
 	public static String HISTORIAL_SINCRONIZA_VENTA_LLENA ="Para actualizar primero debe enviar las ventas pendientes";
+    public static String SIN_RESULTADOS ="No hay cupos pendientes para descargar a la fecha actual";
+    public static String SIN_RESPUESTA_WS ="El servicio No se encuentra disponible para descargas, comunicarse con soporte ARCH Telf. 023996500 ext. 5100";
 
 }

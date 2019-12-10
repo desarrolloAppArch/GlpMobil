@@ -201,14 +201,12 @@ public class HistorialSincronizaFragment extends Fragment {
             TaskConsultarCupo tarea = new TaskConsultarCupo();
             tarea.execute(vwCupoHogar);
             listaResultado = (List<VwCupoHogar>) tarea.get();
-            //listaResultado=null;
-            //listaResultado = new ArrayList<>();
             if (listaResultado==null){
                 Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> obtenerCupo() --> RESULTADO: NULL "+listaResultado);
-                UtilMensajes.mostrarMsjInfo(MensajeInfo.SIN_RESPUESTA_WS, TituloInfo.TITULO_INFO, getContext());
+                UtilMensajes.mostrarMsjError(MensajeError.SIN_RESPUESTA_WS, TituloError.TITULO_ERROR, getContext());
             }else  if (listaResultado.size()<=0 ){
                 Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> obtenerCupo() --> RESULTADO: VACIO"+listaResultado.size());
-                UtilMensajes.mostrarMsjInfo(MensajeInfo.SIN_RESULTADOS, TituloInfo.TITULO_INFO, getContext());
+                UtilMensajes.mostrarMsjError(MensajeError.SIN_RESULTADOS, TituloError.TITULO_ERROR, getContext());
             }else {
                 Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> obtenerCupo() --> RESULTADO:" +listaResultado.size());
                 objetoSesion.setListaCupoHogar(listaResultado);
@@ -218,7 +216,7 @@ public class HistorialSincronizaFragment extends Fragment {
         }catch (Exception e){
             e.printStackTrace();
             Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> obtenerCupo() --> CATCH:");
-            UtilMensajes.mostrarMsjInfo(MensajeInfo.SIN_RESPUESTA_WS, TituloInfo.TITULO_INFO, getContext());
+            UtilMensajes.mostrarMsjError(MensajeError.SIN_RESPUESTA_WS, TituloError.TITULO_ERROR, getContext());
         }
         return listaResultado;
     }
