@@ -69,6 +69,7 @@ public class ServiciosPersona extends ServicioBase {
             cv.put(CtPersona.FECHA_EMISION_DOCUMENTO_ANIO, personaAutorizada.getFechaEmisionDocumentoAnio());
             cv.put(CtPersona.FECHA_EMISION_DOCUMENTO_MES, personaAutorizada.getFechaEmisionDocumentoMes());
             cv.put(CtPersona.FECHA_EMISION_DOCUMENTO_DIA, personaAutorizada.getFechaEmisionDocumentoDia());
+            cv.put(CtPersona.PERMITE_DIGITACION_IDEN, personaAutorizada.getPermitirDigitacionIden());
             db.insert(CtPersona.TABLA_PERSONA, null,cv);
             Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> insertar() persona id: "+ personaAutorizada.getNumeroDocumento());
             cerrar();
