@@ -102,46 +102,50 @@ public class VentaPaso2Fragment extends Fragment {
                 int idUltimaVenta=0;
                 if(etCilindrosVenta.getText().toString().compareTo("")!=0){
                     numeroCilindrosIngresados = Integer.valueOf(etCilindrosVenta.getText().toString());
-                    if(numeroCilindrosIngresados<=venta.getCupoDisponible()){
-                        try {
-                            //Inserto venta
-                            venta.setFecha_venta(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
-                            tvFecha.setText(venta.getFecha_venta());
-                            venta.setCantidad(numeroCilindrosIngresados);
-                            servicioVenta.insertarVenta(venta);
-                            idUltimaVenta = servicioVenta.buscarIdUltimaVenta();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            UtilMensajes.mostrarMsjError(MensajeError.VENTA_NO_REGISTRADA+e.getMessage(), TituloError.TITULO_ERROR, getContext());
-                        }
-                        try {
-                            //Actualizo el cupo del hogar
-                            cupoHogar.setCmhDisponible(venta.getCupoDisponible()-numeroCilindrosIngresados);
-                            //cupoHogar.setCmhOcupado(cupoHogar.getCmhOcupado()+numeroCilindrosIngresados); Descomentar para que entre al catch
-                            serviciosCupoHogar.actualizar(cupoHogar);
-                            UtilMensajes.mostrarMsjInfo(MensajeInfo.VENTA_REGISTRADA_EXITOSAMENTE, TituloInfo.TITULO_INFO, getContext());
-                            tvCupo.setText(String.valueOf(cupoHogar.getCmhDisponible()));
-                            tvCilindrosVenta.setText(etCilindrosVenta.getText());
-                            activarModoVisualizacion();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            UtilMensajes.mostrarMsjError(MensajeError.CUPO_NO_REGISTRADO+e.getMessage(), TituloError.TITULO_ERROR, getContext());
+                    if(numeroCilindrosIngresados>0){
+                        if(numeroCilindrosIngresados<=venta.getCupoDisponible()){
                             try {
-                                if(idUltimaVenta!=0){
-                                    Venta ultimaVenta = servicioVenta.buscarVentaPorIdSqlite(idUltimaVenta);
-                                    if(ultimaVenta!=null){
-                                        servicioVenta.eliminarVenta(ultimaVenta);
-                                    }else{
-                                        Log.v("log_glp ----------> ", "INFO VentaPaso2Fragment --> btnRegistrarVenta()--> NO SE ENCONTRO VENTA CON ID: "+idUltimaVenta);
-                                    }
-                                }
-                            } catch (Exception ex) {
-                                ex.printStackTrace();
-                                UtilMensajes.mostrarMsjError(MensajeError.VENTA_NO_ROLLBACK+e.getMessage(), TituloError.TITULO_ERROR, getContext());
+                                //Inserto venta
+                                venta.setFecha_venta(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
+                                tvFecha.setText(venta.getFecha_venta());
+                                venta.setCantidad(numeroCilindrosIngresados);
+                                servicioVenta.insertarVenta(venta);
+                                idUltimaVenta = servicioVenta.buscarIdUltimaVenta();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                UtilMensajes.mostrarMsjError(MensajeError.VENTA_NO_REGISTRADA+e.getMessage(), TituloError.TITULO_ERROR, getContext());
                             }
+                            try {
+                                //Actualizo el cupo del hogar
+                                cupoHogar.setCmhDisponible(venta.getCupoDisponible()-numeroCilindrosIngresados);
+                                //cupoHogar.setCmhOcupado(cupoHogar.getCmhOcupado()+numeroCilindrosIngresados); Descomentar para que entre al catch
+                                serviciosCupoHogar.actualizar(cupoHogar);
+                                UtilMensajes.mostrarMsjInfo(MensajeInfo.VENTA_REGISTRADA_EXITOSAMENTE, TituloInfo.TITULO_INFO, getContext());
+                                tvCupo.setText(String.valueOf(cupoHogar.getCmhDisponible()));
+                                tvCilindrosVenta.setText(etCilindrosVenta.getText());
+                                activarModoVisualizacion();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                UtilMensajes.mostrarMsjError(MensajeError.CUPO_NO_REGISTRADO+e.getMessage(), TituloError.TITULO_ERROR, getContext());
+                                try {
+                                    if(idUltimaVenta!=0){
+                                        Venta ultimaVenta = servicioVenta.buscarVentaPorIdSqlite(idUltimaVenta);
+                                        if(ultimaVenta!=null){
+                                            servicioVenta.eliminarVenta(ultimaVenta);
+                                        }else{
+                                            Log.v("log_glp ----------> ", "INFO VentaPaso2Fragment --> btnRegistrarVenta()--> NO SE ENCONTRO VENTA CON ID: "+idUltimaVenta);
+                                        }
+                                    }
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+                                    UtilMensajes.mostrarMsjError(MensajeError.VENTA_NO_ROLLBACK+e.getMessage(), TituloError.TITULO_ERROR, getContext());
+                                }
+                            }
+                        }else{
+                            UtilMensajes.mostrarMsjError(MensajeError.VENTA_NUMERO_CILINDROS_EXCEDE_PERMITIDO, TituloError.TITULO_ERROR, getContext());
                         }
                     }else{
-                        UtilMensajes.mostrarMsjError(MensajeError.VENTA_NUMERO_CILINDROS_EXCEDE_PERMITIDO, TituloError.TITULO_ERROR, getContext());
+                        UtilMensajes.mostrarMsjError(MensajeError.VENTA_NUMERO_CILINDROS_MAYOR_A_CERO, TituloError.TITULO_ERROR, getContext());
                     }
                 }else{
                     UtilMensajes.mostrarMsjError(MensajeError.VENTA_NUMERO_CILINDROS_NULL, TituloError.TITULO_ERROR, getContext());

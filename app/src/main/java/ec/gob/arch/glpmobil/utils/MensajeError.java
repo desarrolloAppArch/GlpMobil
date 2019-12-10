@@ -36,6 +36,7 @@ public interface MensajeError {
 	public static String VENTA_FECHA_NO_COINCIDE ="Fecha de expedición no coincide con la registrada en la ARCH";
 	public static String VENTA_NUMERO_CILINDROS_NULL ="Ingrese el número de cilindros vendidos";
 	public static String VENTA_NUMERO_CILINDROS_EXCEDE_PERMITIDO ="Número de cilindros excede el cupo permitido";
+	public static String VENTA_NUMERO_CILINDROS_MAYOR_A_CERO ="Número de cilindros debe ser mayor a 0";
 	public static String VENTA_NO_REGISTRADA ="Venta no ha podido ser registrada, reportar error al 023 996 500 Ext. 5100";
 	public static String CUPO_NO_REGISTRADO ="Cupo no ha podido ser actualizado, reportar error al 023 996 500 Ext. 5100";
 	public static String VENTA_NO_ROLLBACK ="Problemas al realizar el ROLLBACK, reportar error al 023 996 500 Ext. 5100";
