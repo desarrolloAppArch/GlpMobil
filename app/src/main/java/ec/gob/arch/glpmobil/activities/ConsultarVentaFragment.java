@@ -89,7 +89,9 @@ public class ConsultarVentaFragment extends Fragment {
             public void onClick(View v) {
                 inicializarListaVentas();
                 //Busco las ventas de la base de datos
-                listaVentas = servicioVenta.buscarVentaPorIdentificacion(etIdentificacion.getText().toString());
+                try {
+                    listaVentas = servicioVenta.buscarVentaPorIdentificacion(etIdentificacion.getText().toString());
+
                 for (Venta vt:listaVentas) {
                     Log.i("log_glp ---------->", "INFO getCodigo_cupo_mes --> "+vt.getCodigo_cupo_mes());
                     Log.i("log_glp ---------->", "INFO getUsuario_venta --> "+vt.getUsuario_venta());
@@ -102,6 +104,10 @@ public class ConsultarVentaFragment extends Fragment {
                 llenarListaVentas(listaVentas);
 
                 Toast.makeText(getContext(),+listaVentas.size()+" Registros encontrado de: "+etIdentificacion.getText(), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(getContext(),e.getMessage()+etIdentificacion.getText(), Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
             }
         });
 

@@ -32,7 +32,7 @@ public class ServicioVwVentasPendientes extends ServicioBase {
      * @param identificacion identificación del usuario que realiza la venta
      * @return
      */
-    public List<VwVentaPendiente> buscarVentaPorVendedor(String identificacion)
+    public List<VwVentaPendiente> buscarVentaPorVendedor(String identificacion) throws Exception
     {
         List<VwVentaPendiente> listaVentasPendientes = null;
         try {
@@ -59,7 +59,7 @@ public class ServicioVwVentasPendientes extends ServicioBase {
         return  listaVentasPendientes;
 
     }
-    private VwVentaPendiente obtenerVentaPendiente(Cursor cursor){
+    private VwVentaPendiente obtenerVentaPendiente(Cursor cursor)throws Exception{
         Log.v("log_glp ---------->", "ERROR ServicioVenta --> obtenerVenta()");
         VwVentaPendiente ventaPendiente = new VwVentaPendiente();
         ventaPendiente.setFecha_venta(cursor.getString(0));

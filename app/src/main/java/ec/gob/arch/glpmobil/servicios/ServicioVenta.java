@@ -60,28 +60,33 @@ public class ServicioVenta extends ServicioBase {
             cerrar();
         }
     }
-    public void eliminarVentasEnviadasPorUsuario(String usuarioVenta){
+    public void eliminarVentasEnviadasPorUsuario(String usuarioVenta)throws Exception{
         try {
 
             abrir();
             String condicion = CtVenta.USUARIO_VENTA +"='"+usuarioVenta+"'";
             long response= db.delete(CtVenta.TABLA_VENTA,condicion, null);
             Log.v("log_glp ---------->", "INFO ServicioVenta --> eliminar() venta : "+ usuarioVenta);
-            cerrar();
+
 
         } catch (Exception e) {
             Log.v("log_glp ---------->", "ERROR: ServicioVenta --> eliminar() venta : "+ usuarioVenta);
             e.printStackTrace();
+        }
+        finally {
+
+            cerrar();
         }
     }
 
 
     public List<Venta> buscarTodos(){
         List<Venta> listaVentas = new ArrayList<Venta>();
+        Cursor cursor= null;
         try {
 
             abrir();
-            Cursor cursor = db.query(CtVenta.TABLA_VENTA, columnas, null, null, null, null, null);
+            cursor = db.query(CtVenta.TABLA_VENTA, columnas, null, null, null, null, null);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 Venta venta = obtenerVenta(cursor);
@@ -96,11 +101,17 @@ public class ServicioVenta extends ServicioBase {
         }catch(Exception e){
             Log.v("log_glp ---------->", "ERROR ServicioVenta --> buscarTodos()");
             e.printStackTrace();
+        }finally {
+            if(cursor!=null){
+                cursor.close();
+                Log.v("log_glp ---------->", "INFO ServicioVenta --> buscarVentaPorIdentificacion() --> Cerrando cursor");
+            }
+            cerrar();
         }
         return listaVentas;
 
     }
-    private Venta obtenerVenta(Cursor cursor){
+    private Venta obtenerVenta(Cursor cursor) throws Exception{
         Log.v("log_glp ---------->", "INFO ServicioVenta --> obtenerVenta()");
         Venta venta = new Venta();
         
@@ -125,7 +136,7 @@ public class ServicioVenta extends ServicioBase {
      * @param identificacion
      * @return
      */
-    public List<Venta> buscarVentaPorIdentificacion(String identificacion)
+    public List<Venta> buscarVentaPorIdentificacion(String identificacion)throws Exception
     {
         List<Venta> listaVentas = new ArrayList<>();
         Cursor cursor = null;
@@ -155,14 +166,15 @@ public class ServicioVenta extends ServicioBase {
 
     }
 
-    public List<Venta> buscarVentaPorUsuarioVenta(String identificacion)
+    public List<Venta> buscarVentaPorUsuarioVenta(String identificacion)throws Exception
     {
         List<Venta> listaVentas = null;
+        Cursor cursor = null;
         try {
             listaVentas = new ArrayList<>();
             abrir();
             String condicion = CtVenta.USUARIO_VENTA +"='"+identificacion+"'";
-            Cursor cursor = db.query(CtVenta.TABLA_VENTA, columnas, condicion, null, null, null,null);
+            cursor = db.query(CtVenta.TABLA_VENTA, columnas, condicion, null, null, null,null);
             cursor.moveToFirst();
             while (!cursor.isAfterLast())
             {
@@ -171,10 +183,16 @@ public class ServicioVenta extends ServicioBase {
                 cursor.moveToNext();
             }
             Log.v("log_glp ---------->", "INFO ServicioVenta --> buscarVentaPorIdentificacion(): "+identificacion);
-            cerrar();
+
         }catch (Exception e){
             e.printStackTrace();
             Log.v("log_glp ---------->", "ERROR ServicioVenta --> buscarVentaPorIdentificacion(): "+identificacion);
+        }finally {
+            if(cursor!=null){
+                cursor.close();
+                Log.v("log_glp ---------->", "INFO ServicioVenta --> buscarVentaPorIdentificacion() --> Cerrando cursor");
+            }
+            cerrar();
         }
         return  listaVentas;
 

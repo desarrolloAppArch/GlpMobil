@@ -44,8 +44,8 @@ public class EnviarVentasFragment extends Fragment {
    private HistorialSincronizacion historialventa;
    private Button btnEnviarVentas;
    private String respuestaEnvio; //1: realizado 0: no realizado
-   private String usuarioVenta="07GLP-D0045";
-//    private String usuarioVenta=objetosSesion.getUsuario().getId();
+ //  private String usuarioVenta="07GLP-D0045";
+    private String usuarioVenta;
    private String accionHistorial="1" ;//envio venta
     /**
      * Servicios
@@ -67,9 +67,15 @@ public class EnviarVentasFragment extends Fragment {
         //lvResumenVentas.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         //Al ser el fragment parte del Activity, puedo obtener el Activity con getActivity() ya que no esta directamente relacionado
         objetosSesion= (ObjetoAplicacion) getActivity().getApplication();
+        usuarioVenta=objetosSesion.getUsuario().getId();
         servicioVwVentasPendientes = new ServicioVwVentasPendientes(getContext());
         inicializarListaResumenVentas();
-        listaResumenVentas = servicioVwVentasPendientes.buscarVentaPorVendedor(usuarioVenta.toString());
+        try {
+            listaResumenVentas = servicioVwVentasPendientes.buscarVentaPorVendedor(usuarioVenta.toString());
+        } catch (Exception e) {
+            Toast.makeText(getContext(),  e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
 //        listaResumenVentas = servicioVwVentasPendientes.buscarVentaPorVendedor(objetosSesion.getUsuario().getId().toString());
         for (VwVentaPendiente vt: listaResumenVentas) {
             Log.i("log_glp ---------->", "INFO setOnClickListener --> "+vt.getUsuario_venta());
@@ -127,6 +133,9 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
         } catch (InterruptedException e) {
             Toast.makeText(getContext(),  e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
+        } catch (Exception e) {
+            Toast.makeText(getContext(),  e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
         }
     }
 });
@@ -172,7 +181,12 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
     }
     public void eliminarVentas(String usuario){
         servicioVenta = new ServicioVenta(getContext());
-        servicioVenta.eliminarVentasEnviadasPorUsuario(usuario);
+        try {
+            servicioVenta.eliminarVentasEnviadasPorUsuario(usuario);
+        } catch (Exception e) {
+            Toast.makeText(getContext(),  e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
 
     }
     public void eliminarCupos(){
