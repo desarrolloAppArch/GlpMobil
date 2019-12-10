@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.telephony.CarrierConfigManager;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,9 +17,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ec.gob.arch.glpmobil.R;
+import ec.gob.arch.glpmobil.constantes.CtHistorialSincroniza;
 import ec.gob.arch.glpmobil.entidades.HistorialSincronizacion;
 import ec.gob.arch.glpmobil.entidades.Venta;
 import ec.gob.arch.glpmobil.entidades.VwCupoHogar;
@@ -103,6 +106,7 @@ public class HistorialSincronizaFragment extends Fragment {
             txtEstado.setVisibility(View.GONE);
             tvEstadoUltimo.setVisibility(View.GONE);
             tvTituloHistorial.setVisibility(view.VISIBLE);
+            tvTituloHistorial.setText(CtHistorialSincroniza.TITULO_HISTORIAL_VENTAS);
             serviciosHistorialSincroniza= new ServiciosHistorialSincroniza(getContext());
             lsHistorialSincronizacion = serviciosHistorialSincroniza.buscarVentaPorUsuarioAcccion(usuario, accion);
             llenarListaHistorial(lsHistorialSincronizacion);
@@ -110,6 +114,7 @@ public class HistorialSincronizaFragment extends Fragment {
             btnRegresar.setVisibility(View.GONE);
             btnSincronizar.setVisibility(View.VISIBLE);
             tvTituloHistorial.setVisibility(view.VISIBLE);
+            tvTituloHistorial.setText(CtHistorialSincroniza.TITULO_HISTORIAL_CUPOS);
             txtFechaUltimaAct.setVisibility(View.VISIBLE);
             tvFechaUltimaAct.setVisibility(View.VISIBLE);
             txtEstado.setVisibility(View.VISIBLE);
@@ -137,13 +142,13 @@ public class HistorialSincronizaFragment extends Fragment {
                     if (validarTablaVentaVacia()){
                         Log.i("log_glp_cupo ---->","INFO CupoFragment --> Sincronizar() --> ingresa a Onclick:" );
                         listaCupoHogar = obtenerCupos();
-                        numero_registros=listaCupoHogar.size();
-                        if(listaCupoHogar.size()>0){
+                        if (listaCupoHogar==null ){
+                            estado=0;
+                            insertarHistorial(accion, usuario,estado,0);
+                        }else{
+                            numero_registros=listaCupoHogar.size();
                             estado=1;
                             insertarCupoHogar(listaCupoHogar);
-                            insertarHistorial(accion, usuario,estado,numero_registros);
-                        }else{
-                            estado=0;
                             insertarHistorial(accion, usuario,estado,numero_registros);
                         }
                         lsHistorialSincronizacion = serviciosHistorialSincroniza.buscarTodos();
@@ -190,24 +195,32 @@ public class HistorialSincronizaFragment extends Fragment {
 
     public List<VwCupoHogar> obtenerCupos(){
         vwCupoHogar = new VwCupoHogar();
-
+        List<VwCupoHogar> listaResultado = new ArrayList<>();
         try {
             vwCupoHogar.setDisIdentifica(usuario);
             TaskConsultarCupo tarea = new TaskConsultarCupo();
             tarea.execute(vwCupoHogar);
-            List<VwCupoHogar> listaResultado = (List<VwCupoHogar>) tarea.get();
-            if (listaResultado!=null && listaResultado.size()>0 ){
+            listaResultado = (List<VwCupoHogar>) tarea.get();
+            //listaResultado=null;
+            //listaResultado = new ArrayList<>();
+            if (listaResultado==null){
+                Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> obtenerCupo() --> RESULTADO: NULL "+listaResultado);
+                UtilMensajes.mostrarMsjInfo(MensajeInfo.SIN_RESPUESTA_WS, TituloInfo.TITULO_INFO, getContext());
+            }else  if (listaResultado.size()<=0 ){
+                Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> obtenerCupo() --> RESULTADO: VACIO"+listaResultado.size());
+                UtilMensajes.mostrarMsjInfo(MensajeInfo.SIN_RESULTADOS, TituloInfo.TITULO_INFO, getContext());
+            }else {
                 Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> obtenerCupo() --> RESULTADO:" +listaResultado.size());
                 objetoSesion.setListaCupoHogar(listaResultado);
-            }else {
-                Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> obtenerCupo() --> RESULTADO: NINGUNO");
-                UtilMensajes.mostrarMsjInfo(MensajeInfo.SIN_RESULTADOS, TituloInfo.TITULO_INFO, getContext());
+                UtilMensajes.mostrarMsjInfo(MensajeInfo.HISTORIAL_SINCRONIZA_OK, TituloInfo.TITULO_INFO, getContext());
             }
 
         }catch (Exception e){
             e.printStackTrace();
+            Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> obtenerCupo() --> CATCH:");
+            UtilMensajes.mostrarMsjInfo(MensajeInfo.SIN_RESPUESTA_WS, TituloInfo.TITULO_INFO, getContext());
         }
-        return objetoSesion.getListaCupoHogar();
+        return listaResultado;
     }
 
 

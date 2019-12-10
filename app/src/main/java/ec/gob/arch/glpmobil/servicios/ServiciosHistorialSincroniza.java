@@ -67,7 +67,8 @@ public class ServiciosHistorialSincroniza extends ServicioBase{
         List<HistorialSincronizacion> lsHistorial = new ArrayList<>();
         try {
             abrir();
-            Cursor cursor = db.query(CtHistorialSincroniza.TABLA_HISTORIAL, columnas, null, null, null, null, null);
+            String orderby = CtHistorialSincroniza.ID_SQLITE+" desc LIMIT 5";
+            Cursor cursor = db.query(CtHistorialSincroniza.TABLA_HISTORIAL, columnas, null, null, null, null, orderby);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 HistorialSincronizacion historial = obtenerHistorial(cursor);
@@ -121,11 +122,6 @@ public class ServiciosHistorialSincroniza extends ServicioBase{
         historial.setNumero_registros(cursor.getInt(3));
         historial.setEstado(cursor.getInt(4));
         historial.setAccion(cursor.getString(5));
-
-
-
-
-
         return historial;
     }
 

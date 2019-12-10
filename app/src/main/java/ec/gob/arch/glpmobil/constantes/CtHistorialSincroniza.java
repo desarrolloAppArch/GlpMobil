@@ -10,5 +10,7 @@ public interface CtHistorialSincroniza {
 	public static final String NUMERO_REGISTROS = "numero_registros";
 	public static final String ESTADO = "estado";
 	public static final String ACCION = "accion";
+	public static final String TITULO_HISTORIAL_VENTAS = "Historial de ventas enviadas";
+	public static final String TITULO_HISTORIAL_CUPOS = "Historial de descarga de cupos";
 
 }
