@@ -87,26 +87,7 @@ public class ConsultarVentaFragment extends Fragment {
         btnBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 inicializarListaVentas();
-
-                //SIMULAR LA INSERCION DE VENTAS
-                Venta venta = new Venta();
-                venta.setCodigo_cupo_mes(2);
-                //venta.setUsuario_venta(objetosSesion.getUsuario().getId());
-                venta.setUsuario_venta("09GLP-D0715");
-                //venta.setUsuario_venta("04GLP-D0009");
-                venta.setUsuario_compra("1720472933");
-                venta.setNombre_compra("SORAYA MATUTE");
-                venta.setFecha_venta(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
-                venta.setCantidad(1);
-
-                try {
-                    servicioVenta.insertarVenta(venta);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
                 //Busco las ventas de la base de datos
                 listaVentas = servicioVenta.buscarVentaPorIdentificacion(etIdentificacion.getText().toString());
                 for (Venta vt:listaVentas) {

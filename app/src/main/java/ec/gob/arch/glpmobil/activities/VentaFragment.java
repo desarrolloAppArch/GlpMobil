@@ -262,8 +262,8 @@ public class VentaFragment extends Fragment{
                             //Envio la venta seteado algunos datos, para completarlos en el siguiente fragment
                             Venta venta = new Venta();
                             venta.setUsuario_compra(persona.getNumeroDocumento());
-                            //venta.setUsuario_venta(objetosSesion.getUsuario().getId()); DESCOMENTAR AQUI
-                            venta.setUsuario_venta("07GLP-D0045");
+                            venta.setUsuario_venta(objetosSesion.getUsuario().getId());
+                            //venta.setUsuario_venta("07GLP-D0045");
                             venta.setCupoDisponible(cupoHogar.getCmhDisponible());
                             venta.setCodigo_cupo_mes(cupoHogar.getCmhCodigo());
                             venta.setNombre_compra(persona.getApellidoNombre());
