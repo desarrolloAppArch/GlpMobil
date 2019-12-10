@@ -35,7 +35,7 @@ public class ServicioBase {
 	 */
 	public void abrir() throws SQLException {
 		db = dbHelper.getWritableDatabase();
-		Log.v("log_glp ---------->", "INFO ServicioBase --> abrir(): Abriendo conexion con la base de datos  ");
+		//Log.v("log_glp ---------->", "INFO ServicioBase --> abrir(): Abriendo conexion con la base de datos SQLITE");
 	}
 	
 	
@@ -44,7 +44,7 @@ public class ServicioBase {
 	 */
 	public void cerrar(){
 		dbHelper.close();
-		Log.v("log_glp ---------->", "INFO ServicioBase --> cerrar(): Cerrando conexion con la base de datos ");
+		//Log.v("log_glp ---------->", "INFO ServicioBase --> cerrar(): Cerrando conexion con la base de datos SQLITE");
 	}
 
 }

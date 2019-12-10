@@ -12,6 +12,7 @@ import ec.gob.arch.glpmobil.entidades.VwPersonaAutorizada;
 public class ServiciosPersona extends ServicioBase {
 
     String[] columnas = new String[]{CtPersona.ID_SQLITE,
+                                    CtPersona.ID,
                                     CtPersona.HOG_CODIGO,
                                     CtPersona.NOMBRE,
                                     CtPersona.IDENTIFICACION,
@@ -41,10 +42,10 @@ public class ServiciosPersona extends ServicioBase {
         try {
             abrir();
             String condicion = CtPersona.IDENTIFICACION+"='"+identificacion+"'";
-            Cursor cursor = db.query(CtVenta.TABLA_VENTA, columnas, condicion, null,null, null,null);
+            Cursor cursor = db.query(CtPersona.TABLA_PERSONA, columnas, condicion, null,null, null,null);
             cursor.moveToFirst();
-            while (cursor.isAfterLast()){
-                persona = obtenerVenta(cursor);
+            while (!cursor.isAfterLast()){
+                persona = obtenerPersona(cursor);
                 cursor.moveToNext();
             }
             cerrar();
@@ -71,25 +72,27 @@ public class ServiciosPersona extends ServicioBase {
             cv.put(CtPersona.FECHA_EMISION_DOCUMENTO_DIA, personaAutorizada.getFechaEmisionDocumentoDia());
             cv.put(CtPersona.PERMITE_DIGITACION_IDEN, personaAutorizada.getPermitirDigitacionIden());
             db.insert(CtPersona.TABLA_PERSONA, null,cv);
-            Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> insertar() persona id: "+ personaAutorizada.getNumeroDocumento());
+            Log.v("log_glp ---------->", "INFO ServiciosPersona --> insertar() persona id: "+ personaAutorizada.getNumeroDocumento());
             cerrar();
 
         }catch (Exception e) {
-            Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> insertar() insertar() persona id: "+ personaAutorizada.getNumeroDocumento());
+            Log.v("log_glp ---------->", "ERROR ServiciosPersona --> insertar() persona id: "+ personaAutorizada.getNumeroDocumento());
             e.printStackTrace();
         }
     }
 
-    public VwPersonaAutorizada obtenerVenta(Cursor cursor){
+    public VwPersonaAutorizada obtenerPersona(Cursor cursor){
+        Log.v("log_glp ---------->", "INFO ServiciosPersona --> obtenerPersona()");
         VwPersonaAutorizada persona = new VwPersonaAutorizada();
-        persona.setCodigo(cursor.getInt(0));
-        persona.setHogCodigo(cursor.getInt(1));
-        persona.setApellidoNombre(cursor.getString(2));
-        persona.setNumeroDocumento(cursor.getString(3));
-        persona.setFechaEmisionDocumentoAnio(cursor.getInt(4));
-        persona.setFechaEmisionDocumentoMes(cursor.getInt(5));
-        persona.setFechaEmisionDocumentoDia(cursor.getInt(6));
-        persona.setPermitirDigitacionIden(cursor.getInt(7));
+        persona.setIdSqlite(cursor.getInt(0));
+        persona.setCodigo(cursor.getInt(1));
+        persona.setHogCodigo(cursor.getInt(2));
+        persona.setApellidoNombre(cursor.getString(3));
+        persona.setNumeroDocumento(cursor.getString(4));
+        persona.setFechaEmisionDocumentoAnio(cursor.getInt(5));
+        persona.setFechaEmisionDocumentoMes(cursor.getInt(6));
+        persona.setFechaEmisionDocumentoDia(cursor.getInt(7));
+        persona.setPermitirDigitacionIden(cursor.getInt(8));
         return persona;
     }
 

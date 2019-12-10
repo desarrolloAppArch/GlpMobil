@@ -141,8 +141,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                          *  por tanto es necesario hacer login en línea para actualizar clave
                          */
                         GeVwClientesGlp usuarioRespuestaWs =realizarLoginEnLinea();
-                        if (usuarioRespuestaWs!=null)
-                        {
+                        if (usuarioRespuestaWs!=null){
                             if(usuarioRespuestaWs.getCodigoRespuesta().compareTo(ConstantesGenerales.CODIGO_RESPUESTA_LOGEADO_EXITOSAMENTE)==0)
                             {
                                 usuario.setClave(usuarioRespuestaWs.getClave());
@@ -152,6 +151,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             }else {
                                 UtilMensajes.mostrarMsjError(MensajeError.LOGIN_CLAVE_INCORRECTA, TituloError.TITULO_ERROR, this);
                             }
+                        }else{
+                            UtilMensajes.mostrarMsjError(MensajeError.LOGIN_FALLO_CLAVE_NO_COINCIDE, TituloError.TITULO_ERROR, this);
                         }
 
                     }
@@ -182,6 +183,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         {
                             UtilMensajes.mostrarMsjError(MensajeError.LOGIN_USUARIO_NO_EXISTE, TituloError.TITULO_ERROR, this);
                         }
+                    }else{
+                        UtilMensajes.mostrarMsjError(MensajeError.LOGIN_FALLO_OBLIGATORIO_LOGIN_EN_LINEA, TituloError.TITULO_ERROR, this);
                     }
 
                 }

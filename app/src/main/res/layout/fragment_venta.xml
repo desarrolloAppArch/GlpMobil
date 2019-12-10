@@ -22,14 +22,14 @@
 
                 <Button
                     android:id="@+id/btnEscanearFragment"
-                    android:layout_width="190dp"
+                    android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:text="ESCANEAR"
                     android:textAppearance="@android:style/TextAppearance.Large"/>
 
                 <Button
                     android:id="@+id/btnDigitarFragment"
-                    android:layout_width="190dp"
+                    android:layout_width="180dp"
                     android:layout_height="100dp"
                     android:text="DIGITAR"
                     android:textAppearance="@android:style/TextAppearance.Holo.Large"/>
@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Identificación:"
-                    android:textAppearance="@android:style/TextAppearance.Medium"/>
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"/>
 
                 <TextView
                     android:id="@+id/tvCodigoLeidoFragment"
@@ -64,94 +64,60 @@
 
             </TableRow>
 
+
+        <TableRow
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
             <TextView
-                android:layout_marginTop="20dp"
-                android:id="@+id/textView35"
+                android:id="@+id/textView29"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fecha emisión del documento de identificación"
+                android:text="Fecha de expedición"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(aaaammdd): "
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+
+            <EditText
+                android:id="@+id/etFechaExpedicion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="8"
+                android:inputType="number"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+        </TableRow>
 
-            <TableRow
-                android:layout_marginTop="20dp"
+        <TableRow
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+            <Button
+                android:id="@+id/btnBuscarFragment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-                <TextView
-                    android:id="@+id/textView34"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Día"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
-
-                <Spinner
-                    android:id="@+id/spinnerDia"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/spinnerDia"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
-            </TableRow>
-
-            <TableRow
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-                <TextView
-                    android:id="@+id/tvMes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mes: "
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
-
-                <Spinner
-                    android:id="@+id/spinnerMes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/spinnerMes"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
-            </TableRow>
-
-            <TableRow
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-                <TextView
-                    android:id="@+id/textView26"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Año: "
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
-
-                <EditText
-                    android:id="@+id/editText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="4"
-                    android:inputType="number"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
-            </TableRow>
-
-
-            <TableRow
-                android:layout_marginTop="30dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-                <TextView
-                    android:id="@+id/textView28"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="" />
-
-                <Button
-                    android:id="@+id/btnBuscarFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="71dp"
-                    android:text="BUSCAR"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
-            </TableRow>
+                android:layout_height="71dp"
+                android:text="BUSCAR"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+        </TableRow>
 
         </TableLayout>
 

@@ -233,7 +233,7 @@ public class HistorialSincronizaFragment extends Fragment {
                     VwCupoHogar cupoHogarNuevo = new VwCupoHogar();
                     cupoHogarNuevo.setCmhCodigo(p.getCmhCodigo());
                     cupoHogarNuevo.setCmhDisponible(p.getCmhDisponible());
-                    cupoHogarNuevo.setCmhCodigo(p.getHogCodigo());
+                    cupoHogarNuevo.setHogCodigo(p.getHogCodigo());
                     cupoHogarNuevo.setCmhAnio(p.getCmhAnio());
                     cupoHogarNuevo.setCmhMes(p.getCmhMes());
                     insertarPersona(p.getLsPersonaAutorizada());

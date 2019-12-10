@@ -2,6 +2,7 @@ package ec.gob.arch.glpmobil.entidades;
 
 public class VwPersonaAutorizada {
 
+    private Integer idSqlite;
     private Integer codigo;
     private Integer hogCodigo;
     private String apellidoNombre;
@@ -12,6 +13,14 @@ public class VwPersonaAutorizada {
     private Integer permitirDigitacionIden;
 
     public VwPersonaAutorizada() {
+    }
+
+    public Integer getIdSqlite() {
+        return idSqlite;
+    }
+
+    public void setIdSqlite(Integer idSqlite) {
+        this.idSqlite = idSqlite;
     }
 
     public Integer getCodigo() {

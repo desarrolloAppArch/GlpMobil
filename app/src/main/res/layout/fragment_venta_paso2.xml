@@ -17,7 +17,7 @@
             android:id="@+id/textView31"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="REGISTRAR VENTA"
+            android:text="DATOS VENTA"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
         <TableLayout
@@ -39,7 +39,7 @@
                     android:id="@+id/tvIdentificacionVentaRegistro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
             </TableRow>
 
             <TableRow
@@ -55,7 +55,7 @@
                     android:id="@+id/tvNombreVentaRegistro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
             </TableRow>
 
             <TableRow
@@ -71,7 +71,7 @@
                     android:id="@+id/tvCupoVentaRegistro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
             </TableRow>
 
             <TableRow
@@ -88,7 +88,7 @@
                     android:id="@+id/tvFechaVentaRegistro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
             </TableRow>
 
             <TableRow
@@ -105,7 +105,7 @@
                     android:id="@+id/tvUsuarioVentaRegistro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
             </TableRow>
 
             <TableRow
@@ -116,14 +116,20 @@
                     android:id="@+id/textView41"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No. cilindros vendidos: " />
+                    android:text="Nro. cilindros: " />
 
                 <EditText
                     android:id="@+id/etCilindrosVentaRegistro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="3"
+                    android:ems="2"
                     android:inputType="number"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+                <TextView
+                    android:id="@+id/tvCilindrosVentaRegistro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
             </TableRow>
 
@@ -137,21 +143,40 @@
             android:layout_height="match_parent">
 
             <TableRow
+                android:id="@+id/trBotonesVenta"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
 
                 <Button
                     android:id="@+id/btnRegistrarVenta"
-                    android:layout_width="190dp"
+                    android:layout_width="170dp"
                     android:layout_height="71dp"
                     android:text="ACEPTAR" />
 
                 <Button
                     android:layout_marginLeft="20dp"
                     android:id="@+id/btnCancelarVenta"
-                    android:layout_width="190dp"
+                    android:layout_width="170dp"
                     android:layout_height="71dp"
                     android:text="CANCELAR" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/trBotonesNuevaVenta"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/btnNuevaVenta"
+                    android:layout_width="170dp"
+                    android:layout_height="71dp"
+                    android:text="NUEVA VENTA" />
             </TableRow>
 
         </TableLayout>

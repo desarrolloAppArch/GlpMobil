@@ -1,9 +1,10 @@
 package ec.gob.arch.glpmobil.entidades;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class VwCupoHogar {
-
+public class VwCupoHogar implements Serializable {
+    private Integer idSqlite;
     private Integer cmhAnio;
 
     private Integer cmhCodigo; //
@@ -24,6 +25,14 @@ public class VwCupoHogar {
     private String codigoRespuesta;
 
     public VwCupoHogar() {
+    }
+
+    public Integer getIdSqlite() {
+        return idSqlite;
+    }
+
+    public void setIdSqlite(Integer idSqlite) {
+        this.idSqlite = idSqlite;
     }
 
     public Integer getCmhAnio() {

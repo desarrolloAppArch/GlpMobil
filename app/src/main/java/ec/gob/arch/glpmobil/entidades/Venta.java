@@ -1,6 +1,8 @@
 package ec.gob.arch.glpmobil.entidades;
 
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,9 +20,22 @@ public class Venta implements Serializable {
     private Integer cantidad;
 
     //variables temporales solo para mostrar información
-    private Integer cupo;
+    private Integer cupoDisponible;
 
-
+    @Override
+    public String toString() {
+        return "VENTA [ id_sqlite:"+id_sqlite
+                +"  codigo_cupo_mes:"+codigo_cupo_mes
+                +"  usuario_venta:"+usuario_venta
+                +"  usuario_compra:"+usuario_compra
+                +"  nombre_compra:"+nombre_compra
+                +"  latitud:"+latitud
+                +"  longitud:"+longitud
+                +"  fecha_venta:"+fecha_venta
+                +"  fecha_modificacion:"+fecha_modificacion
+                +"  cantidad:"+cantidad
+                +" ]";
+    }
 
     public Integer getId_sqlite() {
         return id_sqlite;
@@ -102,11 +117,11 @@ public class Venta implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public Integer getCupo() {
-        return cupo;
+    public Integer getCupoDisponible() {
+        return cupoDisponible;
     }
 
-    public void setCupo(Integer cupo) {
-        this.cupo = cupo;
+    public void setCupoDisponible(Integer cupoDisponible) {
+        this.cupoDisponible = cupoDisponible;
     }
 }

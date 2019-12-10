@@ -12,4 +12,6 @@ public interface CtCupoHogar {
 	public static final String HOG_NUM_INTEGRANTES = "hog_num_integrantes";
 	public static final String HOG_PARROQUIA = "hog_parroquia";
 	public static final String HOG_NUMERO = "hog_numero";
+
+	public static final String CLAVE_CUPO_HOGAR= "CUPO_H";
 }

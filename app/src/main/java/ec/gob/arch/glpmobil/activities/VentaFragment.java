@@ -1,12 +1,16 @@
 package ec.gob.arch.glpmobil.activities;
 
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +20,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import ec.gob.arch.glpmobil.R;
+import ec.gob.arch.glpmobil.constantes.CtCupoHogar;
 import ec.gob.arch.glpmobil.constantes.CtVenta;
+import ec.gob.arch.glpmobil.entidades.VwCupoHogar;
 import ec.gob.arch.glpmobil.entidades.VwPersonaAutorizada;
 import ec.gob.arch.glpmobil.entidades.Venta;
 import ec.gob.arch.glpmobil.entidades.VwPersonaAutorizada;
+import ec.gob.arch.glpmobil.servicios.ServiciosCupoHogar;
 import ec.gob.arch.glpmobil.servicios.ServiciosPersona;
+import ec.gob.arch.glpmobil.sesion.ObjetoAplicacion;
 import ec.gob.arch.glpmobil.utils.MensajeError;
 import ec.gob.arch.glpmobil.utils.MensajeInfo;
 import ec.gob.arch.glpmobil.utils.TituloError;
@@ -42,10 +50,17 @@ public class VentaFragment extends Fragment{
     private EditText etCodigoLeidoFragment;
     private Button btnBuscarFragment;
     private Boolean seleccionoOpcionEscanear;
+    //Variable para guardar un número cualquiera, para identificar el permiso de la cámara
+    private static final int CODIGO_PERMISOS_CAMARA = 1001;
+    private EditText etFechaExpedicion;
+
+    private ObjetoAplicacion objetosSesion;
+
     /**
      * SERVICIOS
      */
     ServiciosPersona serviciosPersona;
+    ServiciosCupoHogar serviciosCupoHogar;
 
 
     /**
@@ -79,7 +94,11 @@ public class VentaFragment extends Fragment{
         tvCodigoLeidoFragment = vistaVentaFragment.findViewById(R.id.tvCodigoLeidoFragment);
         etCodigoLeidoFragment = vistaVentaFragment.findViewById(R.id.etCodigoLeidoFragment);
         etCodigoLeidoFragment.setVisibility(View.GONE);
+        etFechaExpedicion = vistaVentaFragment.findViewById(R.id.etFechaExpedicion);
         serviciosPersona = new ServiciosPersona(getContext());
+        serviciosCupoHogar = new ServiciosCupoHogar(getContext());
+        objetosSesion = (ObjetoAplicacion) getActivity().getApplication();
+        validarPermisoCamara();
 
 
         /**
@@ -135,7 +154,12 @@ public class VentaFragment extends Fragment{
                         identificacion=etCodigoLeidoFragment.getText().toString();
                     }
                     if(identificacion.compareTo("")!=0){
-                        buscarCupo(identificacion);
+                        if (etFechaExpedicion.getText().toString().compareTo("")!=0){
+                            buscarCupo(identificacion);
+                        }else{
+                            UtilMensajes.mostrarMsjError(MensajeError.VENTA_FECHA_NULL, TituloError.TITULO_ERROR, getContext());
+                        }
+
                     }else{
                         UtilMensajes.mostrarMsjError(MensajeError.VENTA_IDENTIFICACION_NULL, TituloError.TITULO_ERROR, getContext());
                     }
@@ -164,6 +188,23 @@ public class VentaFragment extends Fragment{
         etCodigoLeidoFragment.setText("");
         etCodigoLeidoFragment.setVisibility(View.GONE);
         tvCodigoLeidoFragment.setVisibility(View.VISIBLE);
+    }
+
+    public void validarPermisoCamara(){
+        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
+            //Entra si la app no tiene permisos a la cámara
+            if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),Manifest.permission.CAMERA)){
+                //En caso de haber rechazado la solicitud de permisos a la cámara y haber seleccionado "No volver a preguntar"
+                //Aquí debemos indicar que es necesario la activación de la cámara para escanear
+                Log.v("log_glp ----------> ", "INFO VentaFragment --> validarPermisoCamara() --> if)");
+                UtilMensajes.mostrarMsjError(MensajeError.VENTA_ACTIVAR_CAMARA_PARA_ESTA_APP, TituloError.TITULO_ERROR, getContext());
+            }else{
+                //Solicita al usuario permisos para la cámara para esta app
+                Log.v("log_glp ----------> ", "INFO VentaFragment --> validarPermisoCamara() --> else");
+                ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.CAMERA},CODIGO_PERMISOS_CAMARA);
+
+            }
+        }
     }
 
 
@@ -197,38 +238,71 @@ public class VentaFragment extends Fragment{
                 if(data!=null){
                     String codigo = data.getStringExtra("codigo");
                     tvCodigoLeidoFragment.setText(codigo);
-                    Log.v("log_glp ---------->", "INFO InicioActivity --> onActivityResult() --> codigo: "+codigo);
+                    Log.v("log_glp ---------->", "INFO VentaFragment --> onActivityResult() --> codigo: "+codigo);
 
                 }
             }
         }
     }
 
+    /**
+     * Método que busca el cupo de una persona autorizada a retirar
+     * @param identificacion
+     */
     public void buscarCupo(String identificacion){
-        //PROBAR CUANDO VANE ACABE DE REGISTRAR AL MENOS UNA PERSONA
         VwPersonaAutorizada persona = serviciosPersona.buscarPorIdentificacion(identificacion);
+        if(persona!=null){
+            if(!seleccionoOpcionEscanear){
+                Log.v("log_glp ---------->", "INFO VentaFragment --> buscarCupo() --> DIGITACION: "+persona.getPermitirDigitacionIden());
+                if (persona.getPermitirDigitacionIden().equals(1)){
+                    if(fechaExpedicionAceptada(persona)){
+                        VwCupoHogar cupoHogar = serviciosCupoHogar.buscarPorHogar(persona.getHogCodigo());
+                        if(cupoHogar!=null && cupoHogar.getCmhDisponible()>0){
+                            Log.v("log_glp ---------->", "INFO VentaFragment --> buscarCupo() --> CUPO DISPONIBLE: "+cupoHogar.getCmhDisponible());
+                            //Envio la venta seteado algunos datos, para completarlos en el siguiente fragment
+                            Venta venta = new Venta();
+                            venta.setUsuario_compra(persona.getNumeroDocumento());
+                            //venta.setUsuario_venta(objetosSesion.getUsuario().getId()); DESCOMENTAR AQUI
+                            venta.setUsuario_venta("07GLP-D0045");
+                            venta.setCupoDisponible(cupoHogar.getCmhDisponible());
+                            venta.setCodigo_cupo_mes(cupoHogar.getCmhCodigo());
+                            venta.setNombre_compra(persona.getApellidoNombre());
 
-        //Falta comprobar que la persona tenga cupo, hacer método en ServiciosCupoHogar
+                            //Creo un objeto Bundle para enviarlo al siguiente fragment
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable(CtVenta.CLAVE_CUPO_VENTA,venta);
+                            bundle.putSerializable(CtCupoHogar.CLAVE_CUPO_HOGAR, cupoHogar);
 
-        //--------------- SIMULO QUE ENCONTRO CUPO
-        //Envio la venta con todos los posibles datos en esta instancia, para completarlos en el siguiente fragment
-        Venta venta = new Venta();
-        venta.setUsuario_compra(identificacion);
-        //venta.setUsuario_venta(objetosSesion.getUsuario().getId());
-        venta.setUsuario_venta("09GLP-D0715");
-        venta.setCupo(4);
-        venta.setCodigo_cupo_mes(3);
-        venta.setNombre_compra("SORAYA MATUTE");
+                            VentaPaso2Fragment ventaPaso2Fragment = new VentaPaso2Fragment();
+                            ventaPaso2Fragment.setArguments(bundle);
 
-        //Creo un objeto Bundle para enviarlo al siguiente fragment
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(CtVenta.CLAVE_CUPO_VENTA,venta);
-        VentaPaso2Fragment ventaPaso2Fragment = new VentaPaso2Fragment();
-        ventaPaso2Fragment.setArguments(bundle);
+                            //Creo el siguiente fragment
+                            FragmentManager fm = getActivity().getSupportFragmentManager();
+                            fm.beginTransaction().replace(R.id.fragment, ventaPaso2Fragment).commit();
+                        }else{
+                            UtilMensajes.mostrarMsjInfo(MensajeInfo.VENTA_HOGAR_SIN_CUPO_DISPONIBLE, TituloInfo.TITULO_INFO, getContext());
+                        }
+                    }else{
+                        UtilMensajes.mostrarMsjError(MensajeError.VENTA_FECHA_NO_COINCIDE, TituloError.TITULO_ERROR, getContext());
+                    }
+                }else{
+                    UtilMensajes.mostrarMsjInfo(MensajeInfo.PERSONA_NO_AUTORIZADA_DIGITAR, TituloInfo.TITULO_INFO, getContext());
+                }
+            }
 
-        //Creo el siguiente fragment
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.fragment, ventaPaso2Fragment).commit();
+        }else{
+            UtilMensajes.mostrarMsjInfo(MensajeInfo.VENTA_IDENTIFICACION_NO_ENCONTRADA, TituloInfo.TITULO_INFO, getContext());
+        }
+    }
+
+    public boolean fechaExpedicionAceptada(VwPersonaAutorizada persona){
+        boolean aceptada=false;
+            String fechaConcatenada = persona.getFechaEmisionDocumentoAnio().toString()+persona.getFechaEmisionDocumentoMes().toString()+persona.getFechaEmisionDocumentoDia().toString();
+            if(etFechaExpedicion.getText().toString().equals(fechaConcatenada)){
+                aceptada=true;
+            }
+
+        return aceptada;
     }
 
 }

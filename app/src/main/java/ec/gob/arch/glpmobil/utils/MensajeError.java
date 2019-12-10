@@ -14,6 +14,8 @@ public interface MensajeError {
 
 	public static String CONEXION_NULL ="Compruebe su conexión de Internet para poder realizar esta acción";
 	public static String LOGIN_CONEXION_NULL ="Compruebe su conexión de Internet para poder logearse en línea";
+	public static String LOGIN_FALLO_CLAVE_NO_COINCIDE ="La clave no coincide. Compruebe su conexión de Internet y/o que los servicios de la ARCH se encuentren disponibles para validar si hubo reseteo clave";
+	public static String LOGIN_FALLO_OBLIGATORIO_LOGIN_EN_LINEA ="Usuario a registrarse por primera vez en este dispositivo, compruebe su conexión de Internet y/o que los servicios de la ARCH se encuentren disponibles";
 
 	public static String VENTA_NO_ACTUALIZADA ="Venta no actualizada";
 
@@ -27,4 +29,14 @@ public interface MensajeError {
     public static String SIN_RESULTADOS ="No hay cupos pendientes para descargar a la fecha actual";
     public static String SIN_RESPUESTA_WS ="El servicio No se encuentra disponible para descargas, comunicarse con soporte ARCH Telf. 023996500 ext. 5100";
 
+
+	public static String VENTA_ACTIVAR_CAMARA_PARA_ESTA_APP ="Es necesario que permita que esta app acceda a la cámara, para la venta de GLP";
+
+	public static String VENTA_FECHA_NULL ="Fecha de expedición es obligatoria";
+	public static String VENTA_FECHA_NO_COINCIDE ="Ingrese el número de cilindros vendidos";
+	public static String VENTA_NUMERO_CILINDROS_NULL ="Ingrese el número de cilindros vendidos";
+	public static String VENTA_NUMERO_CILINDROS_EXCEDE_PERMITIDO ="Número de cilindros excede el cupo permitido";
+	public static String VENTA_NO_REGISTRADA ="Venta no ha podido ser registrada, reportar error al 023 996 500 Ext. 5100";
+	public static String CUPO_NO_REGISTRADO ="Cupo no ha podido ser actualizado, reportar error al 023 996 500 Ext. 5100";
+	public static String VENTA_NO_ROLLBACK ="Problemas al realizar el ROLLBACK, reportar error al 023 996 500 Ext. 5100";
 }

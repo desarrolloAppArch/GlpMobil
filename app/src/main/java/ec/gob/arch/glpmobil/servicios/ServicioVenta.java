@@ -24,6 +24,8 @@ public class ServicioVenta extends ServicioBase {
             CtVenta.CANTIDAD
     };
 
+    String[] columnaIdSqlite = new String[]{CtVenta.ID_SQLITE};
+
     /**
      * Constructor
      *
@@ -35,7 +37,7 @@ public class ServicioVenta extends ServicioBase {
     }
 
 
-    public void insertarVenta(Venta venta){
+    public void insertarVenta(Venta venta) throws Exception{
         try {
             abrir();
             ContentValues cv = new ContentValues();
@@ -49,11 +51,13 @@ public class ServicioVenta extends ServicioBase {
             cv.put(CtVenta.CANTIDAD, venta.getCantidad());
 
             db.insert(CtVenta.TABLA_VENTA, null,cv);
-            Log.v("log_glp ---------->", "INFO ServicioVenta --> insertar() venta : "+ venta.getUsuario_compra());
-            cerrar();
+            Log.v("log_glp ---------->", "INFO ServicioVenta --> insertarVenta() : "+ venta);
+
         }catch (Exception e){
-            Log.v("log_glp ---------->", "ERROR: ServicioVenta --> insertar() venta : "+ venta.getUsuario_compra());
+            Log.v("log_glp ---------->", "ERROR: ServicioVenta --> insertarVenta() : "+ venta);
             e.printStackTrace();
+        }finally {
+            cerrar();
         }
     }
     public void eliminarVentasEnviadasPorUsuario(String usuarioVenta){
@@ -117,18 +121,18 @@ public class ServicioVenta extends ServicioBase {
 
 
     /**
-     * Busca las ventas por cliente
+     * Métodos que busca las ventas por cliente
      * @param identificacion
      * @return
      */
     public List<Venta> buscarVentaPorIdentificacion(String identificacion)
     {
-        List<Venta> listaVentas = null;
+        List<Venta> listaVentas = new ArrayList<>();
+        Cursor cursor = null;
         try {
-            listaVentas = new ArrayList<>();
             abrir();
             String condicion = CtVenta.USUARIO_COMPRA +"='"+identificacion+"'";
-            Cursor cursor = db.query(CtVenta.TABLA_VENTA, columnas, condicion, null, null, null,null);
+            cursor = db.query(CtVenta.TABLA_VENTA, columnas, condicion, null, null, null,null);
             cursor.moveToFirst();
             while (!cursor.isAfterLast())
             {
@@ -137,14 +141,20 @@ public class ServicioVenta extends ServicioBase {
                 cursor.moveToNext();
             }
             Log.v("log_glp ---------->", "INFO ServicioVenta --> buscarVentaPorIdentificacion(): "+identificacion+" , Nro. registros: "+ listaVentas.size());
-            cerrar();
         }catch (Exception e){
             e.printStackTrace();
             Log.v("log_glp ---------->", "ERROR ServicioVenta --> buscarVentaPorIdentificacion(): "+identificacion);
+        }finally {
+            if(cursor!=null){
+                cursor.close();
+                Log.v("log_glp ---------->", "INFO ServicioVenta --> buscarVentaPorIdentificacion() --> Cerrando cursor");
+            }
+            cerrar();
         }
         return  listaVentas;
 
     }
+
     public List<Venta> buscarVentaPorUsuarioVenta(String identificacion)
     {
         List<Venta> listaVentas = null;
@@ -189,6 +199,93 @@ public class ServicioVenta extends ServicioBase {
             Log.e("log_glp ---------->", "ERROR: ServicioVenta --> actualizar() : "+ ventaAActualizar);
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Método que busca una venta por su idSqlite
+     * @param idSqlite
+     * @return
+     */
+    public Venta buscarVentaPorIdSqlite(Integer idSqlite)
+    {
+       Venta ventaEncontrada = null;
+        Cursor cursor = null;
+        try {
+            abrir();
+            String condicion = CtVenta.ID_SQLITE +"='"+idSqlite+"'";
+            cursor = db.query(CtVenta.TABLA_VENTA, columnas, condicion, null, null, null,null);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast())
+            {
+                ventaEncontrada = new Venta();
+                ventaEncontrada = obtenerVenta(cursor);
+                cursor.moveToNext();
+            }
+            Log.v("log_glp ---------->", "INFO ServicioVenta --> buscarVentaPorIdSqlite(): "+ventaEncontrada);
+            cerrar();
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.v("log_glp ---------->", "ERROR ServicioVenta --> buscarVentaPorIdSqlite(): "+idSqlite);
+        }finally {
+            if(cursor!=null){
+                cursor.close();
+                Log.v("log_glp ---------->", "INFO ServicioVenta --> buscarVentaPorIdSqlite() --> Cerrando cursor");
+            }
+            cerrar();
+        }
+        return  ventaEncontrada;
+
+    }
+
+    /**
+     * Método que permite buscar el idSquile de la última venta insertada
+     * @return
+     * @throws Exception
+     * @autor soraya.matute
+     */
+    public int buscarIdUltimaVenta() throws Exception{
+        int idSqlite=0;
+        Cursor cursor = null;
+        try {
+            abrir();
+            cursor = db.query(CtVenta.TABLA_VENTA,columnaIdSqlite,null,null,null,null,null);
+            if(cursor.moveToLast()){
+                idSqlite = cursor.getInt(0);
+            }
+            Log.v("log_glp ---------->", "INFO ServicioVenta --> buscarIdUltimaVenta(): "+idSqlite);
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.v("log_glp ---------->", "ERROR ServicioVenta --> buscarIdUltimaVenta(): "+idSqlite);
+        } finally {
+            if(cursor!=null){
+                cursor.close();
+                Log.v("log_glp ---------->", "INFO ServicioVenta --> buscarIdUltimaVenta() --> Cerrando cursor");
+            }
+            cerrar();
+        }
+
+        return  idSqlite;
+    }
+
+
+    /**
+     * Método que elimina una venta de la base de datos del móvil
+     * @param venta
+     * @throws Exception
+     * @autor soraya.matute
+     */
+    public void eliminarVenta(Venta venta)throws Exception{
+        try{
+            abrir();
+            db.delete(CtVenta.TABLA_VENTA,CtVenta.ID_SQLITE+"="+venta.getId_sqlite(),null);
+            Log.v("log_glp ---------->", "INFO ServicioVenta --> eliminarVenta(): "+venta);
+        }catch (Exception e){
+            Log.v("log_glp ---------->", "ERROR ServicioVenta --> eliminarVenta(): "+venta);
+            e.printStackTrace();
+        }finally {
+            cerrar();
+        }
+
     }
 
 
