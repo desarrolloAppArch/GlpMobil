@@ -62,15 +62,15 @@ public class ServiciosUsuario extends ServicioBase {
             cv.put(CtUsuario.NOMBRE, usuario.getNombre());
             cv.put(CtUsuario.CLAVE, usuario.getClave());
 			cv.put(CtUsuario.RUC, usuario.getRuc());
-			cv.put(CtUsuario.RUC, usuario.getCorreo());
+			cv.put(CtUsuario.CORREO, usuario.getCorreo());
 
             String condicion = CtUsuario.ID+"='"+usuario.getId()+"'";
             if(db.update(CtUsuario.TABLA_USUARIO, cv, condicion, null ) != -1)
             {
-                Log.v("log_glp ---------->", "INFO ServiciosUsuario --> actualizar() SI actualizó usuario: "+ usuario.getNombre());
+                Log.v("log_glp ---------->", "INFO ServiciosUsuario --> actualizar() SI actualizó usuario: "+ usuario);
             }else
             {
-                Log.v("log_glp ---------->", "INFO ServiciosUsuario --> actualizar() NO actualizó usuario: "+ usuario.getNombre());
+                Log.v("log_glp ---------->", "INFO ServiciosUsuario --> actualizar() NO actualizó usuario: "+ usuario);
             }
 
             cerrar();

@@ -17,4 +17,9 @@ public interface ConstantesGenerales {
 	public final String CODIGO_RESPUESTA_USUARIO_YA_EXISTE = "001";
 
 	public static final int CODIGO_PERMISOS_CAMARA = 1, CODIGO_INTENT = 2;
+
+	public final String CODIGO_RESPUESTA_CLAVE_ACTUALIZADA_EXISTOSAMENTE = "000";
+	public final String CODIGO_RESPUESTA_USUARIO_NO_ENCONTRADO = "001";
+
+	public final String CODIGO_RESPUESTA_ERROR_SERVIDOR = "111";
 }

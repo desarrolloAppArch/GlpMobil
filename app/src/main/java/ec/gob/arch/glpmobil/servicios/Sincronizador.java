@@ -24,6 +24,7 @@ public class Sincronizador {
     private String url_ws_registrarUsuario;
     private String url_ws_consultaCupo;
     private String url_ws_ventas;
+    private String url_ws_actualizarUsuario;
 
     /**
      * Constructor
@@ -32,6 +33,7 @@ public class Sincronizador {
         url_ws_obtenerDistribuidores = getPathWsUsuario()+PathWebServices.METODO_OBTENER_DISTRIBUIDORES;
         url_ws_loginUsuario = getPathWsUsuario()+PathWebServices.METODO_LOGIN_USUARIO;
         url_ws_registrarUsuario = getPathWsUsuario()+PathWebServices.METODO_REGISTRAR_USUARIO;
+        url_ws_actualizarUsuario = getPathWsUsuario()+PathWebServices.METODO_ACTUALIZAR_USUARIO;
         url_ws_consultaCupo = getPathWsCupo()+PathWebServices.METODO_CONSULTA_CUPO;
         url_ws_ventas=getPathWsVentas()+PathWebServices.METODO_REGISTRO_VENTA;
     }
@@ -138,6 +140,31 @@ public class Sincronizador {
         }
         return clienteResultado;
     }
+
+
+    /**
+     * Método que invoca al ws que actualiza la clave
+     * @param cliente
+     * @return
+     */
+    public GeVwClientesGlp actualizarUsuarioWS(GeVwClientesGlp cliente){
+        GeVwClientesGlp clienteResultado=null;
+        try
+        {
+            Gson gson = new Gson();
+            String parametroPeticionWs = gson.toJson(cliente);
+            String respuestaWs = ClienteWebServices.recuperarObjetoGson(url_ws_actualizarUsuario,parametroPeticionWs);
+            clienteResultado = gson.fromJson(respuestaWs, GeVwClientesGlp.class);
+            Log.i("log_glp ---------->","INFO Sincronizador --> actualizarUsuarioWS() --> transformando el resultado en formato JSON a objeto GeVwClientesGlp");
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            clienteResultado=null;
+        }
+        return clienteResultado;
+    }
+
+
 
     /**
      * @author Vanessa Ponce

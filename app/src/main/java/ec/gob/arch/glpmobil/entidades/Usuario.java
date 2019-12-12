@@ -1,5 +1,7 @@
 package ec.gob.arch.glpmobil.entidades;
 
+import android.support.annotation.NonNull;
+
 public class Usuario {
 	
 	private int id_sqlite;
@@ -8,8 +10,19 @@ public class Usuario {
 	private String clave;
 	private String ruc;
 	private String correo;
-	
-	
+
+
+	@Override
+	public String toString() {
+		return "USUARIO[id_sqlite:"+id_sqlite
+				+"  id:"+id
+				+"  nombre:"+nombre
+				+"  clave:"+clave
+				+"  ruc:"+ruc
+				+"  correo:"+correo
+				+"]";
+	}
+
 	public int getId_sqlite() {
 		return id_sqlite;
 	}

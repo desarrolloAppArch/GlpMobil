@@ -16,6 +16,7 @@ public interface MensajeError {
 	public static String LOGIN_CONEXION_NULL ="Compruebe su conexión de Internet para poder logearse en línea";
 	public static String LOGIN_FALLO_CLAVE_NO_COINCIDE ="La clave no coincide. Compruebe su conexión de Internet y/o que los servicios de la ARCH se encuentren disponibles para validar si hubo reseteo clave";
 	public static String LOGIN_FALLO_OBLIGATORIO_LOGIN_EN_LINEA ="Usuario a registrarse por primera vez en este dispositivo, compruebe su conexión de Internet y/o que los servicios de la ARCH se encuentren disponibles";
+	public static String WEB_SERVICE_ERROR_SERVIDOR ="Error en el servidor, reportar a la mesa de ayuda de ARCH";
 
 	public static String VENTA_NO_ACTUALIZADA ="Venta no actualizada";
 
@@ -37,7 +38,11 @@ public interface MensajeError {
 	public static String VENTA_NUMERO_CILINDROS_NULL ="Ingrese el número de cilindros vendidos";
 	public static String VENTA_NUMERO_CILINDROS_EXCEDE_PERMITIDO ="Número de cilindros excede el cupo permitido";
 	public static String VENTA_NUMERO_CILINDROS_MAYOR_A_CERO ="Número de cilindros debe ser mayor a 0";
-	public static String VENTA_NO_REGISTRADA ="Venta no ha podido ser registrada, reportar error al 023 996 500 Ext. 5100";
-	public static String CUPO_NO_REGISTRADO ="Cupo no ha podido ser actualizado, reportar error al 023 996 500 Ext. 5100";
-	public static String VENTA_NO_ROLLBACK ="Problemas al realizar el ROLLBACK, reportar error al 023 996 500 Ext. 5100";
+	public static String VENTA_NO_REGISTRADA ="Venta no ha podido ser registrada, reportar a la mesa de ayuda de ARCH";
+	public static String CUPO_NO_REGISTRADO ="Cupo no ha podido ser actualizado, reportar a la mesa de ayuda de ARCH";
+	public static String VENTA_NO_ROLLBACK ="Problemas al realizar el ROLLBACK, reportar a la mesa de ayuda de ARCH";
+
+	public static String CLAVES_OBLIGATORIAS ="Ingresar la nueva clave y repetir la misma";
+	public static String CLAVES_NO_COINCIDEN ="Las claves ingresadas no coinciden, vuelva a digitar";
+	public static String CLAVES_MINIMO_CINCO_CARACTERES ="La nueva clave debe contener al menos 5 caracteres";
 }

@@ -20,4 +20,10 @@ public interface MensajeInfo {
 	public static String VENTA_HOGAR_SIN_CUPO_DISPONIBLE ="El hogar no tiene cupo disponible";
 	public static String VENTA_REGISTRADA_EXITOSAMENTE ="Venta registrada exitosamente";
 	public static String PERSONA_NO_AUTORIZADA_DIGITAR ="No se autoriza la digitación, debe escanear el documento de identidad";
+
+
+	public static String CLAVE_ACTUALIZADA_EXITOSAMENTE ="Clave actualizada exitosamente";
+	public static String USUARIO_NO_ENCONTRADO ="El usuario no se encontró en la base de la ARCH";
+
+
 }

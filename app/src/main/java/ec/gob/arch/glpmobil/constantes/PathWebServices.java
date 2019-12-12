@@ -18,6 +18,7 @@ public interface PathWebServices {
 	String METODO_OBTENER_DISTRIBUIDORES="/metodo-obtenerDistribuidores";
 	String METODO_LOGIN_USUARIO="/metodo-loginUsuario";
 	String METODO_REGISTRAR_USUARIO="/metodo-registrarUsuario";
+	String METODO_ACTUALIZAR_USUARIO="/metodo-cambiarClave";
 
     String WS_CUPO = "/ws-cupo";
     String METODO_CONSULTA_CUPO="/metodo-consultaCupo";

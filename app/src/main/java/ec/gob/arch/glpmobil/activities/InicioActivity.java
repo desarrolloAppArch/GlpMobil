@@ -1,6 +1,7 @@
 package ec.gob.arch.glpmobil.activities;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import ec.gob.arch.glpmobil.CambiarClaveFragment;
 import ec.gob.arch.glpmobil.R;
 
 public class InicioActivity extends AppCompatActivity {
@@ -72,8 +74,18 @@ public class InicioActivity extends AppCompatActivity {
         }else if(id == R.id.opcion_enviar_ventas)
         {
             Log.v("log_glp ---------->", "INFO InicioActivity --> onOptionsItemSelected(): dio clic en la opción: Enviar ventas");
-            Log.v("log_glp ---------->", "INFO RegistroVentaActivity --> onOptionsItemSelected(): dio clic en la opción: Enviar ventas");
             fm.beginTransaction().replace(R.id.fragment, new EnviarVentasFragment()).commit();// lleva al fragment
+        }else if(id == R.id.opcion_cambiar_clave)
+        {
+            CambiarClaveFragment cambiarClaveFragment = new CambiarClaveFragment();
+            fm.beginTransaction().replace(R.id.fragment,cambiarClaveFragment).commit();
+            Log.v("log_glp ---------->", "INFO InicioActivity --> onOptionsItemSelected(): dio clic en la opción: CAMBIAR CLAVE");
+        }
+        else if(id == R.id.cerrar_sesion)
+        {
+            Intent irLogin = new Intent(InicioActivity.this, LoginActivity.class);
+            startActivity(irLogin);
+            Log.v("log_glp ---------->", "INFO InicioActivity --> onOptionsItemSelected(): dio clic en la opción: CERRAR SESIÓN");
         }
         return super.onOptionsItemSelected(item);
 
