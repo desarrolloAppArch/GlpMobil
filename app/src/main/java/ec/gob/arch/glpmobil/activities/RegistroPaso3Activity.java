@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -65,6 +66,9 @@ public class RegistroPaso3Activity extends AppCompatActivity {
 
     private EditText etCorreo;
     private EditText etCorreoRepetido;
+    private TextView tvCorreo;
+    private TextView tvEtiquetaCorreoRepetir;
+    private Button btnAceptarRegistroUsuario;
 
     private ServiciosUsuario serviciosUsuario;
 
@@ -102,11 +106,22 @@ public class RegistroPaso3Activity extends AppCompatActivity {
 
         etCorreo = (EditText) findViewById(R.id.etCorreo);
         etCorreoRepetido = (EditText) findViewById(R.id.etCorreoRepetido);
+        tvCorreo = (TextView) findViewById(R.id.tvCorreo);
+        tvEtiquetaCorreoRepetir = (TextView)  findViewById(R.id.tvEtiquetaCorreoRepetir);
+        btnAceptarRegistroUsuario = (Button) findViewById(R.id.btnAceptarRegistroUsuario);
+
+        etCorreo.setVisibility(View.VISIBLE);
+        etCorreoRepetido.setVisibility(View.VISIBLE);
+        tvEtiquetaCorreoRepetir.setVisibility(View.VISIBLE);
+        btnAceptarRegistroUsuario.setVisibility(View.VISIBLE);
+        tvCorreo.setVisibility(View.GONE);
+
 
         mostrarSujetoSeleccionado();
 
         serviciosUsuario = new ServiciosUsuario(this);
     }
+
 
     public void mostrarSujetoSeleccionado(){
         tvTipoSujeto.setText(sujetoSeleccionado.getTipo());
@@ -179,6 +194,13 @@ public class RegistroPaso3Activity extends AppCompatActivity {
                     if(sujetoSeleccionado.getCodigoRespuesta().compareTo(ConstantesGenerales.CODIGO_RESPUESTA_USUARIO_REGISTRADO_EXISTOSAMENTE)==0)
                     {
                         insertar();
+                        tvCorreo.setText(etCorreo.getText());
+                        etCorreo.setVisibility(View.GONE);
+                        etCorreoRepetido.setVisibility(View.GONE);
+                        tvEtiquetaCorreoRepetir.setVisibility(View.GONE);
+                        btnAceptarRegistroUsuario.setVisibility(View.GONE);
+                        tvCorreo.setVisibility(View.VISIBLE);
+
                         UtilMensajes.mostrarMsjInfo(MensajeInfo.REGISTRO_EXITOSO, TituloInfo.TITULO_INFO, this);
                     }else if(sujetoSeleccionado.getCodigoRespuesta().compareTo(ConstantesGenerales.CODIGO_RESPUESTA_USUARIO_YA_EXISTE)==0)
                     {

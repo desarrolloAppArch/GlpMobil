@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
+    android:padding="15dp"
     android:orientation="vertical">
 
 
@@ -11,10 +11,10 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:padding="10dp"
+        android:padding="5dp"
         android:text="Inicio"
         android:onClick="irPaginaLogin"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
     <TableLayout
         android:layout_width="match_parent"
@@ -246,23 +246,42 @@
 
         </TableRow>
 
+    </TableLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/textView17"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Correo: "
-                android:textAppearance="@android:style/TextAppearance.Medium"/>
+                android:textAppearance="@android:style/TextAppearance.Medium" />
+
+            <TextView
+                android:id="@+id/tvCorreo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/etCorreo"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:textAppearance="@android:style/TextAppearance.Medium"/>
+                android:ems="16"
+                android:inputType="textWebEmailAddress"
+                android:textAppearance="@android:style/TextAppearance.Medium" />
 
         </TableRow>
 
@@ -271,28 +290,30 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvEtiquetaCorreoRepetir"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Correo (repetir): "
                 android:textAppearance="@android:style/TextAppearance.Medium" />
 
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
             <EditText
                 android:id="@+id/etCorreoRepetido"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
+                android:inputType="textWebEmailAddress"
+                android:ems="16"
                 android:textAppearance="@android:style/TextAppearance.Medium" />
+
         </TableRow>
 
     </TableLayout>
 
-
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -306,9 +327,9 @@
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/btnAceptarRegistroUsuario"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="71dp"
             android:layout_weight="1"
             android:text="ACEPTAR"
             android:onClick="registrarUsuario"/>

@@ -62,6 +62,7 @@ public class EnviarVentasFragment extends Fragment {
         super.onCreate(savedInstanceState);
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_enviar_ventas, container,false);
+        getActivity().setTitle(R.string.title_fragment_enviar_ventas);
         lvResumenVentas = (ListView)view.findViewById(R.id.lvResumenVentasEnviar);
         btnEnviarVentas=(Button)view.findViewById(R.id.btnEnviarVentas) ;
         //lvResumenVentas.setChoiceMode(ListView.CHOICE_MODE_SINGLE);

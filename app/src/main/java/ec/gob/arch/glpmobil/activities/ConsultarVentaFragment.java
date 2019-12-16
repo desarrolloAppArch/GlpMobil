@@ -54,6 +54,7 @@ public class ConsultarVentaFragment extends Fragment {
 
         //Al ser el fragment parte del Activity, puedo obtener el Activity con getActivity() ya que no esta directamente relacionado
         objetosSesion = (ObjetoAplicacion) getActivity().getApplication();
+        getActivity().setTitle(R.string.title_fragment_editar_venta);
 
         //Inicializar variables
         servicioVenta =  new ServicioVenta(getContext());

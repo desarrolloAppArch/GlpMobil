@@ -3,21 +3,23 @@ package ec.gob.arch.glpmobil.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import ec.gob.arch.glpmobil.CambiarClaveFragment;
 import ec.gob.arch.glpmobil.R;
+import ec.gob.arch.glpmobil.constantes.ConstantesGenerales;
+import ec.gob.arch.glpmobil.sesion.ObjetoAplicacion;
 
 public class InicioActivity extends AppCompatActivity {
+
+    private ObjetoAplicacion objetosSesion;
+    private TextView tvUsuarioEnSesion;
+    private TextView tvNombreUsuarioEnSesion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,15 +29,22 @@ public class InicioActivity extends AppCompatActivity {
         setContentView(R.layout.activity_inicio);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        tvUsuarioEnSesion = (TextView) findViewById(R.id.tvUsuarioEnSesion);
+        tvNombreUsuarioEnSesion = (TextView) findViewById(R.id.tvNombreUsuarioEnSesion);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        objetosSesion = (ObjetoAplicacion) getApplication();
+        tvUsuarioEnSesion.setText(objetosSesion.getUsuario().getId());
+        tvUsuarioEnSesion.setTextColor(getResources().getColor(R.color.colorPrimary));
+        tvNombreUsuarioEnSesion.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+        if (objetosSesion.getUsuario()!=null){
+            this.setTitle(R.string.app_name);
+            tvUsuarioEnSesion.setText(ConstantesGenerales.TITULO_CABECERA+objetosSesion.getUsuario().getId());
+            tvNombreUsuarioEnSesion.setText(objetosSesion.getUsuario().getNombre());
+        }else{
+            this.setTitle(R.string.app_name);
+            tvUsuarioEnSesion.setText(ConstantesGenerales.TITULO_CABECERA);
+        }
     }
 
 

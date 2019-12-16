@@ -74,6 +74,8 @@ public class VentaPaso2Fragment extends Fragment {
                              Bundle savedInstanceState) {
         Log.v("log_glp ----------> ", "INFO VentaPaso2Fragment --> onCreateView()");
         View view = inflater.inflate(R.layout.fragment_venta_paso2, container, false);
+        getActivity().setTitle(R.string.title_fragment_registrar_venta);
+
         tvIdentificacion = (TextView) view.findViewById(R.id.tvIdentificacionVentaRegistro);
         tvNombre = (TextView) view.findViewById(R.id.tvNombreVentaRegistro);
         tvCupo = (TextView) view.findViewById(R.id.tvCupoVentaRegistro);

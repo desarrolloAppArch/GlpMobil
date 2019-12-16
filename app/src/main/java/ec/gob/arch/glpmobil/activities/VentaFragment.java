@@ -88,6 +88,8 @@ public class VentaFragment extends Fragment{
          */
         Log.v("log_glp ----------> ", "INFO VentaFragment --> onCreateView()");
         View vistaVentaFragment = inflater.inflate(R.layout.fragment_venta, container, false);
+        getActivity().setTitle(R.string.title_fragment_registrar_venta);
+
         btnEscanearFragment = vistaVentaFragment.findViewById(R.id.btnEscanearFragment);
         btnDigitarFragment = vistaVentaFragment.findViewById(R.id.btnDigitarFragment);
         btnBuscarFragment = vistaVentaFragment.findViewById(R.id.btnBuscarFragment);
@@ -98,6 +100,7 @@ public class VentaFragment extends Fragment{
         serviciosPersona = new ServiciosPersona(getContext());
         serviciosCupoHogar = new ServiciosCupoHogar(getContext());
         objetosSesion = (ObjetoAplicacion) getActivity().getApplication();
+
         validarPermisoCamara();
 
 

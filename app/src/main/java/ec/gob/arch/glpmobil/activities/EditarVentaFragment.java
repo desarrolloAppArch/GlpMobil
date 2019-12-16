@@ -86,7 +86,7 @@ public class EditarVentaFragment extends Fragment {
 
         objetoSesion= (ObjetoAplicacion) getActivity().getApplication();//Objeto Sesion
         ventaSesion = objetoSesion.getVenta();
-
+        getActivity().setTitle(R.string.title_fragment_editar_venta);
 
 
         /**

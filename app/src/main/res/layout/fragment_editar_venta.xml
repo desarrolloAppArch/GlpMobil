@@ -6,14 +6,9 @@
     android:orientation="vertical"
     tools:context=".activities.EditarVentaFragment"
     android:id="@+id/fragment_editar_venta"
-    android:layout_margin="10dp">
+    android:layout_margin="15dp">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/title_fragment_editar_venta" />
 
     <TableLayout
         android:layout_marginTop="20dp"

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CambiarClaveFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activities.CambiarClaveFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,14 +12,8 @@
         android:orientation="vertical"
         android:layout_margin="15dp">
 
-        <TextView
-            android:id="@+id/textView40"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="CAMBIAR CLAVE"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
-
         <TableLayout
+            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -32,12 +27,20 @@
                     android:layout_height="wrap_content"
                     android:text="Nueva clave:" />
 
-                <EditText
-                    android:id="@+id/etClaveNueva1"
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPassword" />
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/colorAccent">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/etClaveNueva1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:ems="8"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                </android.support.design.widget.TextInputLayout>
+
             </TableRow>
 
             <TableRow
@@ -50,11 +53,12 @@
                     android:layout_height="wrap_content"
                     android:text="Nueva clave (repetir):" />
 
+
                 <EditText
                     android:id="@+id/etClaveNueva2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="10"
+                    android:ems="8"
                     android:inputType="textPassword" />
 
             </TableRow>

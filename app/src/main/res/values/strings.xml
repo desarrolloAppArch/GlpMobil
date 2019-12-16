@@ -1,27 +1,27 @@
 <resources>
-    <string name="app_name">GlpMobil</string>
+    <string name="app_name">ARCH GLP MÓVIL</string>
     <string name="titulo_activity_registro">PASO 1. BUSCAR SUJETO</string>
     <string name="titulo_activity_registro_paso2">PASO 2. SELECCIONAR SUJETO</string>
     <string name="titulo_activity_registro_paso3">PASO 3. COMPLETAR INFORMACION </string>
     <string name="titulo_activity_registro_paso4">PASO 4. ACEPTAR TÉRMINOS </string>
     <string name="ok">ACEPTAR</string>
-    <string name="title_activity_registro_venta">Registrar venta</string>
-    <string name="title_activity_usuario_sesion">Usuario: </string>
+
 
     <string name="opcion_registrar_venta">Registrar venta</string>
     <string name="opcion_editar_venta">Editar venta</string>
     <string name="opcion_enviar_ventas">Enviar ventas </string>
     <string name="opcion_actualizar_cupos">Actualizar cupos</string>
     <string name="title_activity_cliente_ws">ClienteWSActivity</string>
-    <string name="title_activity_cupos">SINCRONIZAR CUPOS</string>
+    <string name="title_activity_cupos">ACTUALIZAR CUPOS</string>
     <string name="title_activity_consulta_venta">ConsultaVentaActivity</string>
     <string name="title_activity_buscar_venta">BuscarVentaActivity</string>
-    <string name="title_fragment_enviar_ventas">VENTAS PENDIENTES DE ENVIAR</string>
+    <string name="title_fragment_enviar_ventas">ENVIAR VENTAS</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="title_fragment_consulta_venta">BUSCAR VENTA</string>
     <string name="title_fragment_editar_venta">EDITAR VENTA</string>
+    <string name="title_fragment_registrar_venta">REGISTRAR VENTA</string>
+    <string name="title_fragment_cambiar_clave">CAMBIAR CLAVE</string>
 
 
     <string name="selection">

@@ -22,4 +22,6 @@ public interface ConstantesGenerales {
 	public final String CODIGO_RESPUESTA_USUARIO_NO_ENCONTRADO = "001";
 
 	public final String CODIGO_RESPUESTA_ERROR_SERVIDOR = "111";
+
+	public final String TITULO_CABECERA = "Usuario: ";
 }

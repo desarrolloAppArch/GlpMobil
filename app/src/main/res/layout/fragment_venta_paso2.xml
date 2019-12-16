@@ -12,14 +12,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_marginTop="10dp"
-            android:id="@+id/textView31"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="DATOS VENTA"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
-
         <TableLayout
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
@@ -65,7 +57,7 @@
                     android:id="@+id/textView32"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cupo: "/>
+                    android:text="Cupo disponible: "/>
 
                 <TextView
                     android:id="@+id/tvCupoVentaRegistro"
