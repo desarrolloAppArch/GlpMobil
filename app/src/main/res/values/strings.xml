@@ -16,7 +16,7 @@
     <string name="title_activity_consulta_venta">ConsultaVentaActivity</string>
     <string name="title_activity_buscar_venta">BuscarVentaActivity</string>
     <string name="title_fragment_enviar_ventas">ENVIAR VENTAS</string>
-
+    <string name="title_fragment_historial_ventas">HISTORIAL VENTAS</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_fragment_editar_venta">EDITAR VENTA</string>
@@ -37,7 +37,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="btn_Actualizar">ACTUALIZAR</string>
-    <string name="regresar">Regresar</string>
+    <string name="regresar">Ir a ventas</string>
     <string-array name="spinnerDia">
         <item>01</item>
         <item>02</item>

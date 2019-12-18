@@ -99,7 +99,7 @@ public class HistorialSincronizaFragment extends Fragment {
         tvEstadoUltimo = view.findViewById(R.id.tvEstadoUltimo);
         lvCupoHogar = (ListView) view.findViewById(R.id.lvCupoHogar);
         if(accion.equals(ACCION_VENTAS)){
-            getActivity().setTitle(R.string.title_fragment_enviar_ventas);
+            getActivity().setTitle(R.string.title_fragment_historial_ventas);
             btnSincronizar.setVisibility(View.GONE);
             btnRegresar.setVisibility(View.VISIBLE);
             txtFechaUltimaAct.setVisibility(View.GONE);

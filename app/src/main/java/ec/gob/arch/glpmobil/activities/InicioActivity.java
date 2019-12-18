@@ -80,6 +80,16 @@ public class InicioActivity extends AppCompatActivity {
             historialSincronizaFragment.setArguments(bundle);
             fm.beginTransaction().replace(R.id.fragment, historialSincronizaFragment).commit();
 
+        }else if(id == R.id.opcion_historial_ventas)
+        {
+            Log.v("log_glp ---------->", "INFO InicioActivity --> onOptionsItemSelected(): dio clic en la opción: Actualizar cupos");
+
+            Bundle bundle = new Bundle();
+            bundle.putString("accion","1");
+            HistorialSincronizaFragment historialSincronizaFragment = new HistorialSincronizaFragment();
+            historialSincronizaFragment.setArguments(bundle);
+            fm.beginTransaction().replace(R.id.fragment, historialSincronizaFragment).commit();
+
         }else if(id == R.id.opcion_enviar_ventas)
         {
             Log.v("log_glp ---------->", "INFO InicioActivity --> onOptionsItemSelected(): dio clic en la opción: Enviar ventas");
