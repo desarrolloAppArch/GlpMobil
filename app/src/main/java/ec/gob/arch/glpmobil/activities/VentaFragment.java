@@ -259,7 +259,12 @@ public class VentaFragment extends Fragment{
                 Log.v("log_glp ---------->", "INFO VentaFragment --> buscarCupo() --> DIGITACION: "+persona.getPermitirDigitacionIden());
                 if (persona.getPermitirDigitacionIden().equals(1)){
                     if(fechaExpedicionAceptada(persona)){
-                        VwCupoHogar cupoHogar = serviciosCupoHogar.buscarPorHogar(persona.getHogCodigo());
+                        VwCupoHogar cupoHogar = null;
+                        try {
+                            cupoHogar = serviciosCupoHogar.buscarPorHogar(persona.getHogCodigo());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         if(cupoHogar!=null && cupoHogar.getCmhDisponible()>0){
                             Log.v("log_glp ---------->", "INFO VentaFragment --> buscarCupo() --> CUPO DISPONIBLE: "+cupoHogar.getCmhDisponible());
                             //Envio la venta seteado algunos datos, para completarlos en el siguiente fragment
