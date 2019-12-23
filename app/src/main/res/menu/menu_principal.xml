@@ -20,21 +20,21 @@
     <item
         android:id="@+id/opcion_actualizar_cupos"
         android:orderInCategory="100"
-        android:title="Actualizar cupos"
+        android:title="@string/opcion_actualizar_cupos"
         app:showAsAction="never" />
     <item
         android:id="@+id/opcion_historial_ventas"
         android:orderInCategory="100"
-        android:title="Historial envio ventas"
+        android:title="@string/opcion_historial"
         app:showAsAction="never" />
     <item
         android:id="@+id/opcion_cambiar_clave"
         android:orderInCategory="100"
-        android:title="Cambiar clave"
+        android:title="@string/opcion_cambiar_clave"
         app:showAsAction="never" />
     <item
         android:id="@+id/cerrar_sesion"
         android:orderInCategory="100"
-        android:title="Cerrar sesión"
+        android:title="@string/opcion_cerrar_sesion"
         app:showAsAction="never" />
 </menu>

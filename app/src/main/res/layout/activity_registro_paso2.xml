@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="5dp"
@@ -7,16 +8,31 @@
 
     <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/altoscroll"
         android:scrollbars="horizontal">
 
             <ListView
                 android:id="@+id/lvSujetos"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="wrap_content" >
 
             </ListView>
 
     </HorizontalScrollView>
+
+    <FrameLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+        <fragment
+            android:id="@+id/fragment_pie_registro2"
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom|end"
+            style="@style/pie"
+            android:name="ec.gob.arch.glpmobil.activities.PieFragment"
+            xmlns:tools="http://schemas.android.com/tools"
+            tools:layout="@layout/fragment_pie">
+        </fragment>
+
+    </FrameLayout>
 
 </LinearLayout>

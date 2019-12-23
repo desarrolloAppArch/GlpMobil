@@ -8,12 +8,13 @@ public interface PathWebServices {
 	/**
 	 * PATH_BASE DE PRUEBAS
 	 * http://localhost:8080/webServiceGlpMobilWeb/rest
-	 *
+	 * http://172.16.14.169:8080/webServiceGlpMobilWeb/rest
+	 * http://172:8080/webServiceGlpMobilWeb/rest
 	 *  PATH_BASE DE PRODUCCION
 	 * http://127.0.0.1:8080/webServiceGlpMobilWeb/rest
+	 *
 	 */
 
-    //String PATH_BASE="http://172.16.15.45:8080/webServiceGlpMobilWeb/rest";
 	String PATH_BASE="http://172.16.15.0:8080/webServiceGlpMobilWeb/rest";
 	String WS_USUARIO = "/ws-usuario";
 	String METODO_OBTENER_DISTRIBUIDORES="/metodo-obtenerDistribuidores";
@@ -31,6 +32,5 @@ public interface PathWebServices {
 
 
 
-
-
+	
 }

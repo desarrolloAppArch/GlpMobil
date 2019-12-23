@@ -92,4 +92,23 @@
         android:text="BUSCAR"
         android:textAppearance="@android:style/TextAppearance.Medium" />
 
+    <FrameLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+        <fragment
+            android:id="@+id/fragment_pie_registro1"
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom|end"
+            style="@style/pie"
+            android:name="ec.gob.arch.glpmobil.activities.PieFragment"
+            xmlns:tools="http://schemas.android.com/tools"
+            tools:layout="@layout/fragment_pie">
+        </fragment>
+
+    </FrameLayout>
+
+
 </LinearLayout>
+
+
+

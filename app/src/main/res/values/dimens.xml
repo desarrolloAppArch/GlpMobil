@@ -1,3 +1,10 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="altoBoton">71dp</dimen>
+
+    <dimen name="altoPie">31dp</dimen>
+
+    <dimen name="altoScroll">650dp</dimen>
+
 </resources>

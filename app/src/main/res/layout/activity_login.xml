@@ -96,9 +96,41 @@
                 android:onClick="ingresar"/>
 
         </TableRow>
+
+        <TableRow
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tvOlvidoClave"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Olvidó su clave!" />
+        </TableRow>
+
     </TableLayout>
 
+    <FrameLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+        <fragment
+            android:id="@+id/fragment_pie_registro1"
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom|end"
+            style="@style/pie"
+            android:name="ec.gob.arch.glpmobil.activities.PieFragment"
+            xmlns:tools="http://schemas.android.com/tools"
+            tools:layout="@layout/fragment_pie">
+        </fragment>
 
+    </FrameLayout>
 
 
 </RelativeLayout>

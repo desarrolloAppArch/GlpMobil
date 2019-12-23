@@ -104,6 +104,7 @@ public class InicioActivity extends AppCompatActivity {
         {
             Intent irLogin = new Intent(InicioActivity.this, LoginActivity.class);
             startActivity(irLogin);
+            onDestroy();
             Log.v("log_glp ---------->", "INFO InicioActivity --> onOptionsItemSelected(): dio clic en la opción: CERRAR SESIÓN");
         }
         return super.onOptionsItemSelected(item);

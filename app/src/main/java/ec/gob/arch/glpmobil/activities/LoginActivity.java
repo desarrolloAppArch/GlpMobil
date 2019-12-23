@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private TextView tvRegistrarse;
     private TextView tvSalir;
+    private TextView tvOlvidoClave;
 
     private String PREFERENCIAS_APP_XML ="MisPreferenciasGlp";
 
@@ -43,6 +44,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
         //Obtiene valor de preferencia (la primera ocasión en la app es por default true)
         boolean esPrimeraVez = getValuePrimeraVez(getApplicationContext());
@@ -61,10 +63,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         etClave = (EditText) findViewById(R.id.etClave);
         tvRegistrarse = (TextView) findViewById(R.id.tvRegistrarse);
         tvSalir = (TextView) findViewById(R.id.tvSalirLogin);
+        tvOlvidoClave = (TextView) findViewById(R.id.tvOlvidoClave);
+
         tvRegistrarse.setOnClickListener(this);
         tvRegistrarse.setTextColor(getResources().getColor(R.color.colorPrimary));
         tvSalir.setOnClickListener(this);
         tvSalir.setTextColor(getResources().getColor(R.color.colorPrimary));
+        tvOlvidoClave.setTextColor(getResources().getColor(R.color.colorPrimary));
+        tvOlvidoClave.setOnClickListener(this);
 
         serviciosUsuario = new ServiciosUsuario(this);
         objetosSesion = (ObjetoAplicacion) getApplication();
@@ -108,7 +114,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }else if(v.getId()==findViewById(R.id.tvSalirLogin).getId())
         {
             Log.v("log_glp ---------->", "INFO LoginActivity --> onClick(): dio clic en el link Salir");
-            finish();
+            Intent intentSalir = new Intent(Intent.ACTION_MAIN);
+            intentSalir.addCategory(Intent.CATEGORY_HOME);
+            intentSalir.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intentSalir);
+
+        }else if(v.getId()==findViewById(R.id.tvOlvidoClave).getId())
+        {
+            Intent irPaginaRecuperarClave =  new Intent(LoginActivity.this, RecuperarClaveActivity.class);
+            startActivity(irPaginaRecuperarClave);
+            Log.v("log_glp ---------->", "INFO LoginActivity --> onClick(): dio clic en el link Recuperar clave");
         }
 
     }
