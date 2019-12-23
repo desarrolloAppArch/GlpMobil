@@ -286,19 +286,27 @@ public class HistorialSincronizaFragment extends Fragment {
     }
 
     public boolean validarTablaVentaVacia(){
-        boolean estaVacia = true;
+        boolean estaVacia = false;
         servicioVenta = new ServicioVenta(getContext());
         List<Venta> venta =  servicioVenta.buscarTodos();
-        if (venta.size()>0){
-            estaVacia = false;
+        Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> validarTablaVentaVacia() --> venta.size() "+venta.size());
+        if (venta.isEmpty()){
+            estaVacia = true;
+        }
+        for (Venta v:venta){
+            Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> validarTablaVentaVacia() --> venta datos"+v.getUsuario_venta());
         }
 
         return estaVacia;
     }
 
+    /**
+     * Método que consulta en la tabla historial, la [ultima actualizacion de cupos
+     * @autor vanessa.ponce
+     */
     public void mostrarUltimoHistorialActualiza(){
         serviciosHistorialSincroniza= new ServiciosHistorialSincroniza(getContext());
-        HistorialSincronizacion ultimaActualizacion = serviciosHistorialSincroniza.buscarUltimo();
+        HistorialSincronizacion ultimaActualizacion = serviciosHistorialSincroniza.buscarUltimo(ACCION_CUPOS);
         if( null!=ultimaActualizacion){
             tvFechaUltimaAct.setText(ultimaActualizacion.getFecha_sincroniza());
             tvEstadoUltimo.setText(ultimaActualizacion.getDescripcionEstado());

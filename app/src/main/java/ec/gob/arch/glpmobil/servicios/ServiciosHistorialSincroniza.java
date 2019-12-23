@@ -88,12 +88,13 @@ public class ServiciosHistorialSincroniza extends ServicioBase{
         return lsHistorial;
     }
 
-    public HistorialSincronizacion buscarUltimo(){
+    public HistorialSincronizacion buscarUltimo(String accion){
         HistorialSincronizacion historialUltimo = null;
         try {
             abrir();
             String orderby = CtHistorialSincroniza.ID_SQLITE+" desc LIMIT 1";
-            Cursor cursor = db.query(CtHistorialSincroniza.TABLA_HISTORIAL, columnas, null, null, null, null, orderby);
+            String condicion = CtHistorialSincroniza.ACCION+ "='"+accion+"'" ;
+            Cursor cursor = db.query(CtHistorialSincroniza.TABLA_HISTORIAL, columnas, condicion, null, null, null, orderby);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 historialUltimo = obtenerHistorial(cursor);

@@ -22,6 +22,11 @@ public class ServiciosCupoHogar extends ServicioBase{
         Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> call CONSTRUCTOR ");
     }
 
+    /**
+     * Método que inserta los cupos actualizados en la tabla CUPO_HOGAR
+     * @param cupoHogar
+     * @autor vanessa.ponce
+     */
     public void insertar(VwCupoHogar cupoHogar) throws Exception {
         try {
             abrir();
@@ -33,11 +38,12 @@ public class ServiciosCupoHogar extends ServicioBase{
             cv.put(CtCupoHogar.MES, cupoHogar.getCmhMes());
             db.insert(CtCupoHogar.TABLA_CUPO_HOGAR, null,cv);
             Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> insertar() cupoHogar id: "+ cupoHogar.getCmhDisponible());
-            cerrar();
 
         }catch (Exception e) {
             Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> insertar() cupoHogar id: "+ cupoHogar.getHogNumero());
             e.printStackTrace();
+        }finally {
+            cerrar();
         }
     }
 
@@ -47,22 +53,28 @@ public class ServiciosCupoHogar extends ServicioBase{
      * @param hog_codigo
      * @return VwCupoHogar
      */
-    public VwCupoHogar buscarPorHogar(Integer hog_codigo){
+    public VwCupoHogar buscarPorHogar(Integer hog_codigo) throws Exception {
         VwCupoHogar cupoHogar = null;
+        Cursor cursor = null;
         try {
             abrir();
             String condicion = CtCupoHogar.HOG_CODIGO+"='"+hog_codigo+"'";
-            Cursor cursor = db.query(CtCupoHogar.TABLA_CUPO_HOGAR, columnas, condicion, null,null, null,null);
+            cursor = db.query(CtCupoHogar.TABLA_CUPO_HOGAR, columnas, condicion, null,null, null,null);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()){
                 cupoHogar = obtenerCupoHogar(cursor);
                 cursor.moveToNext();
             }
-            cerrar();
             Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> buscarPorIdentificacion() --> RESULTADO ENCONTRADO DE: "+hog_codigo);
         }catch (Exception e){
             Log.v("log_glp ---------->", "ERROR ServiciosCupoHogar --> buscarPorIdentificacion() --> EXCEPCION AL BUSCAR: "+hog_codigo);
             e.printStackTrace();
+        }finally {
+            if(cursor!=null){
+                cursor.close();
+                Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> buscarPorIdentificacion() --> Cerrando cursor");
+            }
+            cerrar();
         }
         return  cupoHogar;
     }

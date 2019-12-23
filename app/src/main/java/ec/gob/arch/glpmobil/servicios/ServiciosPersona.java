@@ -58,11 +58,11 @@ public class ServiciosPersona extends ServicioBase {
     }
 
 
-    public void insertar(VwPersonaAutorizada personaAutorizada){
+    public void insertar(VwPersonaAutorizada personaAutorizada) throws Exception {
         try {
             abrir();
             ContentValues cv = new ContentValues();
-
+            
             cv.put(CtPersona.ID, personaAutorizada.getCodigo());
             cv.put(CtPersona.HOG_CODIGO, personaAutorizada.getHogCodigo());
             cv.put(CtPersona.NOMBRE, personaAutorizada.getApellidoNombre());
@@ -73,11 +73,12 @@ public class ServiciosPersona extends ServicioBase {
             cv.put(CtPersona.PERMITE_DIGITACION_IDEN, personaAutorizada.getPermitirDigitacionIden());
             db.insert(CtPersona.TABLA_PERSONA, null,cv);
             Log.v("log_glp ---------->", "INFO ServiciosPersona --> insertar() persona id: "+ personaAutorizada.getNumeroDocumento());
-            cerrar();
 
         }catch (Exception e) {
             Log.v("log_glp ---------->", "ERROR ServiciosPersona --> insertar() persona id: "+ personaAutorizada.getNumeroDocumento());
             e.printStackTrace();
+        }finally {
+            cerrar();
         }
     }
 
