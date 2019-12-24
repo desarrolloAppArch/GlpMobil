@@ -11,6 +11,17 @@ import java.util.Date;
 import java.util.Calendar;
 
 public class Convertidor {
+
+    //Mètodo para validar el paso de los 3 minutos
+    public static boolean comprobar(String hActual, String hVenta, String hLimite) throws ParseException {
+        Date actual = new SimpleDateFormat("HH:mm").parse(hActual.trim());
+        Date venta = new SimpleDateFormat("HH:mm").parse(hVenta.trim());
+        Date lmite = new SimpleDateFormat("HH:mm").parse(hLimite.trim());
+        if (actual.after(venta) && actual.before(lmite)) {
+            return true;
+        }
+        return false;
+    }
 	
 	/**
 	 * Captura fecha y hora del Sistema en Date
@@ -27,10 +38,8 @@ public class Convertidor {
 	public static Timestamp horafechaSistemaTimestamp(){
         return new Timestamp(System.currentTimeMillis());
     }
-	
-	
-	
-	/**
+
+    /**
 	 * Captura fecha y hora del Sistema en Time
 	 * @return HH:mm:ss
 	 */
@@ -290,7 +299,6 @@ public class Convertidor {
 	                   cal.setTime(fecha);	
 	                   cal.add(Calendar.MONTH, meses);	
 	                   return cal.getTime();
-	
 	    }	
 	
 	

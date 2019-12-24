@@ -19,7 +19,8 @@ public interface MensajeError {
 	public static String WEB_SERVICE_ERROR_SERVIDOR ="Error en el servidor, reportar a la mesa de ayuda de ARCH";
 
 	public static String VENTA_NO_ACTUALIZADA ="Venta no actualizada";
-
+    public static String VENTA_NO_ACTUALIZADA_HORA = "Venta no actualizada porque excedió el límite de tiempo de 3 minutos";
+    public static String VENTA_NO_ACTUALIZADA_FECHA = "Venta no actualizada porque no es la misma fecha de la venta";
 
 	public static String VENTA_IDENTIFICACION_NULL ="Digitar o escanear la identificación";
 

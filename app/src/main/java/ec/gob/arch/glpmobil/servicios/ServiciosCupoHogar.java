@@ -48,6 +48,30 @@ public class ServiciosCupoHogar extends ServicioBase{
     }
 
 
+    //Método que busca el cupo disponible de un hogar
+
+    public VwCupoHogar buscarPorCupo(Integer id) throws Exception {
+        VwCupoHogar cupoDisponible = null;
+        try {
+            abrir();
+            String condicion = CtCupoHogar.ID + "='" + id + "'";
+            Cursor cursor = db.query(CtCupoHogar.TABLA_CUPO_HOGAR, columnas, condicion, null, null, null, null);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                cupoDisponible = obtenerCupoHogar(cursor);
+                cursor.moveToNext();
+            }
+            Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> buscarPorCupo() --> RESULTADO ENCONTRADO DE: " + id);
+        } catch (Exception e) {
+            Log.v("log_glp ---------->", "ERROR ServiciosCupoHogar --> buscarPorCupo() --> EXCEPCION AL BUSCAR: " + id);
+            e.printStackTrace();
+        } finally {
+            cerrar();
+        }
+        return cupoDisponible;
+    }
+
+
     /**
      * Método que busca el cupo de un hogar
      * @param hog_codigo
@@ -108,7 +132,6 @@ public class ServiciosCupoHogar extends ServicioBase{
         }catch (Exception e){
             Log.v("log_glp ---------->", "ERROR ServiciosCupoHogar --> actualizar() --> HOGAR: "+ cupoHogar.getIdSqlite());
             e.printStackTrace();
-
         }
 
     }

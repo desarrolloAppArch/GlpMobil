@@ -11,9 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.google.zxing.Result;
-
 import ec.gob.arch.glpmobil.R;
 import ec.gob.arch.glpmobil.constantes.ConstantesGenerales;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -93,6 +91,7 @@ public class zxingscanner implements ZXingScannerView.ResultHandler{
             }
             break;
         }
+
     }
 
 
@@ -108,4 +107,5 @@ public class zxingscanner implements ZXingScannerView.ResultHandler{
                     new String[]{Manifest.permission.CAMERA}, ConstantesGenerales.CODIGO_PERMISOS_CAMARA);
         }
     }
+
 }

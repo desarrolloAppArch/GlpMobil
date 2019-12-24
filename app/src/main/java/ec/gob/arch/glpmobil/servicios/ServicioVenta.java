@@ -8,6 +8,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import ec.gob.arch.glpmobil.constantes.CtCupoHogar;
 import ec.gob.arch.glpmobil.constantes.CtVenta;
 import ec.gob.arch.glpmobil.entidades.Venta;
 
@@ -128,9 +129,6 @@ public class ServicioVenta extends ServicioBase {
         return venta;
 
     }
-
-
-
     /**
      * Métodos que busca las ventas por cliente
      * @param identificacion
@@ -197,7 +195,8 @@ public class ServicioVenta extends ServicioBase {
         return  listaVentas;
 
     }
-    // Método para actalizar la base de datos
+
+    // Método para actalizar la venta en la base de datos
     public void actualizar( Venta ventaAActualizar ){
 
         int idSqlite = ventaAActualizar.getId_sqlite();
@@ -218,6 +217,7 @@ public class ServicioVenta extends ServicioBase {
             e.printStackTrace();
         }
     }
+
 
     /**
      * Método que busca una venta por su idSqlite
@@ -305,6 +305,4 @@ public class ServicioVenta extends ServicioBase {
         }
 
     }
-
-
 }

@@ -19,6 +19,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.sql.Date;
+import java.util.Calendar;
+
 import ec.gob.arch.glpmobil.R;
 import ec.gob.arch.glpmobil.constantes.CtCupoHogar;
 import ec.gob.arch.glpmobil.constantes.CtVenta;
@@ -144,6 +147,7 @@ public class VentaFragment extends Fragment{
              * Método que permite buscar si la identificación tiene cupo disponible en un hogar
              * @param v
              */
+
             @Override
             public void onClick(View v) {
                 Log.v("log_glp ----------> ", "INFO VentaFragment --> onCreateView() --> btnBuscarFragment.setOnClickListener()");
@@ -225,7 +229,7 @@ public class VentaFragment extends Fragment{
 
     /**
      * Cuando el usuario termina de utilizar la actividad subsiguiente y muestra un resultado,
-     * el sistema invoca al método onActivityResult() de tu actividad (en este cado de este fragment)
+     * el sistema invoca al método onActivityResult() de tu actividad (en este caso de este fragment)
      * Método utilizado para iteractuar con otras apps como la cámara
      * @param requestCode El código de solicitud que transferiste a startActivityForResult()
      * @param resultCode Un código de resultado especificado por la segunda actividad
