@@ -48,14 +48,13 @@ public class EditarVentaFragment extends Fragment {
     private TextView etCilindros;
     private TextView tvCupoDisponible;
     private Venta venta;
-
-    private Venta ventaSesion = null;
-
     private ObjetoAplicacion objetoSesion;
 
     private ServiciosCupoHogar serviciosCupoHogar;
     private ServicioVenta servicioVenta;
     private VwCupoHogar cupoHogar;
+    private int numeroCilindrosAux;
+
 
     /**
      * Es el primero en ejecutarse, antes del onCreateView()
@@ -91,7 +90,7 @@ public class EditarVentaFragment extends Fragment {
         tvFecha = (TextView) view.findViewById(R.id.tvFechaSeleccionada);
         tvUsuarioVenta = (TextView) view.findViewById(R.id.tvUsuarioVentaSeleccionada);
         etCilindros = (EditText) view.findViewById(R.id.etCilindrosSeleccionada);
-        tvCupoDisponible = (TextView) view.findViewById(R.id.cupoDisponible);
+        tvCupoDisponible = (TextView) view.findViewById(R.id.tvCupoDisponibleSelecionada);
 
         //LLeno la vista con la información de la venta seleccionada en el fragment anterior
         tvIdentificacion.setText(venta.getUsuario_compra());
@@ -103,22 +102,19 @@ public class EditarVentaFragment extends Fragment {
 
 
         try {
-            tvCupoDisponible.setText(String.valueOf((serviciosCupoHogar.buscarPorCupo(venta.getCodigo_cupo_mes()))));//agrego el cupo disponible a la vista
+            cupoHogar = serviciosCupoHogar.buscarPorCupo(venta.getCodigo_cupo_mes());
+            tvCupoDisponible.setText(cupoHogar.getCmhDisponible().toString());//agrego el cupo disponible a la vista
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.i("log_glp_cupoDisponible", "EL CUPO DISPONIBLE ES: " + tvCupoDisponible.toString());
-
         objetoSesion= (ObjetoAplicacion) getActivity().getApplication();//Objeto Sesion
-        ventaSesion = objetoSesion.getVenta();
         getActivity().setTitle(R.string.title_fragment_editar_venta);
         serviciosCupoHogar = new ServiciosCupoHogar(getContext());
         servicioVenta = new ServicioVenta(getContext());
 
-
         //Valida la cantidad a la que cambia el número de cilindros
-/*        int numeroCilindrosAux = venta.getCantidad();
-        numeroCilindrosAux = numeroCilindrosAux+venta.getCupoDisponible();*/
+        numeroCilindrosAux = venta.getCantidad();
+
 
 
 
@@ -147,145 +143,88 @@ public class EditarVentaFragment extends Fragment {
                //actualizar(ventaSesion);
                 Log.v("log_glp_cupo ---->","INFO EditarVentaFragment --> "+ venta.getCantidad() );
 
+               /* cupoHogar.setCmhDisponible(24);
+                try {
+                    serviciosCupoHogar.actualizar(cupoHogar);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }*/
 
                 int cantidadNueva;
                 int diferencia = 0;
-                cantidadNueva = Integer.valueOf(etCilindros.getText().toString());
-                diferencia = venta.getCantidad() - cantidadNueva;
                 if (etCilindros.getText().toString().compareTo("") != 0) {
+                    cantidadNueva = Integer.valueOf(etCilindros.getText().toString());
+                    if (cantidadNueva > 0) {
+                        diferencia = venta.getCantidad() - cantidadNueva;
+                        if (diferencia < 0) {
+                            //AUMENTA CILINDROS EN LA VENTA
+                            diferencia = Math.abs(diferencia);
+                            Log.i("Log_glp------>", "LA DIFERENCIA EN VALOR ABSOLUTO ES: " + diferencia);
+                            Log.i("Log_glp------>", "EL CUPO DISPONIBLE DEL HOGAR ES: " + cupoHogar.getCmhDisponible());
+                            try {
+                                //La nueva cantidad es superior a la de la venta original
+                                //Es necesario comprobar si dispone de cupo
+                                if (cupoHogar.getCmhDisponible() >= diferencia) {
+                                    //permite la edidcion
+                                    venta.setCantidad(Integer.valueOf(etCilindros.getText().toString()));
+                                    venta.setFecha_modificacion(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
+                                    //Disminuir al hogar
+                                    cupoHogar.setCmhDisponible(cupoHogar.getCmhDisponible() - diferencia);
+                                    actualizarVentaCupo();
 
-                    if (diferencia < 0) {
-                        //AUMENTA CILINDROS
-                        // venta.setCupoDisponible(cantidadNueva);
-                        //cupoHogar.setCmhDisponible(venta.getCupoDisponible()+cantidadNueva);
-
-
-                        try {
-                            //La nueva cantidad es superior a la de la venta original
-                            //Es necesario comprobar si dispone de cupo
-                            if (cantidadNueva > venta.getCupoDisponible()) {
-                                Log.i("log_glp_cupo ---->", "PUEDE HACER LA VENTA PORQUE TODAVIA DISPONE DE CUPO");
-                                Log.i("log_glp_cupo ---->", "LA CANTIDAD NUEVA ES:" + etCilindros.getText().toString());
-                                Log.i("log_glp_cupo ---->", "EL CUPO DISPONIBLE ES:" + venta.getCupoDisponible());
-                            } else {
-                                Log.i("log_glp_cupo ---->", "NO PUEDE HACER LA VENTA PORQUE LA CANTIDAD ES MAYOR A LA DEL CUPO DISPONIBLE");
-                            }
-
-                            VwCupoHogar cupoHogar = serviciosCupoHogar.buscarPorCupo(venta.getCodigo_cupo_mes());
-                            if (cupoHogar.getCmhDisponible() <= diferencia) {
-                                //permite la edidcion
-                                venta.setCantidad(Integer.valueOf(etCilindros.getText().toString()));
-                                venta.setFecha_modificacion(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
-
-                                //Disminuir al hogar
-                                //  cupoHogar.setCmhDisponible(venta.getCupoDisponible() - cantidadNueva);
-
-
-                            } else {
-                                //mensaje
-                                //hacer la comparación para que no exceda el cupo disponible
-                                if (cantidadNueva > venta.getCupoDisponible()) {
-                                    UtilMensajes.mostrarMsjError(MensajeError.VENTA_NUMERO_CILINDROS_EXCEDE_PERMITIDO, TituloError.TITULO_ERROR, getContext());
                                 } else {
                                     UtilMensajes.mostrarMsjError(MensajeError.VENTA_NUMERO_CILINDROS_EXCEDE_PERMITIDO, TituloError.TITULO_ERROR, getContext());
                                 }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                //mensaje mesa ayuda
+                                UtilMensajes.mostrarMsjError(MensajeError.CUPO_NO_REGISTRADO, TituloError.TITULO_ERROR, getContext());
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            //mensaje mesa ayuda
-                            UtilMensajes.mostrarMsjError(MensajeError.CUPO_NO_REGISTRADO, TituloError.TITULO_ERROR, getContext());
+                        } else if (diferencia > 0) {
+
+                            //DISMINUYE CILINDROS en venta, por tanto aumento cupo al hogar
+                            venta.setCantidad(cantidadNueva);
+                            cupoHogar.setCmhDisponible(cupoHogar.getCmhDisponible() + diferencia);
+                            actualizarVentaCupo();
+                        } else if (diferencia == 0) {
+                            UtilMensajes.mostrarMsjInfo(MensajeInfo.VENTA_SIN_EDICION, TituloInfo.TITULO_INFO, getContext());
                         }
                     } else {
-                        //DISMINUYE CILINDROS, por tanto aumento al hogar
-                        //   cupoHogar.setCmhDisponible(venta.getCupoDisponible()-cantidadNueva);
-
+                        UtilMensajes.mostrarMsjError(MensajeError.VENTA_NUMERO_CILINDROS_NULL, TituloError.TITULO_ERROR, getContext());
                     }
-
-                    //Setear datos venta para enviar a actualizar
-
-
-                    //Actualizar en la base de datos
-                    try {
-                        servicioVenta.actualizar(venta);
-                        Log.i("log_glp ---------->", "INFO: EditarVentaFragment --> actualizar() : " + servicioVenta);
-
-                        //actualizar hogar
-
-
-                    } catch (Exception e) {
-                        Log.e("log_glp ---------->", "ERROR: EditarVentaFragment --> actualizar() : " + venta.getId_sqlite());
-                        e.printStackTrace();
-                    }
-
-                    // Imprimo en consola la fecha de la venta (falta probar si me imprime la fecha en la que se ingresa el registro de la venta)
-                    Log.v("Log_glp_reloj------->", "La fecha de la venta es igual:" + venta.getFecha_venta());
-
-                    //Regresa al fragment EditarVentaFragment
-                    FragmentManager fm = getActivity().getSupportFragmentManager();
-                    fm.beginTransaction().replace(R.id.fragment, new ConsultarVentaFragment()).commit();
                 } else {
                     UtilMensajes.mostrarMsjError(MensajeError.VENTA_NUMERO_CILINDROS_NULL, TituloError.TITULO_ERROR, getContext());
                 }
-
-                //comprueba la hora en la que se quiere editar la venta
-                //variables para la validación de la fecha
-                String fechaVenta = venta.getFecha_venta().substring(0, 10);//Asigno a la variable fechaVenta la fecha de la venta para poder extraer la fecha
-                String fechaLimite = fechaVenta;
-                Log.i("Log_glp------>", "LA FECHA DE LA VENTA ES: " + fechaVenta);
-
-                //variables para la validación de los 3 minutos
-                /* Eliminar para las variables
-                int tiempoEspera = 3;//tiempo de espera en minutos para que pueda hacer el cambio de la venta
-                String horaActual = Convertidor.horafechaSistemaTimestamp().toString().substring(10,19);
-                String horaVenta;
-                String horaLimite;
-                horaVenta=venta.getFecha_venta().substring(10,19);
-                Log.i("Log_glp------>","LA HORA DE LA VENTA ES IGUAL: "+horaVenta);
-
-                Calendar cal = Calendar.getInstance();
-                Date tempDate = cal.getTime();
-                Log.i("Log_glp------>","LA FECHA DEL TEMPDATE ES IGUAL: "+tempDate);
-                cal.setTime(new Date());
-                cal.set(Calendar.MINUTE, cal.get(Calendar.MINUTE)+ tiempoEspera);
-                tempDate = cal.getTime();
-                horaLimite = tempDate.toString().substring(10,19);
-                eliminar para las variables*/
-
-
-                //Valida la fecha
-                /* eliminar para las sentencias
-                if (fechaLimite == fechaVenta){
-                        Log.i("Log_glp------>","PUEDE ACTUALIZAR PORQUE LA FECHA DE LA VENTA ESTA DENTRO DEL RANGO");
-                        Log.i("Log_glp------>","LA FECHA DE LA VENTA ES IGUAL: "+fechaVenta);
-                        //valida la hora
-                    try {
-                        if(Convertidor.comprobar(horaActual,horaVenta,horaLimite)== true){
-                            UtilMensajes.mostrarMsjInfo(MensajeInfo.VENTA_ACTUALIZADA_OK, TituloInfo.TITULO_INFO, getContext());
-                            Log.i("Log_glp------>","LA HORA ESTA DENTRO DEL LIMITE Y PUEDE HACER LA EDICION DE LA VENTA");
-                            Log.i("Log_glp------>","LA HORA ACTUAL ES:"+horaActual);
-                            Log.i("Log_glp------>","LA HORA LIMITE PARA REALIZAR LA EDICION ES: "+horaLimite);
-                        }
-                        else{
-                            UtilMensajes.mostrarMsjError(MensajeError.VENTA_NO_ACTUALIZADA_HORA, TituloError.TITULO_ERROR,getContext());
-                            Log.i("Log_glp------>","LA HORA ESTA FUERA DEL LIMITE DE TIEMPO NO PUEDE HACER LA EDICION DE LA VENTA");
-                            Log.i("Log_glp------>","LA HORA ACTUAL ES:"+horaActual);
-                            Log.i("Log_glp------>","LA HORA LIMITE PARA REALIZAR LA EDICION ES: "+horaLimite);
-                        }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-
-                }else{
-                    Log.i("Log_glp------>","NO PUEDE ACTUALIZAR PORQUE LA FECHA Actual NO ES IGUAL A LA FECHA DE LA VENTA");
-                    UtilMensajes.mostrarMsjError(MensajeError.VENTA_NO_ACTUALIZADA_FECHA, TituloError.TITULO_ERROR,getContext());
-                }
-                eliminar para las sentencias */
 
             }
         });
 
         return view;
     }
+
+
+    //
+    public void actualizarVentaCupo() {
+        //Actualización en base de datos y en la interfaz del usuario
+        try {
+            servicioVenta.actualizar(venta);
+            try {
+                serviciosCupoHogar.actualizar(cupoHogar);
+                UtilMensajes.mostrarMsjInfo(MensajeInfo.VENTA_ACTUALIZADA_OK, TituloInfo.TITULO_INFO, getContext());
+                tvCupoDisponible.setText(cupoHogar.getCmhDisponible().toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                venta.setCantidad(numeroCilindrosAux);
+                servicioVenta.actualizar(venta);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
     // método que actualiza la tabla venta
     public void actualizar(Venta venta){
         try {
