@@ -261,7 +261,7 @@ public class VentaFragment extends Fragment{
         if(persona!=null){
             if(!seleccionoOpcionEscanear){
                 Log.v("log_glp ---------->", "INFO VentaFragment --> buscarCupo() --> DIGITACION: "+persona.getPermitirDigitacionIden());
-                if (persona.getPermitirDigitacionIden().equals(1)){
+                if (persona.getPermitirDigitacionIden().equals(0)){
                     if(fechaExpedicionAceptada(persona)){
                         VwCupoHogar cupoHogar = null;
                         try {

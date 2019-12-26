@@ -128,11 +128,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    /*
     public void irPaginaInicioPruebas(View v){
         Intent irPaginaInicio = new Intent(LoginActivity.this, InicioActivity.class);
         startActivity(irPaginaInicio);
     }
-
+    */
 
 
     /**
