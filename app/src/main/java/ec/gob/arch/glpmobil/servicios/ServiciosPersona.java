@@ -5,6 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import ec.gob.arch.glpmobil.constantes.CtCupoHogar;
 import ec.gob.arch.glpmobil.constantes.CtPersona;
 import ec.gob.arch.glpmobil.constantes.CtVenta;
 import ec.gob.arch.glpmobil.entidades.VwPersonaAutorizada;
@@ -72,7 +76,8 @@ public class ServiciosPersona extends ServicioBase {
             cv.put(CtPersona.FECHA_EMISION_DOCUMENTO_DIA, personaAutorizada.getFechaEmisionDocumentoDia());
             cv.put(CtPersona.PERMITE_DIGITACION_IDEN, personaAutorizada.getPermitirDigitacionIden());
             db.insert(CtPersona.TABLA_PERSONA, null,cv);
-            Log.v("log_glp ---------->", "INFO ServiciosPersona --> insertar() persona id: "+ personaAutorizada.getNumeroDocumento());
+            Log.v("log_glp ---------->", "INFO ServiciosPersona --> insertar() persona id: "+ personaAutorizada.getNumeroDocumento()+"/"+personaAutorizada.getFechaEmisionDocumentoAnio()+personaAutorizada.getFechaEmisionDocumentoMes()+personaAutorizada.getFechaEmisionDocumentoDia());
+
 
         }catch (Exception e) {
             Log.v("log_glp ---------->", "ERROR ServiciosPersona --> insertar() persona id: "+ personaAutorizada.getNumeroDocumento());
@@ -90,12 +95,23 @@ public class ServiciosPersona extends ServicioBase {
         persona.setHogCodigo(cursor.getInt(2));
         persona.setApellidoNombre(cursor.getString(3));
         persona.setNumeroDocumento(cursor.getString(4));
-        persona.setFechaEmisionDocumentoAnio(cursor.getInt(5));
-        persona.setFechaEmisionDocumentoMes(cursor.getInt(6));
-        persona.setFechaEmisionDocumentoDia(cursor.getInt(7));
+        persona.setFechaEmisionDocumentoAnio(cursor.getString(5));
+        persona.setFechaEmisionDocumentoMes(cursor.getString(6));
+        persona.setFechaEmisionDocumentoDia(cursor.getString(7));
         persona.setPermitirDigitacionIden(cursor.getInt(8));
         return persona;
     }
 
+
+    public void eliminarPersonas(){
+        try {
+            abrir();
+            long response= db.delete(CtPersona.TABLA_PERSONA,null, null);
+            Log.v("log_glp ---------->", "INFO ServicioPersona --> eliminar() CtPersona : "+ response);
+            cerrar();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

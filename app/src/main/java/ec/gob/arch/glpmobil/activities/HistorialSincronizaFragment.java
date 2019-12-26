@@ -88,8 +88,7 @@ public class HistorialSincronizaFragment extends Fragment {
         // Inflate the layout for this fragment
         Log.i("log_glp_historial ---->","INFO HistorialFragment --> accion() --> accion:" + accion);
         objetoSesion = (ObjetoAplicacion) getActivity().getApplication();
-        usuario="07GLP-D0045";
-        //usuario=objetoSesion.getUsuario().getId();
+        usuario=objetoSesion.getUsuario().getId();
         btnSincronizar = (Button)view.findViewById(R.id.btnSincronizar);
         btnRegresar = (Button)view.findViewById(R.id.btnRegresar);
         tvTituloHistorial= (TextView)view.findViewById(R.id.tvTituloHistorial);
@@ -153,7 +152,7 @@ public class HistorialSincronizaFragment extends Fragment {
                             insertarCupoHogar(listaCupoHogar);
                             insertarHistorial(accion, usuario,estado,numero_registros);
                         }
-                        lsHistorialSincronizacion = serviciosHistorialSincroniza.buscarTodos();
+                        lsHistorialSincronizacion = serviciosHistorialSincroniza.buscarVentaPorUsuarioAcccion(usuario, accion);
                         llenarListaHistorial(lsHistorialSincronizacion);
                         mostrarUltimoHistorialActualiza();
                         Log.i("log_glp_cupo ---->","INFO CupoFragment --> Sincronizar() --> después de ejecutar:"+objetoSesion.getListaCupoHogar().size() );
@@ -225,11 +224,15 @@ public class HistorialSincronizaFragment extends Fragment {
 
 
     public void insertarCupoHogar(List<VwCupoHogar> listaCupoHogar){
-        Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> insertarCupoHogar() --> intentando guardar en tabla VwPersonaAutorizada ");
+        Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> insertarCupoHogar() --> intentando guardar en tabla CupoHogar ");
 
         try
         {
             serviciosCupoHogar = new ServiciosCupoHogar(getContext());
+            serviciosPersona = new ServiciosPersona(getContext());
+            serviciosPersona.eliminarPersonas();
+            serviciosCupoHogar.eliminarCupos();
+
             if(listaCupoHogar.size()>0){
                 for (VwCupoHogar p:listaCupoHogar){
                     VwCupoHogar cupoHogarNuevo = new VwCupoHogar();
@@ -306,12 +309,11 @@ public class HistorialSincronizaFragment extends Fragment {
      */
     public void mostrarUltimoHistorialActualiza(){
         serviciosHistorialSincroniza= new ServiciosHistorialSincroniza(getContext());
-        HistorialSincronizacion ultimaActualizacion = serviciosHistorialSincroniza.buscarUltimo(ACCION_CUPOS);
+        HistorialSincronizacion ultimaActualizacion = serviciosHistorialSincroniza.buscarUltimo(ACCION_CUPOS, usuario);
         if( null!=ultimaActualizacion){
             tvFechaUltimaAct.setText(ultimaActualizacion.getFecha_sincroniza());
             tvEstadoUltimo.setText(ultimaActualizacion.getDescripcionEstado());
         }
-
     }
 
 

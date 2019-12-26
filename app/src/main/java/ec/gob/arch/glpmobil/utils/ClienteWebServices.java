@@ -14,7 +14,6 @@ import android.net.NetworkInfo;
 import android.util.Log;
 import android.widget.Toast;
 
-import static android.support.v4.content.ContextCompat.getSystemService;
 
 public class ClienteWebServices {
 
@@ -68,8 +67,7 @@ public class ClienteWebServices {
 		return respuesta;
 	}
 
-	
-	
+
 	/**
 	 * Permite recibir objetos gson sin enviar ningún parámetro con metodo GET	 *
 	 * @param urlString
@@ -88,7 +86,7 @@ public class ClienteWebServices {
 			conexion.setRequestMethod("GET");
 			// Tipo de contenido que se va a recibir
 			conexion.setRequestProperty("Accept", "application/json");
-			
+
 			conexion.setReadTimeout(10000);
 
 			//Leo la respuesta
@@ -106,8 +104,8 @@ public class ClienteWebServices {
 		}
 		return respuesta;
 	}
-	
-	
+
+
 
 	public static void toast(Context context, String mensaje) {
 		Toast toast = Toast.makeText(context, mensaje, Toast.LENGTH_SHORT);

@@ -29,9 +29,5 @@ public interface PathWebServices {
 	String WS_VENTAS = "/ws-venta";
     String METODO_REGISTRO_VENTA ="/metodo-registroVenta";
 
-
-
-
-
 	
 }

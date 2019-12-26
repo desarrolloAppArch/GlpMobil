@@ -309,7 +309,7 @@ public class VentaFragment extends Fragment{
 
     public boolean fechaExpedicionAceptada(VwPersonaAutorizada persona){
         boolean aceptada=false;
-            String fechaConcatenada = persona.getFechaEmisionDocumentoAnio().toString()+persona.getFechaEmisionDocumentoMes().toString()+persona.getFechaEmisionDocumentoDia().toString();
+            String fechaConcatenada = persona.getFechaEmisionDocumentoAnio()+persona.getFechaEmisionDocumentoMes()+persona.getFechaEmisionDocumentoDia();
             if(etFechaExpedicion.getText().toString().equals(fechaConcatenada)){
                 aceptada=true;
             }

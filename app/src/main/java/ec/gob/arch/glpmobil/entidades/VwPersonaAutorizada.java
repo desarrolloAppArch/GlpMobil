@@ -7,9 +7,9 @@ public class VwPersonaAutorizada {
     private Integer hogCodigo;
     private String apellidoNombre;
     private String numeroDocumento;
-    private Integer fechaEmisionDocumentoAnio;
-    private Integer fechaEmisionDocumentoMes;
-    private Integer fechaEmisionDocumentoDia;
+    private String fechaEmisionDocumentoAnio;
+    private String fechaEmisionDocumentoMes;
+    private String fechaEmisionDocumentoDia;
     private Integer permitirDigitacionIden;
 
     public VwPersonaAutorizada() {
@@ -63,28 +63,27 @@ public class VwPersonaAutorizada {
         this.permitirDigitacionIden = permitirDigitacionIden;
     }
 
-    public Integer getFechaEmisionDocumentoAnio() {
+    public String getFechaEmisionDocumentoAnio() {
         return fechaEmisionDocumentoAnio;
     }
 
-    public void setFechaEmisionDocumentoAnio(Integer fechaEmisionDocumentoAnio) {
+    public void setFechaEmisionDocumentoAnio(String fechaEmisionDocumentoAnio) {
         this.fechaEmisionDocumentoAnio = fechaEmisionDocumentoAnio;
     }
 
-    public Integer getFechaEmisionDocumentoMes() {
+    public String getFechaEmisionDocumentoMes() {
         return fechaEmisionDocumentoMes;
     }
 
-    public void setFechaEmisionDocumentoMes(Integer fechaEmisionDocumentoMes) {
+    public void setFechaEmisionDocumentoMes(String fechaEmisionDocumentoMes) {
         this.fechaEmisionDocumentoMes = fechaEmisionDocumentoMes;
     }
 
-    public Integer getFechaEmisionDocumentoDia() {
+    public String getFechaEmisionDocumentoDia() {
         return fechaEmisionDocumentoDia;
     }
 
-    public void setFechaEmisionDocumentoDia(Integer fechaEmisionDocumentoDia) {
+    public void setFechaEmisionDocumentoDia(String fechaEmisionDocumentoDia) {
         this.fechaEmisionDocumentoDia = fechaEmisionDocumentoDia;
     }
-
 }
