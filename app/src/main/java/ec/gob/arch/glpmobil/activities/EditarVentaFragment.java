@@ -149,53 +149,59 @@ public class EditarVentaFragment extends Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }*/
-
+                long rangoEdicion= Convertidor.diferenciaEnSegundosFechas(venta.getFecha_venta(),Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
                 int cantidadNueva;
                 int diferencia = 0;
-                if (etCilindros.getText().toString().compareTo("") != 0) {
-                    cantidadNueva = Integer.valueOf(etCilindros.getText().toString());
-                    if (cantidadNueva > 0) {
-                        diferencia = venta.getCantidad() - cantidadNueva;
-                        if (diferencia < 0) {
-                            //AUMENTA CILINDROS EN LA VENTA
-                            diferencia = Math.abs(diferencia);
-                            Log.i("Log_glp------>", "LA DIFERENCIA EN VALOR ABSOLUTO ES: " + diferencia);
-                            Log.i("Log_glp------>", "EL CUPO DISPONIBLE DEL HOGAR ES: " + cupoHogar.getCmhDisponible());
-                            try {
-                                //La nueva cantidad es superior a la de la venta original
-                                //Es necesario comprobar si dispone de cupo
-                                if (cupoHogar.getCmhDisponible() >= diferencia) {
-                                    //permite la edidcion
-                                    venta.setCantidad(Integer.valueOf(etCilindros.getText().toString()));
-                                    venta.setFecha_modificacion(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
-                                    //Disminuir al hogar
-                                    cupoHogar.setCmhDisponible(cupoHogar.getCmhDisponible() - diferencia);
-                                    actualizarVentaCupo();
+                Log.i("Log_glp------>", "rangoEdicion: " + rangoEdicion);
+                if (rangoEdicion <=120) {
+                    Log.i("Log_glp------>", " tiempo Edicion: " + rangoEdicion);
+                    if (etCilindros.getText().toString().compareTo("") != 0) {
+                        cantidadNueva = Integer.valueOf(etCilindros.getText().toString());
+                        if (cantidadNueva > 0) {
+                            diferencia = venta.getCantidad() - cantidadNueva;
+                            if (diferencia < 0) {
+                                //AUMENTA CILINDROS EN LA VENTA
+                                diferencia = Math.abs(diferencia);
+                                Log.i("Log_glp------>", "LA DIFERENCIA EN VALOR ABSOLUTO ES: " + diferencia);
+                                Log.i("Log_glp------>", "EL CUPO DISPONIBLE DEL HOGAR ES: " + cupoHogar.getCmhDisponible());
+                                try {
+                                    //La nueva cantidad es superior a la de la venta original
+                                    //Es necesario comprobar si dispone de cupo
+                                    if (cupoHogar.getCmhDisponible() >= diferencia) {
+                                        //permite la edidcion
+                                        venta.setCantidad(Integer.valueOf(etCilindros.getText().toString()));
+                                        venta.setFecha_modificacion(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
+                                        //Disminuir al hogar
+                                        cupoHogar.setCmhDisponible(cupoHogar.getCmhDisponible() - diferencia);
+                                        actualizarVentaCupo();
 
-                                } else {
-                                    UtilMensajes.mostrarMsjError(MensajeError.VENTA_NUMERO_CILINDROS_EXCEDE_PERMITIDO, TituloError.TITULO_ERROR, getContext());
+                                    } else {
+                                        UtilMensajes.mostrarMsjError(MensajeError.VENTA_NUMERO_CILINDROS_EXCEDE_PERMITIDO, TituloError.TITULO_ERROR, getContext());
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    //mensaje mesa ayuda
+                                    UtilMensajes.mostrarMsjError(MensajeError.CUPO_NO_REGISTRADO, TituloError.TITULO_ERROR, getContext());
                                 }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                //mensaje mesa ayuda
-                                UtilMensajes.mostrarMsjError(MensajeError.CUPO_NO_REGISTRADO, TituloError.TITULO_ERROR, getContext());
-                            }
-                        } else if (diferencia > 0) {
+                            } else if (diferencia > 0) {
 
-                            //DISMINUYE CILINDROS en venta, por tanto aumento cupo al hogar
-                            venta.setCantidad(cantidadNueva);
-                            cupoHogar.setCmhDisponible(cupoHogar.getCmhDisponible() + diferencia);
-                            actualizarVentaCupo();
-                        } else if (diferencia == 0) {
-                            UtilMensajes.mostrarMsjInfo(MensajeInfo.VENTA_SIN_EDICION, TituloInfo.TITULO_INFO, getContext());
+                                //DISMINUYE CILINDROS en venta, por tanto aumento cupo al hogar
+                                venta.setCantidad(cantidadNueva);
+                                cupoHogar.setCmhDisponible(cupoHogar.getCmhDisponible() + diferencia);
+                                actualizarVentaCupo();
+                            } else if (diferencia == 0) {
+                                UtilMensajes.mostrarMsjInfo(MensajeInfo.VENTA_SIN_EDICION, TituloInfo.TITULO_INFO, getContext());
+                            }
+                        } else {
+                            UtilMensajes.mostrarMsjError(MensajeError.VENTA_NUMERO_CILINDROS_NULL, TituloError.TITULO_ERROR, getContext());
                         }
                     } else {
                         UtilMensajes.mostrarMsjError(MensajeError.VENTA_NUMERO_CILINDROS_NULL, TituloError.TITULO_ERROR, getContext());
                     }
-                } else {
-                    UtilMensajes.mostrarMsjError(MensajeError.VENTA_NUMERO_CILINDROS_NULL, TituloError.TITULO_ERROR, getContext());
+                }else{
+                    Log.i("Log_glp------>", " excede  tiempo Edicion: " + rangoEdicion);
+                    UtilMensajes.mostrarMsjError(MensajeError.VENTA_TIEMPO_EDICION_PERMITIDO, TituloError.TITULO_ERROR, getContext());
                 }
-
             }
         });
 

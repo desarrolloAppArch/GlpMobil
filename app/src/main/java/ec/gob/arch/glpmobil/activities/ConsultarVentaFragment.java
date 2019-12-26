@@ -26,6 +26,9 @@ import ec.gob.arch.glpmobil.entidades.Venta;
 import ec.gob.arch.glpmobil.servicios.ServicioVenta;
 import ec.gob.arch.glpmobil.sesion.ObjetoAplicacion;
 import ec.gob.arch.glpmobil.utils.Convertidor;
+import ec.gob.arch.glpmobil.utils.MensajeError;
+import ec.gob.arch.glpmobil.utils.TituloError;
+import ec.gob.arch.glpmobil.utils.UtilMensajes;
 
 
 public class ConsultarVentaFragment extends Fragment {
@@ -64,20 +67,28 @@ public class ConsultarVentaFragment extends Fragment {
         lvVentas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
                 Log.i("log_glp ---------->", "click en el elemento " + position + " de mi ListView");
                 //Obtengo la venta seleccionada de la lista
                 Venta ventaSeleccionada = (Venta) lvVentas.getItemAtPosition(position);
+                long rangoEdicion= Convertidor.diferenciaEnSegundosFechas(ventaSeleccionada.getFecha_venta(),Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
+
                 Log.i("log_glp ---------->", "parametrosEnvio: "+ventaSeleccionada.getNombre_compra());
+                if (rangoEdicion <=120) {
+                    //Creo ub objeto Bundle para enviarlo al siguiente Fragment
+                    Bundle parametrosEnvio = new Bundle();
+                    parametrosEnvio.putSerializable(CtVenta.CLAVE_VENTA_EDITAR, ventaSeleccionada);//Para que esto funcione la clase Venta debe implementar la interfaz Serializable
+                    EditarVentaFragment editarVentaFragment = new EditarVentaFragment();
+                    editarVentaFragment.setArguments(parametrosEnvio);
 
-                //Creo ub objeto Bundle para enviarlo al siguiente Fragment
-                Bundle parametrosEnvio = new Bundle();
-                parametrosEnvio.putSerializable(CtVenta.CLAVE_VENTA_EDITAR,ventaSeleccionada);//Para que esto funcione la clase Venta debe implementar la interfaz Serializable
-                EditarVentaFragment editarVentaFragment = new EditarVentaFragment();
-                editarVentaFragment.setArguments(parametrosEnvio);
-
-                //Inicio el siguiente fragment
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                fm.beginTransaction().replace(R.id.fragment, editarVentaFragment).commit();
+                    //Inicio el siguiente fragment
+                    FragmentManager fm = getActivity().getSupportFragmentManager();
+                    fm.beginTransaction().replace(R.id.fragment, editarVentaFragment).commit();
+                }else{
+                    Log.i("Log_glp------>", " excede  tiempo Edicion: " + rangoEdicion);
+                    UtilMensajes.mostrarMsjError(MensajeError.VENTA_TIEMPO_EDICION_PERMITIDO, TituloError.TITULO_ERROR, getContext());
+                }
 
             }
         });

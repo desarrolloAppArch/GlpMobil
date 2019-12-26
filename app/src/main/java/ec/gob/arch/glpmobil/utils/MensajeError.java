@@ -33,7 +33,7 @@ public interface MensajeError {
 
 
 	public static String VENTA_ACTIVAR_CAMARA_PARA_ESTA_APP ="Es necesario que permita que esta app acceda a la cámara, para la venta de GLP";
-
+	public static String VENTA_TIEMPO_EDICION_PERMITIDO ="El tiempo de edición a excedido";
 	public static String VENTA_FECHA_NULL ="Fecha de expedición es obligatoria";
 	public static String VENTA_FECHA_NO_COINCIDE ="Fecha de expedición no coincide con la registrada en la ARCH";
 	public static String VENTA_NUMERO_CILINDROS_NULL ="Ingrese el número de cilindros vendidos";
