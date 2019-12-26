@@ -19,10 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.sql.Date;
-import java.util.Calendar;
-
 import ec.gob.arch.glpmobil.R;
+import ec.gob.arch.glpmobil.constantes.ConstantesGenerales;
 import ec.gob.arch.glpmobil.constantes.CtCupoHogar;
 import ec.gob.arch.glpmobil.constantes.CtVenta;
 import ec.gob.arch.glpmobil.entidades.VwCupoHogar;
@@ -57,6 +55,7 @@ public class VentaFragment extends Fragment{
     private static final int CODIGO_PERMISOS_CAMARA = 1001;
     private EditText etFechaExpedicion;
 
+    private VwPersonaAutorizada persona;
     private ObjetoAplicacion objetosSesion;
 
     /**
@@ -147,7 +146,6 @@ public class VentaFragment extends Fragment{
              * Método que permite buscar si la identificación tiene cupo disponible en un hogar
              * @param v
              */
-
             @Override
             public void onClick(View v) {
                 Log.v("log_glp ----------> ", "INFO VentaFragment --> onCreateView() --> btnBuscarFragment.setOnClickListener()");
@@ -162,7 +160,7 @@ public class VentaFragment extends Fragment{
                     }
                     if(identificacion.compareTo("")!=0){
                         if (etFechaExpedicion.getText().toString().compareTo("")!=0){
-                            buscarCupo(identificacion);
+                            iniciarVenta(identificacion);
                         }else{
                             UtilMensajes.mostrarMsjError(MensajeError.VENTA_FECHA_NULL, TituloError.TITULO_ERROR, getContext());
                         }
@@ -229,7 +227,7 @@ public class VentaFragment extends Fragment{
 
     /**
      * Cuando el usuario termina de utilizar la actividad subsiguiente y muestra un resultado,
-     * el sistema invoca al método onActivityResult() de tu actividad (en este caso de este fragment)
+     * el sistema invoca al método onActivityResult() de tu actividad (en este cado de este fragment)
      * Método utilizado para iteractuar con otras apps como la cámara
      * @param requestCode El código de solicitud que transferiste a startActivityForResult()
      * @param resultCode Un código de resultado especificado por la segunda actividad
@@ -256,60 +254,65 @@ public class VentaFragment extends Fragment{
      * Método que busca el cupo de una persona autorizada a retirar
      * @param identificacion
      */
-    public void buscarCupo(String identificacion){
-        VwPersonaAutorizada persona = serviciosPersona.buscarPorIdentificacion(identificacion);
+    public void iniciarVenta(String identificacion){
+        persona = serviciosPersona.buscarPorIdentificacion(identificacion);
         if(persona!=null){
             if(!seleccionoOpcionEscanear){
-                Log.v("log_glp ---------->", "INFO VentaFragment --> buscarCupo() --> DIGITACION: "+persona.getPermitirDigitacionIden());
-                if (persona.getPermitirDigitacionIden().equals(0)){
-                    if(fechaExpedicionAceptada(persona)){
-                        VwCupoHogar cupoHogar = null;
-                        try {
-                            cupoHogar = serviciosCupoHogar.buscarPorHogar(persona.getHogCodigo());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        if(cupoHogar!=null && cupoHogar.getCmhDisponible()>0){
-                            Log.v("log_glp ---------->", "INFO VentaFragment --> buscarCupo() --> CUPO DISPONIBLE: "+cupoHogar.getCmhDisponible());
-                            //Envio la venta seteado algunos datos, para completarlos en el siguiente fragment
-                            Venta venta = new Venta();
-                            venta.setUsuario_compra(persona.getNumeroDocumento());
-                            venta.setUsuario_venta(objetosSesion.getUsuario().getId());
-                            //venta.setUsuario_venta("07GLP-D0045");
-                            venta.setCupoDisponible(cupoHogar.getCmhDisponible());
-                            venta.setCodigo_cupo_mes(cupoHogar.getCmhCodigo());
-                            venta.setNombre_compra(persona.getApellidoNombre());
-
-                            //Creo un objeto Bundle para enviarlo al siguiente fragment
-                            Bundle bundle = new Bundle();
-                            bundle.putSerializable(CtVenta.CLAVE_CUPO_VENTA,venta);
-                            bundle.putSerializable(CtCupoHogar.CLAVE_CUPO_HOGAR, cupoHogar);
-
-                            VentaPaso2Fragment ventaPaso2Fragment = new VentaPaso2Fragment();
-                            ventaPaso2Fragment.setArguments(bundle);
-
-                            //Creo el siguiente fragment
-                            FragmentManager fm = getActivity().getSupportFragmentManager();
-                            fm.beginTransaction().replace(R.id.fragment, ventaPaso2Fragment).commit();
-                        }else{
-                            UtilMensajes.mostrarMsjInfo(MensajeInfo.VENTA_HOGAR_SIN_CUPO_DISPONIBLE, TituloInfo.TITULO_INFO, getContext());
-                        }
-                    }else{
-                        UtilMensajes.mostrarMsjError(MensajeError.VENTA_FECHA_NO_COINCIDE, TituloError.TITULO_ERROR, getContext());
-                    }
+                Log.v("log_glp ---------->", "INFO VentaFragment --> iniciarVenta() --> DIGITACION: "+persona.getPermitirDigitacionIden());
+                if (persona.getPermitirDigitacionIden().equals(ConstantesGenerales.CODIGO_PERMITIR_DIGITACION)){
+                    validarCupo();
                 }else{
                     UtilMensajes.mostrarMsjInfo(MensajeInfo.PERSONA_NO_AUTORIZADA_DIGITAR, TituloInfo.TITULO_INFO, getContext());
                 }
+            }else{
+                validarCupo();
             }
-
         }else{
             UtilMensajes.mostrarMsjInfo(MensajeInfo.VENTA_IDENTIFICACION_NO_ENCONTRADA, TituloInfo.TITULO_INFO, getContext());
         }
     }
 
+    public void validarCupo(){
+        if(fechaExpedicionAceptada(persona)){
+            VwCupoHogar cupoHogar = null;
+            try {
+                cupoHogar = serviciosCupoHogar.buscarPorHogar(persona.getHogCodigo());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if(cupoHogar!=null && cupoHogar.getCmhDisponible()>0){
+                Log.v("log_glp ---------->", "INFO VentaFragment --> validarCupo() --> CUPO DISPONIBLE: "+cupoHogar.getCmhDisponible());
+                //Envio la venta seteado algunos datos, para completarlos en el siguiente fragment
+                Venta venta = new Venta();
+                venta.setUsuario_compra(persona.getNumeroDocumento());
+                venta.setUsuario_venta(objetosSesion.getUsuario().getId());
+                //venta.setUsuario_venta("07GLP-D0045");
+                venta.setCupoDisponible(cupoHogar.getCmhDisponible());
+                venta.setCodigo_cupo_mes(cupoHogar.getCmhCodigo());
+                venta.setNombre_compra(persona.getApellidoNombre());
+
+                //Creo un objeto Bundle para enviarlo al siguiente fragment
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(CtVenta.CLAVE_CUPO_VENTA,venta);
+                bundle.putSerializable(CtCupoHogar.CLAVE_CUPO_HOGAR, cupoHogar);
+
+                VentaPaso2Fragment ventaPaso2Fragment = new VentaPaso2Fragment();
+                ventaPaso2Fragment.setArguments(bundle);
+
+                //Creo el siguiente fragment
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                fm.beginTransaction().replace(R.id.fragment, ventaPaso2Fragment).commit();
+            }else{
+                UtilMensajes.mostrarMsjInfo(MensajeInfo.VENTA_HOGAR_SIN_CUPO_DISPONIBLE, TituloInfo.TITULO_INFO, getContext());
+            }
+        }else{
+            UtilMensajes.mostrarMsjError(MensajeError.VENTA_FECHA_NO_COINCIDE, TituloError.TITULO_ERROR, getContext());
+        }
+    }
+
     public boolean fechaExpedicionAceptada(VwPersonaAutorizada persona){
         boolean aceptada=false;
-            String fechaConcatenada = persona.getFechaEmisionDocumentoAnio()+persona.getFechaEmisionDocumentoMes()+persona.getFechaEmisionDocumentoDia();
+            String fechaConcatenada = persona.getFechaEmisionDocumentoAnio().toString()+persona.getFechaEmisionDocumentoMes().toString()+persona.getFechaEmisionDocumentoDia().toString();
             if(etFechaExpedicion.getText().toString().equals(fechaConcatenada)){
                 aceptada=true;
             }

@@ -3,8 +3,11 @@ package ec.gob.arch.glpmobil.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -67,16 +70,38 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         tvRegistrarse.setOnClickListener(this);
         tvRegistrarse.setTextColor(getResources().getColor(R.color.colorPrimary));
+        tvRegistrarse.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
         tvSalir.setOnClickListener(this);
         tvSalir.setTextColor(getResources().getColor(R.color.colorPrimary));
+        tvSalir.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
         tvOlvidoClave.setTextColor(getResources().getColor(R.color.colorPrimary));
         tvOlvidoClave.setOnClickListener(this);
+        tvOlvidoClave.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 
         serviciosUsuario = new ServiciosUsuario(this);
         objetosSesion = (ObjetoAplicacion) getApplication();
 
-        Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): cambio realizado XXX");
-        Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): cambio subido por Vane");
+        etUsuario.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String texto = editable.toString();
+                if(!texto.equals(texto.toUpperCase())){
+                    texto = texto.toUpperCase();
+                    etUsuario.setText(texto);
+                }
+                etUsuario.setSelection(etUsuario.getText().length());
+            }
+        });
 
     }
 
@@ -143,6 +168,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void ingresar(View v){
         try
         {
+            String usuarioLogin = etUsuario.getText().toString();
+            etUsuario.setText(usuarioLogin.trim());
             if (etUsuario.getText().toString().compareTo("")!=0 && etClave.getText().toString().compareTo("")!=0) {
                 //Primero intento hacer login buscando en la base del dispositivo movil
                 Usuario usuario = serviciosUsuario.buscarUsuarioPorId(etUsuario.getText().toString());

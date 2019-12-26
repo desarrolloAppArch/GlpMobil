@@ -25,6 +25,7 @@ public class Sincronizador {
     private String url_ws_consultaCupo;
     private String url_ws_ventas;
     private String url_ws_actualizarUsuario;
+    private String url_ws_recuperarClave;
 
     /**
      * Constructor
@@ -36,6 +37,7 @@ public class Sincronizador {
         url_ws_actualizarUsuario = getPathWsUsuario()+PathWebServices.METODO_ACTUALIZAR_USUARIO;
         url_ws_consultaCupo = getPathWsCupo()+PathWebServices.METODO_CONSULTA_CUPO;
         url_ws_ventas=getPathWsVentas()+PathWebServices.METODO_REGISTRO_VENTA;
+        url_ws_recuperarClave = getPathWsUsuario()+PathWebServices.METODO_RECUPERAR_CLAVE;
     }
 
     /**
@@ -154,6 +156,29 @@ public class Sincronizador {
             Gson gson = new Gson();
             String parametroPeticionWs = gson.toJson(cliente);
             String respuestaWs = ClienteWebServices.recuperarObjetoGson(url_ws_actualizarUsuario,parametroPeticionWs);
+            clienteResultado = gson.fromJson(respuestaWs, GeVwClientesGlp.class);
+            Log.i("log_glp ---------->","INFO Sincronizador --> actualizarUsuarioWS() --> transformando el resultado en formato JSON a objeto GeVwClientesGlp");
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            clienteResultado=null;
+        }
+        return clienteResultado;
+    }
+
+
+    /**
+     * Método que invoca al ws que actualiza la clave
+     * @param cliente
+     * @return
+     */
+    public GeVwClientesGlp recuperarClaveWS(GeVwClientesGlp cliente){
+        GeVwClientesGlp clienteResultado=null;
+        try
+        {
+            Gson gson = new Gson();
+            String parametroPeticionWs = gson.toJson(cliente);
+            String respuestaWs = ClienteWebServices.recuperarObjetoGson(url_ws_recuperarClave,parametroPeticionWs);
             clienteResultado = gson.fromJson(respuestaWs, GeVwClientesGlp.class);
             Log.i("log_glp ---------->","INFO Sincronizador --> actualizarUsuarioWS() --> transformando el resultado en formato JSON a objeto GeVwClientesGlp");
         }catch (Exception e)

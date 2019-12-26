@@ -4,6 +4,6 @@
     style="@style/pie"
     android:layout_width="match_parent"
     tools:context=".activities.PieFragment"
-    android:background="@drawable/fondo_pie">
+    android:background="@drawable/pie_logos">
 
 </FrameLayout>

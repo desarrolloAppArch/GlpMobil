@@ -12,11 +12,13 @@ public interface MensajeError {
 	public static String REGISTRO_CORREO_NO_IGUAL ="Los correos ingresados no coinciden";
 	public static String REGISTRO_CORREO_NULL ="Los correos son campos obligatorios";
 
+	public static String CONEXION_WEB_SERVICE_NULL ="Compruebe su conexión de Internet o consulte si los servicios de la ARCH se encuentran disponibles";
 	public static String CONEXION_NULL ="Compruebe su conexión de Internet para poder realizar esta acción";
 	public static String LOGIN_CONEXION_NULL ="Compruebe su conexión de Internet para poder logearse en línea";
 	public static String LOGIN_FALLO_CLAVE_NO_COINCIDE ="La clave no coincide. Compruebe su conexión de Internet y/o que los servicios de la ARCH se encuentren disponibles para validar si hubo reseteo clave";
 	public static String LOGIN_FALLO_OBLIGATORIO_LOGIN_EN_LINEA ="Usuario a registrarse por primera vez en este dispositivo, compruebe su conexión de Internet y/o que los servicios de la ARCH se encuentren disponibles";
 	public static String WEB_SERVICE_ERROR_SERVIDOR ="Error en el servidor, reportar a la mesa de ayuda de ARCH";
+	public static String ERROR_BASE_MOVIL ="No se pudo actualizar la información en el móvil, comprobar que disponga de espacio en disco en su dispositivo. ";
 
 	public static String VENTA_NO_ACTUALIZADA ="Venta no actualizada";
     public static String VENTA_NO_ACTUALIZADA_HORA = "Venta no actualizada porque excedió el límite de tiempo de 3 minutos";

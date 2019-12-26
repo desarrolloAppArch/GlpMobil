@@ -26,5 +26,11 @@ public interface MensajeInfo {
 	public static String CLAVE_ACTUALIZADA_EXITOSAMENTE ="Clave actualizada exitosamente";
 	public static String USUARIO_NO_ENCONTRADO ="El usuario no se encontró en la base de la ARCH";
 
+	public static String RESETEO_USUARIO_NULL ="Ingrese el usuario del que desea recuperar la clave";
+	public static String CLAVE_RESETEADA_EXITOSAMENTE ="Su nueva clave a sido enviada a su correo electrónico: ";
+	public static String USUARIO_NO_EXISTE ="Usuario no se encuentra registrado en la ARCH";
+	public static String USUARIO_NO_TIENE_PERMISOS ="Usuario no tiene permisos para esta app";
+
+
 
 }
