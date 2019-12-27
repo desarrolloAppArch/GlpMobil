@@ -33,6 +33,11 @@ import ec.gob.arch.glpmobil.servicios.ServiciosPersona;
 import ec.gob.arch.glpmobil.sesion.ObjetoAplicacion;
 import ec.gob.arch.glpmobil.task.TaskEnviarVentas;
 import ec.gob.arch.glpmobil.utils.Convertidor;
+import ec.gob.arch.glpmobil.utils.MensajeError;
+import ec.gob.arch.glpmobil.utils.MensajeInfo;
+import ec.gob.arch.glpmobil.utils.TituloError;
+import ec.gob.arch.glpmobil.utils.TituloInfo;
+import ec.gob.arch.glpmobil.utils.UtilMensajes;
 
 
 public class EnviarVentasFragment extends Fragment {
@@ -120,7 +125,8 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
                         FragmentManager fm = getActivity().getSupportFragmentManager();
                         fm.beginTransaction().replace(R.id.fragment, historialSincronizaFragment).commit();
                         Log.i("log_glp ---------->", "INFO respuestaEnvio Completo--> " + respuestaEnvio);
-                        Toast.makeText(getContext(), "Envio Exitoso", Toast.LENGTH_LONG).show();
+                        UtilMensajes.mostrarMsjInfo(MensajeInfo.ENVIO_VENTA_EXITOSO, TituloInfo.TITULO_INFO.TITULO_INFO, getContext());
+                        Toast.makeText(getContext(), "Envio Exitoso, ", Toast.LENGTH_LONG).show();
                     } else {
                         Log.i("log_glp ---------->", "INFO respuestaEnvio No enviado--> " + respuestaEnvio);
                         Toast.makeText(getContext(), "Envio Fallido", Toast.LENGTH_LONG).show();

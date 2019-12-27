@@ -33,5 +33,6 @@ public interface MensajeInfo {
 	public static String USUARIO_NO_TIENE_PERMISOS ="Usuario no tiene permisos para esta app";
 
 	public static String VENTA_HOGAR_NO_EXISTE ="El hogar no existe, verifique que haya descargado cupos luego de su último envío de ventas";
+	public static String ENVIO_VENTA_EXITOSO ="El envio de las ventas a sido exitoso y se han eliminado los cupos, para seguir realizando ventas actualice los cupos";
 
 }
