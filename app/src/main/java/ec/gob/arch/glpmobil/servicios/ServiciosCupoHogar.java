@@ -14,7 +14,8 @@ public class ServiciosCupoHogar extends ServicioBase{
             CtCupoHogar.CUPO_DISPONIBLE,
             CtCupoHogar.HOG_CODIGO,
             CtCupoHogar.ANIO,
-            CtCupoHogar.MES
+            CtCupoHogar.MES,
+            CtCupoHogar.DIS_IDENTIFICA
     };
 
     public ServiciosCupoHogar(Context context) {
@@ -36,11 +37,13 @@ public class ServiciosCupoHogar extends ServicioBase{
             cv.put(CtCupoHogar.HOG_CODIGO, cupoHogar.getHogCodigo());
             cv.put(CtCupoHogar.ANIO, cupoHogar.getCmhAnio());
             cv.put(CtCupoHogar.MES, cupoHogar.getCmhMes());
+            cv.put(CtCupoHogar.DIS_IDENTIFICA, cupoHogar.getDisIdentifica());
             db.insert(CtCupoHogar.TABLA_CUPO_HOGAR, null,cv);
-            Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> insertar() cupoHogar id: "+ cupoHogar.getCmhDisponible());
+            Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> insertar() cupoHogar id: "+
+                    cupoHogar.getHogCodigo()+" disponible "+cupoHogar.getCmhDisponible()+" disIdentifica "+cupoHogar.getDisIdentifica());
 
         }catch (Exception e) {
-            Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> insertar() cupoHogar id: "+ cupoHogar.getHogNumero());
+            Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> insertar() cupoHogar id: "+ cupoHogar.getHogCodigo());
             e.printStackTrace();
         }finally {
             cerrar();
@@ -112,6 +115,7 @@ public class ServiciosCupoHogar extends ServicioBase{
         cupoHogar.setHogCodigo(cursor.getInt(3));
         cupoHogar.setCmhAnio(cursor.getInt(4));
         cupoHogar.setCmhMes(cursor.getInt(5));
+        cupoHogar.setDisIdentifica(cursor.getString(6));
         return cupoHogar;
     }
 
