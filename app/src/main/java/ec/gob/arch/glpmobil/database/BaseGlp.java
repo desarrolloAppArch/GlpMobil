@@ -23,7 +23,7 @@ public class BaseGlp extends SQLiteOpenHelper{
 	 * Variables globales de BaseGlp 
 	 */
 	public static String NOMBRE_BASE = "baseGlp";
-	public static int VERSION_BASE = 36;
+	public static int VERSION_BASE = 37;
 	public static BaseGlp instanciaBaseGlp;
 
 	
@@ -118,7 +118,8 @@ public class BaseGlp extends SQLiteOpenHelper{
 				+CtCupoHogar.CUPO_DISPONIBLE+ " INTEGER, "
 				+CtCupoHogar.HOG_CODIGO+ " INTEGER, "
 				+CtCupoHogar.ANIO+ " INTEGER, "
-				+CtCupoHogar.MES+" INTEGER );");
+				+CtCupoHogar.MES+" INTEGER, "
+				+CtCupoHogar.DIS_IDENTIFICA+" TEXT);");
 		Log.v("log_glp ---------->", "INFO BaseGlp --> crearTablaCupoHogar()");
 
 	}

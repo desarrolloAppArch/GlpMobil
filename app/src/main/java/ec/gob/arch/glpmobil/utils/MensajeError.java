@@ -32,7 +32,7 @@ public interface MensajeError {
 	public static String HISTORIAL_SINCRONIZA_VENTA_LLENA ="Para actualizar primero debe enviar las ventas pendientes";
     public static String SIN_RESULTADOS ="No hay cupos pendientes para descargar a la fecha actual";
     public static String SIN_RESPUESTA_WS ="El servicio No se encuentra disponible para descargas, comunicarse con soporte ARCH Telf. 023996500 ext. 5100";
-
+	public static String HISTORIAL_SINCRONIZA_VENTA_LLENA_OTRO_USUARIO ="Para actualizar primero debe enviar las ventas pendientes del usuario: ";
 
 	public static String VENTA_ACTIVAR_CAMARA_PARA_ESTA_APP ="Es necesario que permita que esta app acceda a la cámara, para la venta de GLP";
 	public static String VENTA_TIEMPO_EDICION_PERMITIDO ="El tiempo de edición a excedido";

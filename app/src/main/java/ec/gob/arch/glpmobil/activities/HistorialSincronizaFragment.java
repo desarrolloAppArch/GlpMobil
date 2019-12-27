@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -156,10 +157,7 @@ public class HistorialSincronizaFragment extends Fragment {
                         llenarListaHistorial(lsHistorialSincronizacion);
                         mostrarUltimoHistorialActualiza();
                         Log.i("log_glp_cupo ---->","INFO CupoFragment --> Sincronizar() --> después de ejecutar:"+objetoSesion.getListaCupoHogar().size() );
-                    }else
-                        {
-                            UtilMensajes.mostrarMsjError(MensajeError.HISTORIAL_SINCRONIZA_VENTA_LLENA, TituloError.TITULO_ERROR, getContext());
-                        }
+                    }
                 }else
                 {
                     UtilMensajes.mostrarMsjError(MensajeError.CONEXION_NULL, TituloError.TITULO_ERROR, getContext());
@@ -241,6 +239,7 @@ public class HistorialSincronizaFragment extends Fragment {
                     cupoHogarNuevo.setHogCodigo(p.getHogCodigo());
                     cupoHogarNuevo.setCmhAnio(p.getCmhAnio());
                     cupoHogarNuevo.setCmhMes(p.getCmhMes());
+                    cupoHogarNuevo.setDisIdentifica(p.getDisIdentifica());
                     insertarPersona(p.getLsPersonaAutorizada());
                     serviciosCupoHogar.insertar(cupoHogarNuevo);
                 }
@@ -255,7 +254,10 @@ public class HistorialSincronizaFragment extends Fragment {
         }
     }
 
-
+    /**
+     * Método que inserta las personas autorizadas a retirar en la tabla TABLA_PERSONA
+     * @autor vanessa.ponce
+     */
 
     public void insertarPersona(List<VwPersonaAutorizada> listaPersonas){
         Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> insertarPersona() --> intentando guardar en tabla VwPersonaAutorizada ");
@@ -288,6 +290,11 @@ public class HistorialSincronizaFragment extends Fragment {
 
     }
 
+    /**
+     * Método que consulta en la tabla ventas, si existen ventas pendientes de enviar
+     * @autor vanessa.ponce
+     */
+
     public boolean validarTablaVentaVacia(){
         boolean estaVacia = false;
         servicioVenta = new ServicioVenta(getContext());
@@ -295,11 +302,19 @@ public class HistorialSincronizaFragment extends Fragment {
         Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> validarTablaVentaVacia() --> venta.size() "+venta.size());
         if (venta.isEmpty()){
             estaVacia = true;
+        }else{
+            for (Venta v:venta){
+                Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> validarTablaVentaVacia() --> venta datos"+v.getUsuario_venta());
+                if (!v.getUsuario_venta().equals(usuario)){
+                    estaVacia = false;
+                    UtilMensajes.mostrarMsjError(MensajeError.HISTORIAL_SINCRONIZA_VENTA_LLENA_OTRO_USUARIO
+                            + v.getUsuario_venta(), TituloError.TITULO_ERROR, getContext());
+                    break;
+                }else{
+                    UtilMensajes.mostrarMsjError(MensajeError.HISTORIAL_SINCRONIZA_VENTA_LLENA, TituloError.TITULO_ERROR, getContext());
+                }
+            }
         }
-        for (Venta v:venta){
-            Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> validarTablaVentaVacia() --> venta datos"+v.getUsuario_venta());
-        }
-
         return estaVacia;
     }
 

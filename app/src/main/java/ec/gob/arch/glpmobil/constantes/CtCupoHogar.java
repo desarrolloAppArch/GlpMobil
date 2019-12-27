@@ -9,6 +9,7 @@ public interface CtCupoHogar {
 	public static final String ANIO = "anio";
 	public static final String MES = "mes";
 	public static final String HOG_CODIGO = "hog_codigo";
+	public static final String DIS_IDENTIFICA = "dis_identifica";
 	public static final String HOG_NUM_INTEGRANTES = "hog_num_integrantes";
 	public static final String HOG_PARROQUIA = "hog_parroquia";
 	public static final String HOG_NUMERO = "hog_numero";
