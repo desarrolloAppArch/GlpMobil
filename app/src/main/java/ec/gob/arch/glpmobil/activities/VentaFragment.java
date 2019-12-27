@@ -273,6 +273,7 @@ public class VentaFragment extends Fragment{
                     validarCupo();
                 }
             }else{
+                
                 List<VwPersonaAutorizada> listaPersonas = serviciosPersona.buscarTodas();
                 Log.v("log_glp ---------->", "INFO VentaFragment --> iniciarVenta() --> listaPersonas: "+listaPersonas);
                 if(listaPersonas==null){
