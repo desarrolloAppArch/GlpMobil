@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.List;
+
 import ec.gob.arch.glpmobil.R;
 import ec.gob.arch.glpmobil.constantes.ConstantesGenerales;
 import ec.gob.arch.glpmobil.constantes.CtCupoHogar;
@@ -184,6 +186,7 @@ public class VentaFragment extends Fragment{
     public void inicializarDigitacion(){
         tvCodigoLeidoFragment.setText("");
         etCodigoLeidoFragment.setText("");
+        etFechaExpedicion.setText("");
         etCodigoLeidoFragment.setVisibility(View.VISIBLE);
         tvCodigoLeidoFragment.setVisibility(View.GONE);
     }
@@ -191,6 +194,7 @@ public class VentaFragment extends Fragment{
     public void inicializarEscaneo(){
         tvCodigoLeidoFragment.setText("");
         etCodigoLeidoFragment.setText("");
+        etFechaExpedicion.setText("");
         etCodigoLeidoFragment.setVisibility(View.GONE);
         tvCodigoLeidoFragment.setVisibility(View.VISIBLE);
     }
@@ -255,21 +259,34 @@ public class VentaFragment extends Fragment{
      * @param identificacion
      */
     public void iniciarVenta(String identificacion){
-        persona = serviciosPersona.buscarPorIdentificacion(identificacion);
-        if(persona!=null){
-            if(!seleccionoOpcionEscanear){
-                Log.v("log_glp ---------->", "INFO VentaFragment --> iniciarVenta() --> DIGITACION: "+persona.getPermitirDigitacionIden());
-                if (persona.getPermitirDigitacionIden().equals(ConstantesGenerales.CODIGO_PERMITIR_DIGITACION)){
-                    validarCupo();
+        try {
+            persona = serviciosPersona.buscarPorIdentificacion(identificacion);
+            if(persona!=null){
+                if(!seleccionoOpcionEscanear){
+                    Log.v("log_glp ---------->", "INFO VentaFragment --> iniciarVenta() --> DIGITACION: "+persona.getPermitirDigitacionIden());
+                    if (persona.getPermitirDigitacionIden().equals(ConstantesGenerales.CODIGO_PERMITIR_DIGITACION)){
+                        validarCupo();
+                    }else{
+                        UtilMensajes.mostrarMsjInfo(MensajeInfo.PERSONA_NO_AUTORIZADA_DIGITAR, TituloInfo.TITULO_INFO, getContext());
+                    }
                 }else{
-                    UtilMensajes.mostrarMsjInfo(MensajeInfo.PERSONA_NO_AUTORIZADA_DIGITAR, TituloInfo.TITULO_INFO, getContext());
+                    validarCupo();
                 }
             }else{
-                validarCupo();
+                List<VwPersonaAutorizada> listaPersonas = serviciosPersona.buscarTodas();
+                Log.v("log_glp ---------->", "INFO VentaFragment --> iniciarVenta() --> listaPersonas: "+listaPersonas);
+                if(listaPersonas==null){
+                    UtilMensajes.mostrarMsjInfo(MensajeInfo.BASE_CUPOS_VACIA, TituloInfo.TITULO_INFO, getContext());
+                }else{
+                    UtilMensajes.mostrarMsjInfo(MensajeInfo.VENTA_IDENTIFICACION_NO_ENCONTRADA, TituloInfo.TITULO_INFO, getContext());
+                }
+
             }
-        }else{
-            UtilMensajes.mostrarMsjInfo(MensajeInfo.VENTA_IDENTIFICACION_NO_ENCONTRADA, TituloInfo.TITULO_INFO, getContext());
+        } catch (Exception e) {
+            e.printStackTrace();
+            UtilMensajes.mostrarMsjError(MensajeError.PROBLEMAS_CONSULTAR_BASE+e.getMessage(), TituloError.TITULO_ERROR, getContext());
         }
+
     }
 
     public void validarCupo(){
@@ -277,33 +294,38 @@ public class VentaFragment extends Fragment{
             VwCupoHogar cupoHogar = null;
             try {
                 cupoHogar = serviciosCupoHogar.buscarPorHogar(persona.getHogCodigo());
+                if(cupoHogar!=null){
+                    if(cupoHogar.getCmhDisponible()>0){
+                        Log.v("log_glp ---------->", "INFO VentaFragment --> validarCupo() --> CUPO DISPONIBLE: "+cupoHogar.getCmhDisponible());
+                        //Envio la venta seteado algunos datos, para completarlos en el siguiente fragment
+                        Venta venta = new Venta();
+                        venta.setUsuario_compra(persona.getNumeroDocumento());
+                        venta.setUsuario_venta(objetosSesion.getUsuario().getId());
+                        //venta.setUsuario_venta("07GLP-D0045");
+                        venta.setCupoDisponible(cupoHogar.getCmhDisponible());
+                        venta.setCodigo_cupo_mes(cupoHogar.getCmhCodigo());
+                        venta.setNombre_compra(persona.getApellidoNombre());
+
+                        //Creo un objeto Bundle para enviarlo al siguiente fragment
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable(CtVenta.CLAVE_CUPO_VENTA,venta);
+                        bundle.putSerializable(CtCupoHogar.CLAVE_CUPO_HOGAR, cupoHogar);
+
+                        VentaPaso2Fragment ventaPaso2Fragment = new VentaPaso2Fragment();
+                        ventaPaso2Fragment.setArguments(bundle);
+
+                        //Creo el siguiente fragment
+                        FragmentManager fm = getActivity().getSupportFragmentManager();
+                        fm.beginTransaction().replace(R.id.fragment, ventaPaso2Fragment).commit();
+                    }else{
+                        UtilMensajes.mostrarMsjInfo(MensajeInfo.VENTA_HOGAR_SIN_CUPO_DISPONIBLE+cupoHogar.getCmhDisponible(), TituloInfo.TITULO_INFO, getContext());
+                    }
+                }else{
+                    UtilMensajes.mostrarMsjInfo(MensajeInfo.VENTA_HOGAR_NO_EXISTE+cupoHogar, TituloInfo.TITULO_INFO, getContext());
+                }
             } catch (Exception e) {
                 e.printStackTrace();
-            }
-            if(cupoHogar!=null && cupoHogar.getCmhDisponible()>0){
-                Log.v("log_glp ---------->", "INFO VentaFragment --> validarCupo() --> CUPO DISPONIBLE: "+cupoHogar.getCmhDisponible());
-                //Envio la venta seteado algunos datos, para completarlos en el siguiente fragment
-                Venta venta = new Venta();
-                venta.setUsuario_compra(persona.getNumeroDocumento());
-                venta.setUsuario_venta(objetosSesion.getUsuario().getId());
-                //venta.setUsuario_venta("07GLP-D0045");
-                venta.setCupoDisponible(cupoHogar.getCmhDisponible());
-                venta.setCodigo_cupo_mes(cupoHogar.getCmhCodigo());
-                venta.setNombre_compra(persona.getApellidoNombre());
-
-                //Creo un objeto Bundle para enviarlo al siguiente fragment
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(CtVenta.CLAVE_CUPO_VENTA,venta);
-                bundle.putSerializable(CtCupoHogar.CLAVE_CUPO_HOGAR, cupoHogar);
-
-                VentaPaso2Fragment ventaPaso2Fragment = new VentaPaso2Fragment();
-                ventaPaso2Fragment.setArguments(bundle);
-
-                //Creo el siguiente fragment
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                fm.beginTransaction().replace(R.id.fragment, ventaPaso2Fragment).commit();
-            }else{
-                UtilMensajes.mostrarMsjInfo(MensajeInfo.VENTA_HOGAR_SIN_CUPO_DISPONIBLE, TituloInfo.TITULO_INFO, getContext());
+                UtilMensajes.mostrarMsjError(MensajeError.PROBLEMAS_CONSULTAR_BASE+e.getMessage(), TituloError.TITULO_ERROR, getContext());
             }
         }else{
             UtilMensajes.mostrarMsjError(MensajeError.VENTA_FECHA_NO_COINCIDE, TituloError.TITULO_ERROR, getContext());

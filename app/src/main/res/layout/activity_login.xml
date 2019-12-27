@@ -44,13 +44,14 @@
                 android:text="Usuario:"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
-            <EditText
-                android:id="@+id/etUsuario"
-                android:layout_width="wrap_content"
+            <AutoCompleteTextView
+                android:id="@+id/autoTvUsuario"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:completionThreshold="1"
                 android:ems="10"
-                android:inputType="textCapCharacters"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:inputType="textCapCharacters"/>
         </TableRow>
 
         <TableRow

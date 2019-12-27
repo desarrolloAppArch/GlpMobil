@@ -29,6 +29,7 @@ import ec.gob.arch.glpmobil.servicios.ServicioVenta;
 import ec.gob.arch.glpmobil.servicios.ServicioVwVentasPendientes;
 import ec.gob.arch.glpmobil.servicios.ServiciosCupoHogar;
 import ec.gob.arch.glpmobil.servicios.ServiciosHistorialSincroniza;
+import ec.gob.arch.glpmobil.servicios.ServiciosPersona;
 import ec.gob.arch.glpmobil.sesion.ObjetoAplicacion;
 import ec.gob.arch.glpmobil.task.TaskEnviarVentas;
 import ec.gob.arch.glpmobil.utils.Convertidor;
@@ -54,6 +55,7 @@ public class EnviarVentasFragment extends Fragment {
     private ServicioVenta servicioVenta;
     private ServiciosCupoHogar serviciosCupoHogar;
     private ServiciosHistorialSincroniza serviciosHistorialSincroniza;
+    private ServiciosPersona serviciosPersona;
 
 
     @Override
@@ -107,6 +109,8 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
                     if (respuestaEnvio.equals("1")) {
                         eliminarVentas(usuarioVenta);
                         eliminarCupos();
+                        eliminarPersonas();
+
                         // crea variable para el envio de parametros
                         Bundle bundle = new Bundle();
                         bundle.putString("accion", "1");
@@ -193,6 +197,12 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
     public void eliminarCupos(){
         serviciosCupoHogar= new ServiciosCupoHogar(getContext());
         serviciosCupoHogar.eliminarCupos();
+
+    }
+
+    public void eliminarPersonas(){
+        serviciosPersona =  new ServiciosPersona(getContext());
+        serviciosPersona.eliminarPersonas();
 
     }
 

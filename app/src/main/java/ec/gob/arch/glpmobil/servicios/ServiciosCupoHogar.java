@@ -92,14 +92,14 @@ public class ServiciosCupoHogar extends ServicioBase{
                 cupoHogar = obtenerCupoHogar(cursor);
                 cursor.moveToNext();
             }
-            Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> buscarPorIdentificacion() --> RESULTADO ENCONTRADO DE: "+hog_codigo);
+            Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> buscarPorHogar() "+hog_codigo+" --> RESULTADO ENCONTRADO : "+cupoHogar);
         }catch (Exception e){
-            Log.v("log_glp ---------->", "ERROR ServiciosCupoHogar --> buscarPorIdentificacion() --> EXCEPCION AL BUSCAR: "+hog_codigo);
+            Log.v("log_glp ---------->", "ERROR ServiciosCupoHogar --> buscarPorHogar() --> EXCEPCION AL BUSCAR: "+hog_codigo);
             e.printStackTrace();
         }finally {
             if(cursor!=null){
                 cursor.close();
-                Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> buscarPorIdentificacion() --> Cerrando cursor");
+                Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> buscarPorHogar() --> Cerrando cursor");
             }
             cerrar();
         }

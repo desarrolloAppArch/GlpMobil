@@ -40,7 +40,7 @@ public class ServiciosPersona extends ServicioBase {
      * @param identificacion
      * @return PersonaAutorizada
      */
-    public VwPersonaAutorizada buscarPorIdentificacion(String identificacion){
+    public VwPersonaAutorizada buscarPorIdentificacion(String identificacion) throws Exception{
 
         VwPersonaAutorizada persona = null;
         try {
@@ -112,6 +112,32 @@ public class ServiciosPersona extends ServicioBase {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public List<VwPersonaAutorizada> buscarTodas() throws Exception{
+        Cursor cursor=null;
+        List<VwPersonaAutorizada> listaPersonas = null;
+        try {
+            abrir();
+            cursor = db.query(CtPersona.TABLA_PERSONA, columnas, null, null, null, null, null);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                VwPersonaAutorizada personaAutorizada = obtenerPersona(cursor);
+                listaPersonas.add(personaAutorizada);
+                cursor.moveToNext();
+            }
+            Log.v("log_glp ---------->", "INFO ServiciosPersona --> buscarTodas()");
+        }catch(Exception e){
+            Log.v("log_glp ---------->", "ERROR ServiciosPersona --> buscarTodas()");
+            e.printStackTrace();
+        }finally {
+            if (cursor!=null) {
+                cursor.close();
+            }
+            cerrar();
+        }
+        return listaPersonas;
+
     }
 
 }

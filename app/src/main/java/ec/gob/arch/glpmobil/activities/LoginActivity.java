@@ -10,6 +10,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -30,8 +32,8 @@ import ec.gob.arch.glpmobil.utils.UtilMensajes;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private EditText etUsuario;
     private EditText etClave;
+    private AutoCompleteTextView etAutoUsuario;
     private ServiciosUsuario serviciosUsuario;
 
 
@@ -42,6 +44,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String PREFERENCIAS_APP_XML ="MisPreferenciasGlp";
 
     private ObjetoAplicacion objetosSesion;
+
+    private List<Usuario> listaUsuarios;
+    private static String[] USUARIOS = new String[]{};
+    private String usuarioLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +68,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Log.v("log_glp ---------->", "INFO LoginActivity --> onCreate(): NO es la primera vez en la app");
 
         }
-        etUsuario = (EditText) findViewById(R.id.etUsuario);
+
         etClave = (EditText) findViewById(R.id.etClave);
         tvRegistrarse = (TextView) findViewById(R.id.tvRegistrarse);
         tvSalir = (TextView) findViewById(R.id.tvSalirLogin);
         tvOlvidoClave = (TextView) findViewById(R.id.tvOlvidoClave);
+        etAutoUsuario = (AutoCompleteTextView) findViewById(R.id.autoTvUsuario);
 
         tvRegistrarse.setOnClickListener(this);
         tvRegistrarse.setTextColor(getResources().getColor(R.color.colorPrimary));
@@ -79,9 +86,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         tvOlvidoClave.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 
         serviciosUsuario = new ServiciosUsuario(this);
+        cargarUsuariosString();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, USUARIOS);
+        etAutoUsuario.setAdapter(adapter);
+
         objetosSesion = (ObjetoAplicacion) getApplication();
 
-        etUsuario.addTextChangedListener(new TextWatcher() {
+        etAutoUsuario.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -97,12 +109,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 String texto = editable.toString();
                 if(!texto.equals(texto.toUpperCase())){
                     texto = texto.toUpperCase();
-                    etUsuario.setText(texto);
+                    etAutoUsuario.setText(texto);
                 }
-                etUsuario.setSelection(etUsuario.getText().length());
+                etAutoUsuario.setSelection(etAutoUsuario.getText().length());
             }
         });
-
     }
 
 
@@ -168,11 +179,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void ingresar(View v){
         try
         {
-            String usuarioLogin = etUsuario.getText().toString();
-            etUsuario.setText(usuarioLogin.trim());
-            if (etUsuario.getText().toString().compareTo("")!=0 && etClave.getText().toString().compareTo("")!=0) {
+            usuarioLogin = etAutoUsuario.getText().toString().trim();
+            etAutoUsuario.setText(usuarioLogin);
+            if (usuarioLogin.compareTo("")!=0 && etClave.getText().toString().compareTo("")!=0) {
                 //Primero intento hacer login buscando en la base del dispositivo movil
-                Usuario usuario = serviciosUsuario.buscarUsuarioPorId(etUsuario.getText().toString());
+                Usuario usuario = serviciosUsuario.buscarUsuarioPorId(usuarioLogin);
                 if(usuario!=null)
                 {
                     if (usuario.getClave().compareTo(etClave.getText().toString())==0){
@@ -252,7 +263,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         {
             if(ClienteWebServices.validarConexionRed(this)){
                 GeVwClientesGlp usuarioABuscar = new GeVwClientesGlp();
-                usuarioABuscar.setCodigo(etUsuario.getText().toString());
+                usuarioABuscar.setCodigo(usuarioLogin);
                 usuarioABuscar.setClave(etClave.getText().toString());
                 TaskLoguearUsuario tarea = new TaskLoguearUsuario();
                 tarea.execute(usuarioABuscar);
@@ -285,12 +296,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
 
-    public void buscar(View v){
-        List<Usuario> listaUsuarios = serviciosUsuario.buscarTodos();
-        if (listaUsuarios!=null){
-            UtilMensajes.mostrarMsjInfo("tamanio lista"+listaUsuarios.size(), TituloInfo.TITULO_INFO, this);
-        }else{
-            UtilMensajes.mostrarMsjInfo("No existen resultados", TituloInfo.TITULO_INFO, this);
+    public void cargarUsuariosString(){
+        Log.v("log_glp ---------->", "INFO LoginActivity --> cargarUsuariosString()");
+        listaUsuarios = serviciosUsuario.buscarTodos();
+        if(listaUsuarios!=null && listaUsuarios.size()>0){
+            int i=0;
+            USUARIOS = new String[listaUsuarios.size()];
+            for(Usuario usuario : listaUsuarios){
+                USUARIOS[i] = usuario.getId();
+                Log.v("log_glp ---------->", "INFO cargarUsuariosString --> USUARIOS["+i+"] = "+USUARIOS[i]);
+                i++;
+            }
         }
 
     }
