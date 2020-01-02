@@ -273,7 +273,7 @@ public class VentaFragment extends Fragment{
                     validarCupo();
                 }
             }else{
-                
+
                 List<VwPersonaAutorizada> listaPersonas = serviciosPersona.buscarTodas();
                 Log.v("log_glp ---------->", "INFO VentaFragment --> iniciarVenta() --> listaPersonas: "+listaPersonas);
                 if(listaPersonas==null){
@@ -335,6 +335,9 @@ public class VentaFragment extends Fragment{
 
     public boolean fechaExpedicionAceptada(VwPersonaAutorizada persona){
         boolean aceptada=false;
+        Log.v("log_glp ---------->", "INFO VentaFragment --> fechaExpedicionAceptada() --> año: "+persona.getFechaEmisionDocumentoAnio());
+        Log.v("log_glp ---------->", "INFO VentaFragment --> fechaExpedicionAceptada() --> mes: "+persona.getFechaEmisionDocumentoMes());
+        Log.v("log_glp ---------->", "INFO VentaFragment --> fechaExpedicionAceptada() --> día: "+persona.getFechaEmisionDocumentoDia());
             String fechaConcatenada = persona.getFechaEmisionDocumentoAnio().toString()+persona.getFechaEmisionDocumentoMes().toString()+persona.getFechaEmisionDocumentoDia().toString();
             if(etFechaExpedicion.getText().toString().equals(fechaConcatenada)){
                 aceptada=true;

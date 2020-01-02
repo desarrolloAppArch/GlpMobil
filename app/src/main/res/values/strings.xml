@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DISTRIBUCIÓN DE GLP</string>
+    <string name="app_name">Distribución de GLP v1.0</string>
     <string name="titulo_activity_registro">PASO 1. BUSCAR SUJETO</string>
     <string name="titulo_activity_registro_paso2">PASO 2. SELECCIONAR SUJETO</string>
     <string name="titulo_activity_registro_paso3">PASO 3. COMPLETAR INFORMACION </string>
