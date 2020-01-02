@@ -50,8 +50,9 @@
                 android:layout_height="wrap_content"
                 android:completionThreshold="1"
                 android:ems="10"
+                android:inputType="textCapCharacters"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:inputType="textCapCharacters"/>
+                android:textSize="24sp" />
         </TableRow>
 
         <TableRow
@@ -70,12 +71,16 @@
                 android:layout_height="wrap_content"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="@color/colorAccent">
+
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/etClave"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:width="48dp"
                     android:inputType="textPassword"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    android:maxWidth="48dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textSize="24sp" />
             </android.support.design.widget.TextInputLayout>
 
         </TableRow>
@@ -99,22 +104,24 @@
         </TableRow>
 
         <TableRow
-            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp">
 
             <TextView
                 android:id="@+id/textView40"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/tvOlvidoClave"
-                android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="Olvidó su clave!"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="24sp"
+                app:autoSizeStepGranularity="48dp" />
         </TableRow>
 
     </TableLayout>

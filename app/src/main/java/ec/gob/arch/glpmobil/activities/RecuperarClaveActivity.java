@@ -34,7 +34,7 @@ public class RecuperarClaveActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recuperar_clave);
-        setTitle("RECUPERAR CLAVE");
+        setTitle("RECUPERACIÓN DE CLAVE");
 
         btnAceptarRecuperar = (Button) findViewById(R.id.btnAceptarRecuperar);
         btnCancelarRecuperar = (Button) findViewById(R.id.btnCancelarRecuperar);
@@ -48,7 +48,7 @@ public class RecuperarClaveActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent irPaginaLogin =  new Intent(RecuperarClaveActivity.this, LoginActivity.class);
                 startActivity(irPaginaLogin);
-                onDestroy();
+                finish();
             }
         });
 
