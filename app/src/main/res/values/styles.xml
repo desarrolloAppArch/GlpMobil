@@ -31,4 +31,8 @@
         <item name="android:layout_height">@dimen/altoScroll</item>
     </style>
 
+    <style name="altosEnlaces">
+        <item name="android:layout_height">@dimen/altoEnlaces</item>
+    </style>
+
 </resources>

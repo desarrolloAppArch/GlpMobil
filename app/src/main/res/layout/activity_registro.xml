@@ -31,20 +31,18 @@
                 <RadioButton
                     android:id="@+id/radioDepositoGlp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/altosEnlaces"
                     android:layout_weight="1"
                     android:text="Depósito GLP"
-                    android:textAppearance="@android:style/TextAppearance.Medium"
-                    android:textSize="30sp" />
+                    android:textAppearance="@android:style/TextAppearance.Large" />
 
                 <RadioButton
                     android:id="@+id/radioTransporteGlp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/altosEnlaces"
                     android:layout_weight="1"
                     android:text="Transporte GLP"
-                    android:textAppearance="@android:style/TextAppearance.Medium"
-                    android:textSize="30sp" />
+                    android:textAppearance="@android:style/TextAppearance.Large" />
             </RadioGroup>
         </TableRow>
 

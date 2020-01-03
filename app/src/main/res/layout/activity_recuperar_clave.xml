@@ -30,7 +30,7 @@
                 android:ems="8"
                 android:hint="@string/hintUsuario"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textSize="30sp" />
+                 />
         </TableRow>
 
         <TableRow
@@ -41,14 +41,14 @@
             <Button
                 android:id="@+id/btnAceptarRecuperar"
                 android:layout_width="wrap_content"
-                android:layout_height="71dp"
+                style="@style/botones"
                 android:text="RECUPERAR CLAVE" />
 
             <Button
                 android:layout_marginLeft="5dp"
                 android:id="@+id/btnCancelarRecuperar"
                 android:layout_width="wrap_content"
-                android:layout_height="71dp"
+                style="@style/botones"
                 android:text=" CANCELAR " />
         </TableRow>
 

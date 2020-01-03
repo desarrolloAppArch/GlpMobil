@@ -7,7 +7,7 @@
     <TextView
         android:id="@+id/tvRegistrarse"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/altosEnlaces"
         android:text="Registrarse"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
@@ -18,7 +18,7 @@
     <TextView
         android:id="@+id/tvSalirLogin"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/altosEnlaces"
         android:text="Salir"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
@@ -52,7 +52,7 @@
                 android:ems="10"
                 android:inputType="textCapCharacters"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textSize="24sp" />
+                android:contentDescription="@string/hintUsuario" />
         </TableRow>
 
         <TableRow
@@ -64,7 +64,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Clave: "
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:contentDescription="@string/hintIngreseClave" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -75,12 +76,12 @@
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/etClave"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/altosEnlaces"
                     android:width="48dp"
                     android:inputType="textPassword"
                     android:maxWidth="48dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textSize="24sp" />
+                    />
             </android.support.design.widget.TextInputLayout>
 
         </TableRow>
@@ -116,11 +117,12 @@
             <TextView
                 android:id="@+id/tvOlvidoClave"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/altoEnlaces"
+                style="@style/altosEnlaces"
                 android:gravity="center"
                 android:text="Olvidó su clave!"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textSize="24sp"
+
                 app:autoSizeStepGranularity="48dp" />
         </TableRow>
 
