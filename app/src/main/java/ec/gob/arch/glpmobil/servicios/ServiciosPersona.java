@@ -117,6 +117,7 @@ public class ServiciosPersona extends ServicioBase {
     public List<VwPersonaAutorizada> buscarTodas() throws Exception{
         Cursor cursor=null;
         List<VwPersonaAutorizada> listaPersonas = null;
+        listaPersonas = new ArrayList<>();
         try {
             abrir();
             cursor = db.query(CtPersona.TABLA_PERSONA, columnas, null, null, null, null, null);
