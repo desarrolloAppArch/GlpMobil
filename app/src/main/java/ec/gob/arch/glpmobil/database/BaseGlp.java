@@ -23,7 +23,7 @@ public class BaseGlp extends SQLiteOpenHelper{
 	 * Variables globales de BaseGlp 
 	 */
 	public static String NOMBRE_BASE = "baseGlp";
-	public static int VERSION_BASE = 37;
+	public static int VERSION_BASE = 41;
 	public static BaseGlp instanciaBaseGlp;
 
 	
@@ -178,14 +178,26 @@ public class BaseGlp extends SQLiteOpenHelper{
 				+CtHistorialSincroniza.USUARIO+ " TEXT, "
 				+CtHistorialSincroniza.NUMERO_REGISTROS+ " INTEGER, "
 				+CtHistorialSincroniza.ESTADO+ " INTEGER, "
+				+CtHistorialSincroniza.NUMERO_CILINDROS+ " TEXT,"
 				+CtHistorialSincroniza.ACCION+ " TEXT);");
 		Log.v("log_glp ---------->", "INFO BaseGlp --> crearTablaHistorialSincronizacion()");
 
 	}
 
 	public void crearViewVwVentaPendiente(SQLiteDatabase db){
-		db.execSQL("CREATE VIEW " + CtVwVentaPendiente.VIEW_VENTAS_PENDIENTES +
-				" AS SELECT date("+CtVenta.FECHA_VENTA+") AS "+CtVwVentaPendiente.FECHA_VENTA +","+CtVenta.USUARIO_VENTA+" AS "+CtVwVentaPendiente.USUARIO_VENTA+", COUNT ("+CtVenta.USUARIO_VENTA+") AS "+CtVwVentaPendiente.NUMERO_REGISTROS+" FROM "+CtVenta.TABLA_VENTA+" GROUP BY date(" +CtVenta.FECHA_VENTA +"),"+CtVenta.USUARIO_VENTA+";");
+		db.execSQL("CREATE VIEW " + CtVwVentaPendiente.VIEW_VENTAS_PENDIENTES
+				+" AS SELECT date("+CtVenta.FECHA_VENTA
+				+") AS "
+				+CtVwVentaPendiente.FECHA_VENTA
+				+","+CtVenta.USUARIO_VENTA
+				+" AS "+CtVwVentaPendiente.USUARIO_VENTA
+				+", COUNT ("+CtVenta.USUARIO_VENTA
+				+") AS "
+				+CtVwVentaPendiente.NUMERO_REGISTROS
+				+", SUM ("+CtVenta.CANTIDAD
+				+") AS "
+				+CtVwVentaPendiente.NUMERO_CILINDROS
+				+" FROM "+CtVenta.TABLA_VENTA+" GROUP BY date(" +CtVenta.FECHA_VENTA +"),"+CtVenta.USUARIO_VENTA+";");
 		Log.v("log_glp ---------->", "INFO BaseGlp --> crearViewVwVentaPendiente()");
 	}
 

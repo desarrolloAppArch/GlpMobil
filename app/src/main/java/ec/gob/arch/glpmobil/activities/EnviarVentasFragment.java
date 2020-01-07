@@ -54,6 +54,7 @@ public class EnviarVentasFragment extends Fragment {
  //  private String usuarioVenta="07GLP-D0045";
     private String usuarioVenta;
    private String accionHistorial="1" ;//envio venta
+    private Integer cilindrosVendidos;
     /**
      * Servicios
      */
@@ -109,14 +110,15 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
 
                     respuestaEnvio = (String) tarea.get();
 
-                    if (null == respuestaEnvio) {
-                        Toast.makeText(getContext(), "No se a podido conectar con ARCH", Toast.LENGTH_LONG).show();
-                    }else {
-                        cargarHistorial();
-                        if (respuestaEnvio.equals("1")) {
-                            eliminarVentas(usuarioVenta);
-                            eliminarCupos();
-                            eliminarPersonas();
+                if (null == respuestaEnvio) {
+                    Toast.makeText(getContext(), "No se a podido conectar con ARCH", Toast.LENGTH_LONG).show();
+                }else {
+                    cilindrosVendidos= contarCilindrosVendidos(listaVentasPorEnviar);
+                    cargarHistorial();
+                    if (respuestaEnvio.equals("1")) {
+                        eliminarVentas(usuarioVenta);
+                        eliminarCupos();
+                        eliminarPersonas();
 
                             // crea variable para el envio de parametros
                             Bundle bundle = new Bundle();
@@ -141,6 +143,8 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
             {
                 UtilMensajes.mostrarMsjError(MensajeError.CONEXION_NULL, TituloError.TITULO_ERROR, getContext());
             }
+
+
 
         } catch (ExecutionException e) {
             Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
@@ -183,6 +187,14 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
     public void inicializarHistorialSincronizacionVenta(){
          historialventa= new HistorialSincronizacion();
     }
+
+    public Integer contarCilindrosVendidos(List<Venta> lista){
+        int cilindros=0;
+        for (Venta v: lista) {
+            cilindros= cilindros+v.getCantidad();
+        }
+        return cilindros;
+    }
     public void cargarHistorial(){
         serviciosHistorialSincroniza= new ServiciosHistorialSincroniza(getContext());
         inicializarHistorialSincronizacionVenta();
@@ -191,6 +203,8 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
         historialventa.setFecha_sincroniza(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
         historialventa.setNumero_registros(listaVentasPorEnviar.size());
         historialventa.setUsuario(usuarioVenta);
+        historialventa.setNumero_cilindros(cilindrosVendidos);
+
 
         serviciosHistorialSincroniza.insertar(historialventa);
     }
@@ -242,6 +256,7 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
             TextView tvFecha;
             TextView tvNumeroRegistros;
             TextView tvUsuarioVenta;
+            TextView tvNumeroCilindros;
         }
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
@@ -255,6 +270,7 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
                 fila.tvFecha= convertView.findViewById(R.id.tvFechaVenta);
                 fila.tvNumeroRegistros= convertView.findViewById(R.id.tvNumeroRegistro);
                 fila.tvUsuarioVenta= convertView.findViewById(R.id.tvUsuarioVenta);
+                fila.tvNumeroCilindros= convertView.findViewById(R.id.tvNumeroCilindros);
                 convertView.setTag(fila);
             }else{
                 fila = (Fila) convertView.getTag();
@@ -265,6 +281,7 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
             fila.tvFecha.setText(venta.getFecha_venta());
             fila.tvNumeroRegistros.setText(venta.getNumero_registro().toString());
             fila.tvUsuarioVenta.setText(venta.getUsuario_venta());
+            fila.tvNumeroCilindros.setText(venta.getNumero_cilindros().toString());
 
             return convertView;
         }

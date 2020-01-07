@@ -32,9 +32,23 @@
                 android:id="@+id/textViewNumeroRegistro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="N° Registros: " />
+                android:text="N° Ventas: " />
             <TextView
                 android:id="@+id/tvNumeroRegistro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.Small" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            <TextView
+                android:id="@+id/textViewNumeroCilindros"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N° Cilindros: " />
+            <TextView
+                android:id="@+id/tvNumeroCilindros"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.Small" />
