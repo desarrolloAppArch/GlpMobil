@@ -42,7 +42,7 @@ public class ClienteWebServices {
 			// Tipo de contenido que se va a enviar
 			conexion.setRequestProperty("Content-type", "application/json");
 
-			conexion.setReadTimeout(10000);
+			conexion.setReadTimeout(999999999);
 
 
 			// Escribir en la conexion

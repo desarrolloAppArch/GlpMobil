@@ -32,6 +32,7 @@ import ec.gob.arch.glpmobil.servicios.ServiciosHistorialSincroniza;
 import ec.gob.arch.glpmobil.servicios.ServiciosPersona;
 import ec.gob.arch.glpmobil.sesion.ObjetoAplicacion;
 import ec.gob.arch.glpmobil.task.TaskEnviarVentas;
+import ec.gob.arch.glpmobil.utils.ClienteWebServices;
 import ec.gob.arch.glpmobil.utils.Convertidor;
 import ec.gob.arch.glpmobil.utils.MensajeError;
 import ec.gob.arch.glpmobil.utils.MensajeInfo;
@@ -53,6 +54,7 @@ public class EnviarVentasFragment extends Fragment {
  //  private String usuarioVenta="07GLP-D0045";
     private String usuarioVenta;
    private String accionHistorial="1" ;//envio venta
+    private Integer cilindrosVendidos;
     /**
      * Servicios
      */
@@ -96,44 +98,50 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         try {
-            servicioVenta = new ServicioVenta(getContext());
-            inicializarListaVentasPorEnviar();
-            listaVentasPorEnviar=servicioVenta.buscarVentaPorUsuarioVenta(usuarioVenta.toString());
-            if(listaVentasPorEnviar.size()>0) {
-                Log.i("log_glp ---------->", "INFO listaVentasPorEnviar --> " + listaVentasPorEnviar.size());
-                TaskEnviarVentas tarea = new TaskEnviarVentas();
-                tarea.execute(listaVentasPorEnviar);
-                Log.i("log_glp ---------->", "INFO tarea.get() --> " + tarea.get());
+            if (ClienteWebServices.validarConexionRed(getContext())){
+                servicioVenta = new ServicioVenta(getContext());
+                inicializarListaVentasPorEnviar();
+                listaVentasPorEnviar=servicioVenta.buscarVentaPorUsuarioVenta(usuarioVenta.toString());
+                if(listaVentasPorEnviar.size()>0) {
+                    Log.i("log_glp ---------->", "INFO listaVentasPorEnviar --> " + listaVentasPorEnviar.size());
+                    TaskEnviarVentas tarea = new TaskEnviarVentas();
+                    tarea.execute(listaVentasPorEnviar);
+                    Log.i("log_glp ---------->", "INFO tarea.get() --> " + tarea.get());
 
-                respuestaEnvio = (String) tarea.get();
+                    respuestaEnvio = (String) tarea.get();
 
                 if (null == respuestaEnvio) {
                     Toast.makeText(getContext(), "No se a podido conectar con ARCH", Toast.LENGTH_LONG).show();
                 }else {
+                    cilindrosVendidos= contarCilindrosVendidos(listaVentasPorEnviar);
                     cargarHistorial();
                     if (respuestaEnvio.equals("1")) {
                         eliminarVentas(usuarioVenta);
                         eliminarCupos();
                         eliminarPersonas();
 
-                        // crea variable para el envio de parametros
-                        Bundle bundle = new Bundle();
-                        bundle.putString("accion", "1");
-                        HistorialSincronizaFragment historialSincronizaFragment = new HistorialSincronizaFragment();
-                        historialSincronizaFragment.setArguments(bundle);
+                            // crea variable para el envio de parametros
+                            Bundle bundle = new Bundle();
+                            bundle.putString("accion", "1");
+                            HistorialSincronizaFragment historialSincronizaFragment = new HistorialSincronizaFragment();
+                            historialSincronizaFragment.setArguments(bundle);
 
-                        FragmentManager fm = getActivity().getSupportFragmentManager();
-                        fm.beginTransaction().replace(R.id.fragment, historialSincronizaFragment).commit();
-                        Log.i("log_glp ---------->", "INFO respuestaEnvio Completo--> " + respuestaEnvio);
-                        UtilMensajes.mostrarMsjInfo(MensajeInfo.ENVIO_VENTA_EXITOSO, TituloInfo.TITULO_INFO.TITULO_INFO, getContext());
-                        Toast.makeText(getContext(), "Envio Exitoso, ", Toast.LENGTH_LONG).show();
-                    } else {
-                        Log.i("log_glp ---------->", "INFO respuestaEnvio No enviado--> " + respuestaEnvio);
-                        Toast.makeText(getContext(), "Envio Fallido", Toast.LENGTH_LONG).show();
+                            FragmentManager fm = getActivity().getSupportFragmentManager();
+                            fm.beginTransaction().replace(R.id.fragment, historialSincronizaFragment).commit();
+                            Log.i("log_glp ---------->", "INFO respuestaEnvio Completo--> " + respuestaEnvio);
+                            UtilMensajes.mostrarMsjInfo(MensajeInfo.ENVIO_VENTA_EXITOSO, TituloInfo.TITULO_INFO.TITULO_INFO, getContext());
+                            Toast.makeText(getContext(), "Envio Exitoso, ", Toast.LENGTH_LONG).show();
+                        } else {
+                            Log.i("log_glp ---------->", "INFO respuestaEnvio No enviado--> " + respuestaEnvio);
+                            Toast.makeText(getContext(), "Envio Fallido", Toast.LENGTH_LONG).show();
+                        }
                     }
+                }else{
+                    Toast.makeText(getContext(), "No tiene, Venta pendientes de enviar", Toast.LENGTH_LONG).show();
                 }
-            }else{
-                Toast.makeText(getContext(), "No tiene, Venta pendientes de enviar", Toast.LENGTH_LONG).show();
+            }else
+            {
+                UtilMensajes.mostrarMsjError(MensajeError.CONEXION_NULL, TituloError.TITULO_ERROR, getContext());
             }
 
 
@@ -179,6 +187,14 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
     public void inicializarHistorialSincronizacionVenta(){
          historialventa= new HistorialSincronizacion();
     }
+
+    public Integer contarCilindrosVendidos(List<Venta> lista){
+        int cilindros=0;
+        for (Venta v: lista) {
+            cilindros= cilindros+v.getCantidad();
+        }
+        return cilindros;
+    }
     public void cargarHistorial(){
         serviciosHistorialSincroniza= new ServiciosHistorialSincroniza(getContext());
         inicializarHistorialSincronizacionVenta();
@@ -187,6 +203,8 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
         historialventa.setFecha_sincroniza(Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
         historialventa.setNumero_registros(listaVentasPorEnviar.size());
         historialventa.setUsuario(usuarioVenta);
+        historialventa.setNumero_cilindros(cilindrosVendidos);
+
 
         serviciosHistorialSincroniza.insertar(historialventa);
     }
@@ -238,6 +256,7 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
             TextView tvFecha;
             TextView tvNumeroRegistros;
             TextView tvUsuarioVenta;
+            TextView tvNumeroCilindros;
         }
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
@@ -251,6 +270,7 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
                 fila.tvFecha= convertView.findViewById(R.id.tvFechaVenta);
                 fila.tvNumeroRegistros= convertView.findViewById(R.id.tvNumeroRegistro);
                 fila.tvUsuarioVenta= convertView.findViewById(R.id.tvUsuarioVenta);
+                fila.tvNumeroCilindros= convertView.findViewById(R.id.tvNumeroCilindros);
                 convertView.setTag(fila);
             }else{
                 fila = (Fila) convertView.getTag();
@@ -261,6 +281,7 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
             fila.tvFecha.setText(venta.getFecha_venta());
             fila.tvNumeroRegistros.setText(venta.getNumero_registro().toString());
             fila.tvUsuarioVenta.setText(venta.getUsuario_venta());
+            fila.tvNumeroCilindros.setText(venta.getNumero_cilindros().toString());
 
             return convertView;
         }

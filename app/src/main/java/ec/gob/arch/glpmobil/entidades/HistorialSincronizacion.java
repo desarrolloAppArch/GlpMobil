@@ -9,6 +9,7 @@ public class HistorialSincronizacion {
     private Integer estado; //1 exitoso, 0 fallido
     private String accion;
     private String descripcionEstado;
+    private Integer numero_cilindros;
 
     public int getId_sqlite(int anInt) {
         return id_sqlite;
@@ -74,5 +75,13 @@ public class HistorialSincronizacion {
 
     public void setDescripcionEstado(String descripcionEstado) {
         this.descripcionEstado = descripcionEstado;
+    }
+
+    public Integer getNumero_cilindros() {
+        return numero_cilindros;
+    }
+
+    public void setNumero_cilindros(Integer numero_cilindros) {
+        this.numero_cilindros = numero_cilindros;
     }
 }

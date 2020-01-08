@@ -22,7 +22,8 @@ public class ServiciosHistorialSincroniza extends ServicioBase{
             CtHistorialSincroniza.USUARIO,
             CtHistorialSincroniza.NUMERO_REGISTROS,
             CtHistorialSincroniza.ESTADO,
-            CtHistorialSincroniza.ACCION};
+            CtHistorialSincroniza.ACCION,
+            CtHistorialSincroniza.NUMERO_CILINDROS};
 
     /**
      * Constructor
@@ -52,6 +53,10 @@ public class ServiciosHistorialSincroniza extends ServicioBase{
             cv.put(CtHistorialSincroniza.NUMERO_REGISTROS, historial.getNumero_registros());
             cv.put(CtHistorialSincroniza.ESTADO, historial.getEstado());
             cv.put(CtHistorialSincroniza.ACCION, historial.getAccion());
+            if (historial.getAccion()=="1"){
+                cv.put(CtHistorialSincroniza.NUMERO_CILINDROS, historial.getNumero_cilindros());
+            }
+
 
             db.insert(CtHistorialSincroniza.TABLA_HISTORIAL, null, cv);
             Log.v("log_glp ---------->", "INFO ServiciosHistorialSincroniza --> insertar() historial id: "+ historial.getUsuario());
@@ -123,6 +128,7 @@ public class ServiciosHistorialSincroniza extends ServicioBase{
         historial.setNumero_registros(cursor.getInt(3));
         historial.setEstado(cursor.getInt(4));
         historial.setAccion(cursor.getString(5));
+        historial.setNumero_cilindros(cursor.getInt(6));
         return historial;
     }
 

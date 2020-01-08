@@ -4,6 +4,17 @@ public class VwVentaPendiente {
     private String fecha_venta;
     private Integer numero_registro;
     private String usuario_venta;
+    private Integer numero_cilindros;
+
+    public Integer getNumero_cilindros() {
+        return numero_cilindros;
+    }
+
+    public void setNumero_cilindros(Integer numero_cilindros) {
+        this.numero_cilindros = numero_cilindros;
+    }
+
+
 
     public String getFecha_venta() {
         return fecha_venta;

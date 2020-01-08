@@ -13,7 +13,8 @@ import ec.gob.arch.glpmobil.entidades.VwVentaPendiente;
 public class ServicioVwVentasPendientes extends ServicioBase {
     String[] columnas = new String[]{CtVwVentaPendiente.FECHA_VENTA,
             CtVwVentaPendiente.NUMERO_REGISTROS,
-            CtVwVentaPendiente.USUARIO_VENTA
+            CtVwVentaPendiente.USUARIO_VENTA,
+            CtVwVentaPendiente.NUMERO_CILINDROS
     };
 
     /**
@@ -65,6 +66,7 @@ public class ServicioVwVentasPendientes extends ServicioBase {
         ventaPendiente.setFecha_venta(cursor.getString(0));
         ventaPendiente.setNumero_registro(cursor.getInt(1));
         ventaPendiente.setUsuario_venta(cursor.getString(2));
+        ventaPendiente.setNumero_cilindros(cursor.getInt(3));
         return ventaPendiente;
     }
 

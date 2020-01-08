@@ -7,4 +7,6 @@
 
     <dimen name="altoScroll">650dp</dimen>
 
+    <dimen name="altoEnlaces">48dp</dimen>
+
 </resources>

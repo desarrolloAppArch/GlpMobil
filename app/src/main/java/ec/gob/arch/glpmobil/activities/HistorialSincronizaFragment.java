@@ -60,6 +60,7 @@ public class HistorialSincronizaFragment extends Fragment {
     private TextView txtFechaUltimaAct;
     private TextView tvEstadoUltimo;
     private TextView txtEstado;
+
     private ServiciosHistorialSincroniza serviciosHistorialSincroniza;
     private ServiciosPersona serviciosPersona;
     private ServiciosCupoHogar serviciosCupoHogar;
@@ -98,6 +99,8 @@ public class HistorialSincronizaFragment extends Fragment {
         txtEstado = view.findViewById(R.id.txtEstado);
         tvEstadoUltimo = view.findViewById(R.id.tvEstadoUltimo);
         lvCupoHogar = (ListView) view.findViewById(R.id.lvCupoHogar);
+
+
         if(accion.equals(ACCION_VENTAS)){
             getActivity().setTitle(R.string.title_fragment_historial_ventas);
             btnSincronizar.setVisibility(View.GONE);
@@ -121,6 +124,7 @@ public class HistorialSincronizaFragment extends Fragment {
             tvFechaUltimaAct.setVisibility(View.VISIBLE);
             txtEstado.setVisibility(View.VISIBLE);
             tvEstadoUltimo.setVisibility(View.VISIBLE);
+
             mostrarUltimoHistorialActualiza();
 
         }
@@ -361,6 +365,9 @@ public class HistorialSincronizaFragment extends Fragment {
             TextView tvFechaSincroniza;
             TextView tvEstado;
             TextView tvNumeroRegistros;
+            TextView tvNumeroCilindroVendidos;
+            TextView txtVNumeroCilindrosVendidos;
+            TextView txtVNumeroRegistros;
 
         }
 
@@ -385,6 +392,10 @@ public class HistorialSincronizaFragment extends Fragment {
                      fila.tvUsuario = (TextView) convertView.findViewById(R.id.tvUsuario);
                      fila.tvEstado = (TextView) convertView.findViewById(R.id.tvEstado);
                      fila.tvNumeroRegistros = (TextView) convertView.findViewById(R.id.tvNumeroRegistro);
+                     fila.tvNumeroCilindroVendidos = (TextView) convertView.findViewById(R.id.tvNumeroCilindroVendidos);
+                     fila.txtVNumeroRegistros= (TextView)convertView.findViewById(R.id.txtVNumeroRegistros);
+                     fila.txtVNumeroCilindrosVendidos= (TextView)convertView.findViewById(R.id.txtVNumeroCilindrosVendidos);
+
                      convertView.setTag(fila);
                  }else{
                      fila = (Fila) convertView.getTag();
@@ -395,6 +406,19 @@ public class HistorialSincronizaFragment extends Fragment {
                  fila.tvUsuario.setText(historialSincronizacion.getUsuario());
                  fila.tvEstado.setText(historialSincronizacion.getDescripcionEstado());
                  fila.tvNumeroRegistros.setText(historialSincronizacion.getNumero_registros().toString());
+
+
+                 if(accion.equals(ACCION_VENTAS)){
+
+                     fila.tvNumeroCilindroVendidos.setText(historialSincronizacion.getNumero_cilindros().toString());
+                     fila.tvNumeroCilindroVendidos.setVisibility(convertView.VISIBLE);
+                     fila.txtVNumeroCilindrosVendidos.setVisibility(convertView.VISIBLE);
+                     fila.txtVNumeroRegistros.setText("Número Ventas:");
+                 }else{
+                     fila.tvNumeroCilindroVendidos.setVisibility(convertView.GONE);
+                     fila.txtVNumeroCilindrosVendidos.setVisibility(convertView.GONE);
+                     fila.txtVNumeroRegistros.setText("Hogares:");
+                 }
 
                  Log.v("log_glp ---------->", "INFO HistorialSincronizaFragment --> getView() --> despues del llenar la vista "+convertView);
 
