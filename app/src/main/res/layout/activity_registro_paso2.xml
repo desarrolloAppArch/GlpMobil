@@ -2,36 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="5dp"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="5dp">
 
-    <HorizontalScrollView
+
+    <ListView
+        android:id="@+id/lvSujetos"
+        style="@android:style/Widget.Material.Light.ExpandableListView"
         android:layout_width="match_parent"
-        style="@style/altoscroll"
-        android:scrollbars="horizontal">
+        android:layout_height="513dp"
+        android:layout_margin="20dp"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false">
 
-            <ListView
-                android:id="@+id/lvSujetos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-            </ListView>
-
-    </HorizontalScrollView>
+    </ListView>
 
     <FrameLayout
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
-        <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/fragment_pie_registro2"
+            android:name="ec.gob.arch.glpmobil.activities.PieFragment"
+            style="@style/pie"
             android:layout_width="match_parent"
             android:layout_gravity="bottom|end"
-            style="@style/pie"
-            android:name="ec.gob.arch.glpmobil.activities.PieFragment"
-            xmlns:tools="http://schemas.android.com/tools"
-            tools:layout="@layout/fragment_pie">
-        </fragment>
+            tools:layout="@layout/fragment_pie"></fragment>
 
     </FrameLayout>
 

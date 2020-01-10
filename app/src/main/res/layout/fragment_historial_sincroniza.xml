@@ -7,98 +7,82 @@
     android:orientation="vertical"
     android:padding="5dp">
 
-
-    <TextView
-        android:id="@+id/tvTituloHistorial"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="@string/titulo_historial"
-        android:textSize="16sp"/>
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-
-                <TextView
-                    android:id="@+id/txtFechaUltimaAct"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Última Actualización: " />
-
-                <TextView
-                    android:id="@+id/tvFechaUltimaAct"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:textAppearance="@android:style/TextAppearance.Medium"/>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-                <TextView
-                    android:id="@+id/txtEstado"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Estado:" />
-
-                <TextView
-                    android:id="@+id/tvEstadoUltimo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:textAppearance="@android:style/TextAppearance.Medium"/>
-        </TableRow>
-
-    </TableLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp">
-
-        <Button
-            android:id="@+id/btnSincronizar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_Actualizar" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="527dp"
-            android:scrollbars="horizontal">
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvTituloHistorial"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="@string/titulo_historial"
+                android:textSize="16sp" />
 
-                <ListView
-                    android:id="@+id/lvCupoHogar"
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="418dp"></ListView>
-            </LinearLayout>
-        </HorizontalScrollView>
-    </LinearLayout>
+                    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnRegresar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/regresar" />
+
+                    <TextView
+                        android:id="@+id/txtFechaUltimaAct"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Última Actualización: " />
+
+                    <TextView
+                        android:id="@+id/tvFechaUltimaAct"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:textAppearance="@android:style/TextAppearance.Medium" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/txtEstado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Estado:" />
+
+                    <TextView
+                        android:id="@+id/tvEstadoUltimo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:textAppearance="@android:style/TextAppearance.Medium" />
+                </TableRow>
+
+            </TableLayout>
+
+            <Button
+                android:id="@+id/btnSincronizar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_Actualizar" />
+
+            <ListView
+                android:id="@+id/lvCupoHogar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></ListView>
+
+
+            <Button
+                android:id="@+id/btnRegresar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/regresar" />
+
+
+
+
 </LinearLayout>
