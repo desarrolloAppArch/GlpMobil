@@ -1,9 +1,13 @@
 package ec.gob.arch.glpmobil.utils;
 
 import ec.gob.arch.glpmobil.R;
+import ec.gob.arch.glpmobil.constantes.ConstantesGenerales;
+
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 
 /**
  * Utilitario para mostrar mensajes de error y de información en pantalla
@@ -56,6 +60,25 @@ public class UtilMensajes {
 		
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		alertDialog.show();
+	}
+
+
+	public static ProgressDialog mostrarMsjProcesando(Context context, String titulo, String mensaje){
+		//Configurar el progressDialog
+		ProgressDialog progressDialog = new ProgressDialog(context);
+		progressDialog.setCancelable(false);
+		progressDialog.setTitle(titulo);
+		progressDialog.setMessage(mensaje);
+		//Abro el progressDialog
+		progressDialog.show();
+		Log.i("log_glp ---------->","INFO UtilMensajes --> mostrarMsjProcesando()");
+		return progressDialog;
+	}
+
+	public static void cerrarMsjProcesando(ProgressDialog progressDialog){
+		//Cierro el progressDialog
+		progressDialog.dismiss();
+		Log.i("log_glp ---------->","INFO UtilMensajes --> cerrarMsjProcesando()");
 	}
 
 

@@ -25,45 +25,48 @@ public class ClienteWebServices {
 	 * @return la respuesta como String en formato json
 	 */
 	public static String recuperarObjetoGson(String urlString, String requestJson) throws IOException {
-		String respuesta ;
-		Log.i("log_glp ---------->", "INFO ingresa recuperarObjetoGson ");
-
+		String respuesta=null;
+		try{
 			URL url = new URL(urlString);
 			HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
 
+			//Configuro la conexión con los parámetros con los que se publica el web service
+			conexion.setReadTimeout(360000);
+			conexion.setConnectTimeout(420000);
 			// Se prepara para recibir y enviar datos del servidor
 			conexion.setDoInput(true);
 			conexion.setDoOutput(true);
-
 			// Accion http para invocar al servicio
 			conexion.setRequestMethod("POST");
 			// Tipo de contenido que se va a recibir
 			conexion.setRequestProperty("Accept", "application/json");
 			// Tipo de contenido que se va a enviar
 			conexion.setRequestProperty("Content-type", "application/json");
-
-			conexion.setReadTimeout(999999999);
-
-
 			// Escribir en la conexion
 			OutputStream stream = conexion.getOutputStream();
-		Log.i("log_glp ---------->", "INFO recuperarObjetoGson stream"+ stream);
 			OutputStreamWriter envia = new OutputStreamWriter(stream);
 			envia.write(requestJson);
 			envia.close();
+			Log.i("log_glp ---------->", "INFO ClienteWebServices --> recuperarObjetoGson() --> INICIANDO CONSUMO WS..."+urlString);
+
 
 			//Leo la respuesta
 			InputStreamReader recibe = new InputStreamReader(conexion.getInputStream());
 			BufferedReader lectura = new BufferedReader(recibe);
 			respuesta = lectura.readLine();
-		Log.i("log_glp ---------->", "INFO recuperarObjetoGson respuesta"+ respuesta);
-			if (conexion!=null){
-				Log.i("log_glp ---------->", "ERROR ClienteWebServices --> recuperarObjetoGson -- > PETICION: " +urlString + " PARAMETRO ENVIADO: " + requestJson + " CODIGO RESPUESTA: "+conexion.getResponseCode() + " RESPUESTA: "+ respuesta);
 
+
+			//Seteo el valor de la respuesta de la peticion del servidor, en caso de conexion nula queda el valor en el se inicializo la variable codigoRespuestaHTTP
+			if(conexion!=null){
+				Log.i("log_glp ---------->", "INFO ClienteWebServices --> recuperarObjetoGson() -- > RESPUESTA PETICION: " +urlString + " PARAMETRO ENVIADO: " + requestJson + " CODIGO RESPUESTA: "+conexion.getResponseCode() + " RESPUESTA: "+ respuesta);
+			}else{
+				Log.i("log_glp ---------->", "INFO ClienteWebServices --> recuperarObjetoGson() -- > RESPUESTA PETICION: " +urlString + " PARAMETRO ENVIADO: " + requestJson + " CONEXION:"+conexion + " RESPUESTA: "+ respuesta);
 			}
-		Log.i("log_glp ---------->", "INFO respuesta "+ respuesta);
-
-
+		}catch (Exception e){
+			e.printStackTrace();
+			respuesta=e.getMessage(); //Si el servidor de la ARCH esta abajo entra al catch
+			Log.i("log_glp ---------->", "ERROR ClienteWebServices --> recuperarObjetoGson() -- > PETICION FALLO: " +urlString + " PARAMETRO ENVIADO: " + requestJson + " RESPUESTA: "+ respuesta);
+		}
 		return respuesta;
 	}
 
@@ -87,7 +90,7 @@ public class ClienteWebServices {
 			// Tipo de contenido que se va a recibir
 			conexion.setRequestProperty("Accept", "application/json");
 
-			conexion.setReadTimeout(10000);
+			conexion.setReadTimeout(999999999);
 
 			//Leo la respuesta
 			Log.i("","**** Codigo de respuesta del servidor " + conexion.getResponseCode());

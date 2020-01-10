@@ -1,12 +1,13 @@
 package ec.gob.arch.glpmobil.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.telephony.CarrierConfigManager;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,12 +17,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ec.gob.arch.glpmobil.R;
+import ec.gob.arch.glpmobil.constantes.ConstantesGenerales;
 import ec.gob.arch.glpmobil.constantes.CtHistorialSincroniza;
 import ec.gob.arch.glpmobil.entidades.HistorialSincronizacion;
 import ec.gob.arch.glpmobil.entidades.Venta;
@@ -31,8 +31,8 @@ import ec.gob.arch.glpmobil.servicios.ServicioVenta;
 import ec.gob.arch.glpmobil.servicios.ServiciosCupoHogar;
 import ec.gob.arch.glpmobil.servicios.ServiciosHistorialSincroniza;
 import ec.gob.arch.glpmobil.servicios.ServiciosPersona;
+import ec.gob.arch.glpmobil.servicios.Sincronizador;
 import ec.gob.arch.glpmobil.sesion.ObjetoAplicacion;
-import ec.gob.arch.glpmobil.task.TaskConsultarCupo;
 import ec.gob.arch.glpmobil.utils.ClienteWebServices;
 import ec.gob.arch.glpmobil.utils.Convertidor;
 import ec.gob.arch.glpmobil.utils.MensajeError;
@@ -70,6 +70,8 @@ public class HistorialSincronizaFragment extends Fragment {
     private int estado;
     private int numero_registros;
     private ServicioVenta servicioVenta;
+
+
 
 
     @Override
@@ -128,6 +130,7 @@ public class HistorialSincronizaFragment extends Fragment {
             mostrarUltimoHistorialActualiza();
 
         }
+
         btnRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,41 +143,148 @@ public class HistorialSincronizaFragment extends Fragment {
                 fm.beginTransaction().replace(R.id.fragment, enviarVentasFragment).commit();
             }
         });
+
+
         btnSincronizar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-            try {
-                if (ClienteWebServices.validarConexionRed(getContext())){
-                    if (validarTablaVentaVacia()){
-                        Log.i("log_glp_cupo ---->","INFO CupoFragment --> Sincronizar() --> ingresa a Onclick:" );
-                        listaCupoHogar = obtenerCupos();
-                        if (listaCupoHogar==null ){
-                            estado=0;
-                            insertarHistorial(accion, usuario,estado,0);
-                        }else{
-                            numero_registros=listaCupoHogar.size();
-                            estado=1;
-                            insertarCupoHogar(listaCupoHogar);
-                            insertarHistorial(accion, usuario,estado,numero_registros);
+                try {
+                    if (ClienteWebServices.validarConexionRed(getContext())){
+                        if (validarTablaVentaVacia()){
+                            Log.i("log_glp_cupo ---->","INFO CupoFragment --> Sincronizar() --> ingresa a Onclick:" );
+                            vwCupoHogar = new VwCupoHogar();
+                            vwCupoHogar.setDisIdentifica(usuario);
+                            TaskConsultarCupoProgress tarea = new TaskConsultarCupoProgress();
+                            tarea.execute(vwCupoHogar);
                         }
-                        lsHistorialSincronizacion = serviciosHistorialSincroniza.buscarVentaPorUsuarioAcccion(usuario, accion);
-                        llenarListaHistorial(lsHistorialSincronizacion);
-                        mostrarUltimoHistorialActualiza();
-                        Log.i("log_glp_cupo ---->","INFO CupoFragment --> Sincronizar() --> después de ejecutar:"+objetoSesion.getListaCupoHogar().size() );
+                    }else
+                    {
+                        UtilMensajes.mostrarMsjError(MensajeError.CONEXION_NULL, TituloError.TITULO_ERROR, getContext());
                     }
-                }else
-                {
-                    UtilMensajes.mostrarMsjError(MensajeError.CONEXION_NULL, TituloError.TITULO_ERROR, getContext());
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-
             }
         });
 
+
         return view;
     }
+
+
+
+
+
+
+
+    /**
+     * Tarea que permite consultar cupos en la ARCH e insertar en la base local del dispositivo
+     */
+    public class TaskConsultarCupoProgress extends AsyncTask{
+
+        private Sincronizador sincronizador;
+        private List<VwCupoHogar> listaCupoHogares;
+        private ProgressDialog progressDialog;
+
+
+        @Override
+        protected List<VwCupoHogar> doInBackground(Object... params) {
+            Log.i("log_glp ---------->","INFO TaskConsultarCupoProgress --> doInBackground()");
+            listaCupoHogares=null;
+            try {
+                sincronizador = new Sincronizador();
+                listaCupoHogares = sincronizador.consultarCupoWS((VwCupoHogar) params[0]);
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+            return listaCupoHogares;
+        }
+
+        /**
+         * Método que se ejecuta antes de llamar al doInBackground()
+         */
+        @Override
+        protected void onPreExecute() {
+            Log.i("log_glp ---------->","INFO TaskConsultarCupoProgress --> onPreExecute()");
+            progressDialog = UtilMensajes.mostrarMsjProcesando(getContext(),
+                                                                ConstantesGenerales.TITULO_CUPOS_PROGRESS_DIALOG,
+                                                                ConstantesGenerales.MENSAJE_PROGRESS_DIALOG_ESPERA);
+        }
+
+        /**
+         * Método que se ejecuta una vez que termina de ejecutar el doInBackground()
+         * @param o
+         */
+        @Override
+        protected void onPostExecute(Object o) {
+            int numero_registros =0;
+            Log.i("log_glp ---------->","INFO TaskConsultarCupoProgress --> onPostExecute()");
+            //Actualizo en la base local del dispositivo
+            if (listaCupoHogares==null ){
+                estado=0;
+                insertarHistorial(accion, usuario,estado,0);
+            }else{
+                numero_registros=listaCupoHogares.size();
+                if(numero_registros==1){
+                    for (VwCupoHogar cupo :listaCupoHogares){
+                        if (cupo.getCodigoRespuesta().equals(ConstantesGenerales.CODIGO_RESPUESTA_CUPOS_ENCONTRADOS)){
+                            guardarResultados(numero_registros);
+                        }
+                    }
+                }else{
+                    guardarResultados(numero_registros);
+                }
+            }
+            lsHistorialSincronizacion = serviciosHistorialSincroniza.buscarVentaPorUsuarioAcccion(usuario, accion);
+            llenarListaHistorial(lsHistorialSincronizacion);
+            mostrarUltimoHistorialActualiza();
+            Log.i("log_glp_cupo ---->","INFO CupoFragment --> Sincronizar() --> después de ejecutar:"+objetoSesion.getListaCupoHogar().size() );
+
+            //Cierro el progressDialog
+            UtilMensajes.cerrarMsjProcesando(progressDialog);
+
+            if (listaCupoHogares==null){
+                Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> onPostExecute() --> RESULTADO: "+listaCupoHogares);
+                UtilMensajes.mostrarMsjError(MensajeError.WEB_SERVICE_ERROR_APP, TituloError.TITULO_ERROR, getContext());
+            }else if(numero_registros==1){
+                for (VwCupoHogar cupo :listaCupoHogares){
+                    if (cupo.getCodigoRespuesta().equals(ConstantesGenerales.CODIGO_RESPUESTA_CUPOS_ENCONTRADOS)){
+                        Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> onPostExecute() --> RESULTADO:" +listaCupoHogares.size());
+                        objetoSesion.setListaCupoHogar(listaCupoHogares);
+                        UtilMensajes.mostrarMsjInfo(MensajeInfo.HISTORIAL_SINCRONIZA_OK+numero_registros, TituloInfo.TITULO_INFO, getContext());
+                    }else if(cupo.getCodigoRespuesta().equals(ConstantesGenerales.CODIGO_RESPUESTA_CUPOS_NO_ENCONTRADOS)){
+                        Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> onPostExecute() --> RESULTADO: VACIO");
+                        UtilMensajes.mostrarMsjError(MensajeError.CONNEXION_OK_SIN_RESULTADOS, TituloError.TITULO_ERROR, getContext());
+                    }else if(cupo.getCodigoRespuesta().equals(ConstantesGenerales.CODIGO_RESPUESTA_ERROR_SERVIDOR)){
+                        Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> onPostExecute() --> RESULTADO: VACIO");
+                        UtilMensajes.mostrarMsjError(MensajeError.WEB_SERVICE_ERROR_SERVIDOR+" ERROR: "+cupo.getCodigoRespuesta(), TituloError.TITULO_ERROR, getContext());
+                    }else{
+                        Log.i("log_glp_cupo ---->","INFO INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> onPostExecute()) --> RESULTADO: VACIO");
+                        UtilMensajes.mostrarMsjError(MensajeError.CONEXION_SERVIDOR_NULL+" ERROR: "+cupo.getCodigoRespuesta(), TituloError.TITULO_ERROR, getContext());
+                    }
+                }
+            }else{
+                Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> onPostExecute() --> RESULTADO:" +numero_registros);
+                objetoSesion.setListaCupoHogar(listaCupoHogares);
+                UtilMensajes.mostrarMsjInfo(MensajeInfo.HISTORIAL_SINCRONIZA_OK+numero_registros, TituloInfo.TITULO_INFO, getContext());
+            }
+
+        }
+
+        public void guardarResultados(int numero_registros){
+            //progressDialog.setMessage(ConstantesGenerales.MENSAJE_PROGRESS_DIALOG_GUARDANDO_BASE+numero_registros+ " registros.");
+            Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> guardarResultados() --> RESULTADO:" +numero_registros);
+            estado=1;
+            insertarCupoHogar(listaCupoHogares);
+            insertarHistorial(accion, usuario,estado,numero_registros);
+        }
+    }
+
+
+
+
+
+
     public void insertarHistorial(String accion, String usuario,  Integer estado, Integer numero_registros){
         try {
             serviciosHistorialSincroniza = new ServiciosHistorialSincroniza(getContext());
@@ -196,33 +306,6 @@ public class HistorialSincronizaFragment extends Fragment {
         lvCupoHogar.setAdapter(historialSincronizacionAdapter);
     }
 
-    public List<VwCupoHogar> obtenerCupos(){
-        vwCupoHogar = new VwCupoHogar();
-        List<VwCupoHogar> listaResultado = new ArrayList<>();
-        try {
-            vwCupoHogar.setDisIdentifica(usuario);
-            TaskConsultarCupo tarea = new TaskConsultarCupo();
-            tarea.execute(vwCupoHogar);
-            listaResultado = (List<VwCupoHogar>) tarea.get();
-            if (listaResultado==null){
-                Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> obtenerCupo() --> RESULTADO: NULL "+listaResultado);
-                UtilMensajes.mostrarMsjError(MensajeError.SIN_RESPUESTA_WS, TituloError.TITULO_ERROR, getContext());
-            }else  if (listaResultado.size()<=0 ){
-                Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> obtenerCupo() --> RESULTADO: VACIO"+listaResultado.size());
-                UtilMensajes.mostrarMsjError(MensajeError.SIN_RESULTADOS, TituloError.TITULO_ERROR, getContext());
-            }else {
-                Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> obtenerCupo() --> RESULTADO:" +listaResultado.size());
-                objetoSesion.setListaCupoHogar(listaResultado);
-                UtilMensajes.mostrarMsjInfo(MensajeInfo.HISTORIAL_SINCRONIZA_OK, TituloInfo.TITULO_INFO, getContext());
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
-            Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> obtenerCupo() --> CATCH:");
-            UtilMensajes.mostrarMsjError(MensajeError.SIN_RESPUESTA_WS, TituloError.TITULO_ERROR, getContext());
-        }
-        return listaResultado;
-    }
 
 
     public void insertarCupoHogar(List<VwCupoHogar> listaCupoHogar){
@@ -425,8 +508,8 @@ public class HistorialSincronizaFragment extends Fragment {
                  return convertView;
              }
 
-         }
 
+         }
 
 
 }

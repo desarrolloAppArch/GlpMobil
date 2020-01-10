@@ -108,8 +108,9 @@ public class Sincronizador {
             Gson gson = new Gson();
             String parametroPeticionWs = gson.toJson(cliente);
             String respuestaWs = ClienteWebServices.recuperarObjetoGson(url_ws_loginUsuario,parametroPeticionWs);
+            Log.i("log_glp ---------->","INFO Sincronizador --> loginUsuarioWS() --> INICIO transformación a GeVwClientesGlp");
             clienteResultado = gson.fromJson(respuestaWs, GeVwClientesGlp.class);
-            Log.i("log_glp ---------->","INFO Sincronizador --> loginUsuarioWS() --> transformando el resultado en formato JSON a objeto GeVwClientesGlp");
+            Log.i("log_glp ---------->","INFO Sincronizador --> loginUsuarioWS() --> FIN transformación a GeVwClientesGlp");
 
         }catch (Exception e)
         {
@@ -200,21 +201,26 @@ public class Sincronizador {
      */
     public List<VwCupoHogar> consultarCupoWS(VwCupoHogar usuario){
         ArrayList<VwCupoHogar> listahogares=null;
+        String respuestaWs=null;
         try
         {
             Gson gson = new Gson();
             String parametroPeticionWs = gson.toJson(usuario);
-            String respuestaWs = ClienteWebServices.recuperarObjetoGson(url_ws_consultaCupo,parametroPeticionWs);
+            respuestaWs = ClienteWebServices.recuperarObjetoGson(url_ws_consultaCupo,parametroPeticionWs);
+            //Si la respuesta retorna null, si lo transforma en una lista null
             Type type = new TypeToken<ArrayList<VwCupoHogar>>() {}.getType();
+            Log.i("log_glp ---------->","INFO Sincronizador --> consultarCupoWS() --> INICIO transformado a List<VwCupoHogar>");
             listahogares = gson.fromJson(respuestaWs,type);
-            Log.i("log_glp ---------->","INFO Sincronizador --> consultarCupoWS() --> transformando el resultado en formato JSON a List<VwCupoHogar>+listahogares.get(0).getLsPersonaAutorizada().get(0).getNumeroDocumento()");
+            Log.i("log_glp ---------->","INFO Sincronizador --> consultarCupoWS() --> FIN transformado a List<VwCupoHogar> listahogares:"+listahogares);
         }catch (Exception e)
         {
             e.printStackTrace();
-            listahogares=null;
+            VwCupoHogar cupoConError = new VwCupoHogar();
+            cupoConError.setCodigoRespuesta(respuestaWs);
+            listahogares= new ArrayList<>();
+            listahogares.add(cupoConError);
+            Log.i("log_glp ---------->","ERROR Sincronizador --> consultarCupoWS() --> Exception: "+e.getMessage());
         }
-
-
         return listahogares;
     }
 
@@ -225,6 +231,7 @@ public class Sincronizador {
             Gson gson = new GsonBuilder().create();
             String parametroPeticionWs = gson.toJson(ventas);
             String respuestaWs= ClienteWebServices.recuperarObjetoGson(url_ws_ventas,parametroPeticionWs);
+
             Log.i("log_glp ---------->","INFO Sincronizador --> respuestaWs() "+respuestaWs);
             respuesta=gson.fromJson(respuestaWs,String.class);
             Log.i("log_glp ---------->","INFO Sincronizador --> registrarVentasWs() respuesta-->"+respuesta);
@@ -232,6 +239,7 @@ public class Sincronizador {
         } catch (Exception e) {
             e.printStackTrace();
             Log.i("log_glp ---------->","ERROR catch --> registrarVentasWs() -->"+e.getMessage());
+            respuesta = e.getMessage();
         }
         return respuesta;
     }

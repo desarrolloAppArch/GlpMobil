@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import java.util.concurrent.ExecutionException;
 
 import ec.gob.arch.glpmobil.R;
 import ec.gob.arch.glpmobil.constantes.ConstantesGenerales;
@@ -93,11 +90,11 @@ public class RecuperarClaveActivity extends AppCompatActivity {
                                 }
 
                             }else{
-                                UtilMensajes.mostrarMsjError(MensajeError.CONEXION_WEB_SERVICE_NULL, TituloError.TITULO_ERROR, view.getContext());
+                                UtilMensajes.mostrarMsjError(MensajeError.CONEXION_SERVIDOR_NULL, TituloError.TITULO_ERROR, view.getContext());
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            UtilMensajes.mostrarMsjError(MensajeError.CONEXION_WEB_SERVICE_NULL, TituloError.TITULO_ERROR, view.getContext());
+                            UtilMensajes.mostrarMsjError(MensajeError.CONEXION_SERVIDOR_NULL, TituloError.TITULO_ERROR, view.getContext());
                         }
                     }
                     else

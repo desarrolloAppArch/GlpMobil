@@ -14,7 +14,7 @@ public interface MensajeInfo {
 
 	//SINCRONIZA CUPO
 
-	public static String HISTORIAL_SINCRONIZA_OK ="La actualización fue realizada exitosamente";
+	public static String HISTORIAL_SINCRONIZA_OK ="La actualización se realizó exitosamente, total registros actualizados: ";
 
 	public static String BASE_CUPOS_VACIA ="La base de datos se encuentra vacía, para vender debe descargar los cupos de la ARCH";
 	public static String VENTA_IDENTIFICACION_NO_ENCONTRADA ="Identificación no existe en la base de datos de cupos descargada";
@@ -33,6 +33,7 @@ public interface MensajeInfo {
 	public static String USUARIO_NO_TIENE_PERMISOS ="Usuario no tiene permisos para esta app";
 
 	public static String VENTA_HOGAR_NO_EXISTE ="El hogar no existe, verifique que haya descargado cupos luego de su último envío de ventas";
-	public static String ENVIO_VENTA_EXITOSO ="El envío de las ventas ha sido exitoso y se han eliminado los cupos, para seguir realizando ventas actualice los cupos";
+	public static String ENVIO_VENTAS_EXITOSO ="El envío de las ventas fue exitoso.    Toda la base de datos de cupos a sido eliminada de su dispositivo, para seguir realizando ventas ACTUALIZAR CUPOS.";
 
+	public static String NO_TIENE_VENTAS="No tiene ventas pendientes de enviar";
 }

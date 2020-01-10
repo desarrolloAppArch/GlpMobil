@@ -1,5 +1,6 @@
 package ec.gob.arch.glpmobil.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -48,6 +49,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private List<Usuario> listaUsuarios;
     private static String[] USUARIOS = new String[]{};
     private String usuarioLogin;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,11 +151,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(irPaginaRegistro);
         }else if(v.getId()==findViewById(R.id.tvSalirLogin).getId())
         {
+            finish();
             Log.v("log_glp ---------->", "INFO LoginActivity --> onClick(): dio clic en el link Salir");
             Intent intentSalir = new Intent(Intent.ACTION_MAIN);
             intentSalir.addCategory(Intent.CATEGORY_HOME);
             intentSalir.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intentSalir);
+
 
         }else if(v.getId()==findViewById(R.id.tvOlvidoClave).getId())
         {
@@ -242,7 +246,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
 
                 }
-
             }else {
                 UtilMensajes.mostrarMsjError(MensajeError.LOGIN_USUARIO_CLAVE_NULOS, TituloError.TITULO_ERROR, this);
             }
@@ -310,6 +313,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
     }
+
+
 
 
 }

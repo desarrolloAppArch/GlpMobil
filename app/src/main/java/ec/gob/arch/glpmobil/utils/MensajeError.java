@@ -12,12 +12,13 @@ public interface MensajeError {
 	public static String REGISTRO_CORREO_NO_IGUAL ="Los correos ingresados no coinciden";
 	public static String REGISTRO_CORREO_NULL ="Los correos son campos obligatorios";
 
-	public static String CONEXION_WEB_SERVICE_NULL ="Compruebe su conexión de Internet o consulte si los servicios de la ARCH se encuentran disponibles";
+	public static String CONEXION_SERVIDOR_NULL ="Error al intentar conectarse con el servidor, intente nuevamente si el problema continua reportar a la mesa de ayuda de ARCH.   ";
 	public static String CONEXION_NULL ="Compruebe su conexión de Internet para poder realizar esta acción";
 	public static String LOGIN_CONEXION_NULL ="Compruebe su conexión de Internet para poder logearse en línea";
-	public static String LOGIN_FALLO_CLAVE_NO_COINCIDE ="La clave no coincide. Compruebe su conexión de Internet y/o que los servicios de la ARCH se encuentren disponibles para validar si hubo reseteo clave";
+	public static String LOGIN_FALLO_CLAVE_NO_COINCIDE ="La clave no coincide con la de base local del dispositivo, error al intentar validar la clave en línea con la ARCH. Si el problema continua reportar a la mesa de ayuda de ARCH";
 	public static String LOGIN_FALLO_OBLIGATORIO_LOGIN_EN_LINEA ="Usuario a registrarse por primera vez en este dispositivo, compruebe su conexión de Internet y/o que los servicios de la ARCH se encuentren disponibles";
-	public static String WEB_SERVICE_ERROR_SERVIDOR ="Error en el servidor, reportar a la mesa de ayuda de ARCH";
+	public static String WEB_SERVICE_ERROR_SERVIDOR ="Error en el servidor, reportar a la mesa de ayuda de ARCH. ";
+	public static String WEB_SERVICE_ERROR_APP ="Error al procesar en el dispositivo, cierre la app y vuelva a intentarlo. ";
 	public static String ERROR_BASE_MOVIL ="No se pudo escribir ni leer información en el móvil, comprobar que disponga de espacio en memoria en su dispositivo. ";
 	public static String PROBLEMAS_CONSULTAR_BASE ="No se a podido realizar la consulta en la base de datos, reportar a la mesa de ayuda de ARCH";
 
@@ -31,8 +32,7 @@ public interface MensajeError {
 
 	public static String HISTORIAL_SINCRONIZA_ERROR ="La actualización NO fue realizada";
 	public static String HISTORIAL_SINCRONIZA_VENTA_LLENA ="Para actualizar primero debe enviar las ventas pendientes";
-    public static String SIN_RESULTADOS ="No hay cupos pendientes para descargar a la fecha actual";
-    public static String SIN_RESPUESTA_WS ="El servicio No se encuentra disponible para descargas, comunicarse con soporte ARCH Telf. 023996500 ext. 5100";
+    public static String CONNEXION_OK_SIN_RESULTADOS ="Consulta se realizó exitosamente en la ARCH, no hay cupos pendientes para descargar a la fecha actual";
 	public static String HISTORIAL_SINCRONIZA_VENTA_LLENA_OTRO_USUARIO ="Para actualizar primero debe enviar las ventas pendientes del usuario: ";
 
 	public static String VENTA_ACTIVAR_CAMARA_PARA_ESTA_APP ="Es necesario que permita que esta app acceda a la cámara, para la venta de GLP";
