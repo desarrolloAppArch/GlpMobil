@@ -139,7 +139,7 @@ public class ServiciosHistorialSincroniza extends ServicioBase{
             listaHistorial = new ArrayList<>();
             abrir();
             String condicion = CtHistorialSincroniza.USUARIO +"='"+usuario+"' and "+CtHistorialSincroniza.ACCION+ "='"+accion+"'" ;
-            String orderby = CtHistorialSincroniza.ID_SQLITE+" desc LIMIT 5";
+            String orderby = CtHistorialSincroniza.ID_SQLITE+" desc ";
                     Cursor cursor = db.query(CtHistorialSincroniza.TABLA_HISTORIAL, columnas, condicion, null, null, null,orderby);
             cursor.moveToFirst();
             while (!cursor.isAfterLast())

@@ -45,6 +45,7 @@ public interface MensajeError {
 	public static String VENTA_NO_REGISTRADA ="Venta no ha podido ser registrada, reportar a la mesa de ayuda de ARCH";
 	public static String CUPO_NO_REGISTRADO ="Cupo no ha podido ser actualizado, reportar a la mesa de ayuda de ARCH";
 	public static String VENTA_NO_ROLLBACK ="Problemas al realizar el ROLLBACK, reportar a la mesa de ayuda de ARCH";
+	public static String VENTA_ESCANEO_INVALIDO ="Error al escanear, intente nuevamente";
 
 	public static String CLAVES_OBLIGATORIAS ="Ingresar la nueva clave y repetir la misma";
 	public static String CLAVES_NO_COINCIDEN ="Las claves ingresadas no coinciden, vuelva a digitar";

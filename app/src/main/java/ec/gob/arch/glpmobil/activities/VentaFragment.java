@@ -5,6 +5,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -56,9 +58,12 @@ public class VentaFragment extends Fragment{
     //Variable para guardar un número cualquiera, para identificar el permiso de la cámara
     private static final int CODIGO_PERMISOS_CAMARA = 1001;
     private EditText etFechaExpedicion;
+    private CheckBox cbIdentificador;
 
     private VwPersonaAutorizada persona;
     private ObjetoAplicacion objetosSesion;
+    private String identificacion;
+    private TextView txtEtiquetaIdent;
 
     /**
      * SERVICIOS
@@ -104,6 +109,9 @@ public class VentaFragment extends Fragment{
         serviciosPersona = new ServiciosPersona(getContext());
         serviciosCupoHogar = new ServiciosCupoHogar(getContext());
         objetosSesion = (ObjetoAplicacion) getActivity().getApplication();
+        cbIdentificador = vistaVentaFragment.findViewById(R.id.cbIdentificador);
+        txtEtiquetaIdent = vistaVentaFragment.findViewById(R.id.txtEtiquetaIdent);
+        txtEtiquetaIdent.setVisibility(View.GONE);
 
         validarPermisoCamara();
 
@@ -148,16 +156,19 @@ public class VentaFragment extends Fragment{
              * Método que permite buscar si la identificación tiene cupo disponible en un hogar
              * @param v
              */
+
             @Override
             public void onClick(View v) {
                 Log.v("log_glp ----------> ", "INFO VentaFragment --> onCreateView() --> btnBuscarFragment.setOnClickListener()");
                 //Valido identificación de la persona que retira el GLP
-                String identificacion=null;
+                identificacion=null;
                 if(seleccionoOpcionEscanear!=null){
                     if(seleccionoOpcionEscanear){
                         Log.v("log_glp ----------> ", "INFO VentaFragment --> onCreateView() --> btnBuscarFragment.setOnClickListener()");
+                        //Se cambia de tipo a tvCodigoLeidoFragment por una variale de tipo password, y se valida que tenga 10 dígitos
                         identificacion=tvCodigoLeidoFragment.getText().toString();
                     }else {
+                        txtEtiquetaIdent.setVisibility(View.VISIBLE);
                         identificacion=etCodigoLeidoFragment.getText().toString();
                     }
                     if(identificacion.compareTo("")!=0){
@@ -189,14 +200,39 @@ public class VentaFragment extends Fragment{
         etFechaExpedicion.setText("");
         etCodigoLeidoFragment.setVisibility(View.VISIBLE);
         tvCodigoLeidoFragment.setVisibility(View.GONE);
+        cbIdentificador.setVisibility(View.GONE);
+        txtEtiquetaIdent.setVisibility(View.VISIBLE);
     }
 
     public void inicializarEscaneo(){
         tvCodigoLeidoFragment.setText("");
         etCodigoLeidoFragment.setText("");
         etFechaExpedicion.setText("");
+        cbIdentificador.setChecked(false);
         etCodigoLeidoFragment.setVisibility(View.GONE);
         tvCodigoLeidoFragment.setVisibility(View.VISIBLE);
+        cbIdentificador.setVisibility(View.VISIBLE);
+        txtEtiquetaIdent.setVisibility(View.GONE);
+    }
+
+    /**
+     * Método que valida si es dato escaneado de la cédula, devuelve el núemero de identificación con 10 dígitos
+     */
+
+    public void validarCodigoEscaneo(){
+        identificacion=tvCodigoLeidoFragment.getText().toString();
+        if (identificacion.length()==10){
+            Log.v("log_glp ----------> ", "INFO VentaFragment --> onCreateView() --> btnBuscarFragment.setOnClickListener()--largo identificacion entra al if "+identificacion.length()+"dato "+identificacion);
+            cbIdentificador.setText("Escaneo Correcto");
+            cbIdentificador.setTextColor(Color.parseColor("#0000CC"));
+            cbIdentificador.setChecked(true);
+        }else{
+            Log.v("log_glp ----------> ", "INFO VentaFragment --> onCreateView() --> btnBuscarFragment.setOnClickListener()--largo identificacion entra al else"+identificacion.length());
+            cbIdentificador.setText("Escaneo Incorrecto");
+            cbIdentificador.setTextColor(Color.RED);
+            cbIdentificador.setChecked(false);
+            UtilMensajes.mostrarMsjError(MensajeError.VENTA_ESCANEO_INVALIDO, TituloError.TITULO_ERROR, getContext());
+        }
     }
 
     public void validarPermisoCamara(){
@@ -248,7 +284,7 @@ public class VentaFragment extends Fragment{
                     String codigo = data.getStringExtra("codigo");
                     tvCodigoLeidoFragment.setText(codigo);
                     Log.v("log_glp ---------->", "INFO VentaFragment --> onActivityResult() --> codigo: "+codigo);
-
+                    validarCodigoEscaneo();
                 }
             }
         }
