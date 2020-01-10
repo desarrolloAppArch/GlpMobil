@@ -221,8 +221,7 @@ public class HistorialSincronizaFragment extends Fragment {
             Log.i("log_glp ---------->","INFO TaskConsultarCupoProgress --> onPostExecute()");
             //Actualizo en la base local del dispositivo
             if (listaCupoHogares==null ){
-                estado=0;
-                insertarHistorial(accion, usuario,estado,0);
+                insertarHistorial(accion, usuario,ConstantesGenerales.CODIGO_HISTORIAL_ESTADO_FALLIDO,0);
             }else{
                 numero_registros=listaCupoHogares.size();
                 if(numero_registros==1){
@@ -274,9 +273,8 @@ public class HistorialSincronizaFragment extends Fragment {
         public void guardarResultados(int numero_registros){
             //progressDialog.setMessage(ConstantesGenerales.MENSAJE_PROGRESS_DIALOG_GUARDANDO_BASE+numero_registros+ " registros.");
             Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> guardarResultados() --> RESULTADO:" +numero_registros);
-            estado=1;
             insertarCupoHogar(listaCupoHogares);
-            insertarHistorial(accion, usuario,estado,numero_registros);
+            insertarHistorial(accion, usuario,ConstantesGenerales.CODIGO_HISTORIAL_ESTADO_EXITOSO,numero_registros);
         }
     }
 
