@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:text="Clave: "
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:contentDescription="@string/hintIngreseClave" />
+                 />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
