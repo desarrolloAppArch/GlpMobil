@@ -13,62 +13,65 @@
         android:orientation="vertical">
 
         <TableLayout
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:shrinkColumns="1">
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView29"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Identificación cliente: "/>
+                    android:text="Identificación cliente: " />
 
                 <TextView
                     android:id="@+id/tvIdentificacionVentaRegistro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
+
                 <TextView
                     android:id="@+id/textView30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nombre cliente: "/>
+                    android:text="Nombre cliente: " />
 
                 <TextView
                     android:id="@+id/tvNombreVentaRegistro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
+
                 <TextView
                     android:id="@+id/textView32"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cupo disponible: "/>
+                    android:text="Cupo disponible: " />
 
                 <TextView
                     android:id="@+id/tvCupoVentaRegistro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView38"
@@ -80,12 +83,12 @@
                     android:id="@+id/tvFechaVentaRegistro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView43"
@@ -97,12 +100,12 @@
                     android:id="@+id/tvUsuarioVentaRegistro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView41"
@@ -116,15 +119,14 @@
                     android:layout_height="wrap_content"
                     android:ems="2"
                     android:inputType="number"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 <TextView
                     android:id="@+id/tvCilindrosVentaRegistro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
             </TableRow>
-
 
 
         </TableLayout>
@@ -140,16 +142,18 @@
                 android:layout_height="match_parent" >
 
                 <Button
+                    android:layout_marginRight="20dp"
                     android:id="@+id/btnRegistrarVenta"
-                    android:layout_width="170dp"
-                    android:layout_height="71dp"
+                    android:layout_width="150dp"
+                    style="@style/botones"
                     android:text="ACEPTAR" />
 
                 <Button
-                    android:layout_marginLeft="20dp"
+
                     android:id="@+id/btnCancelarVenta"
-                    android:layout_width="170dp"
-                    android:layout_height="71dp"
+                    android:layout_width="150dp"
+                    style="@style/botones"
+
                     android:text="CANCELAR" />
             </TableRow>
 
@@ -167,7 +171,7 @@
                     android:layout_marginLeft="20dp"
                     android:id="@+id/btnNuevaVenta"
                     android:layout_width="170dp"
-                    android:layout_height="71dp"
+                    style="@style/botones"
                     android:text="NUEVA VENTA" />
             </TableRow>
 

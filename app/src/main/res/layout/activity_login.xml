@@ -13,6 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginRight="90dp"
         android:padding="10dp"
+
         android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
     <TextView
@@ -40,19 +41,18 @@
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="Usuario:"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
             <AutoCompleteTextView
                 android:id="@+id/autoTvUsuario"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/altosEnlaces"
                 android:completionThreshold="1"
                 android:ems="10"
                 android:inputType="textCapCharacters"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:contentDescription="@string/hintUsuario" />
+                android:contentDescription="" />
         </TableRow>
 
         <TableRow
@@ -81,6 +81,7 @@
                     android:inputType="textPassword"
                     android:maxWidth="48dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:hint=""
                     />
             </android.support.design.widget.TextInputLayout>
 
@@ -97,7 +98,7 @@
             <Button
                 android:id="@+id/button"
                 android:layout_width="170dp"
-                android:layout_height="71dp"
+                style="@style/botones"
                 android:layout_marginTop="15dp"
                 android:onClick="ingresar"
                 android:text="ACEPTAR" />

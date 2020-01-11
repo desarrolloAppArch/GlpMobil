@@ -12,25 +12,24 @@
         android:layout_height="match_parent">
 
         <TableRow
-            android:layout_marginTop="100dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:layout_marginTop="100dp">
 
             <TextView
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Usuario: "
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <EditText
                 android:id="@+id/etUsuarioReseteo"
+                style="@style/altosEnlaces"
                 android:layout_width="233dp"
-                android:layout_height="wrap_content"
                 android:ems="8"
                 android:hint="@string/hintUsuario"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                 />
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
         </TableRow>
 
         <TableRow
@@ -45,10 +44,11 @@
                 android:text="RECUPERAR CLAVE" />
 
             <Button
-                android:layout_marginLeft="5dp"
                 android:id="@+id/btnCancelarRecuperar"
-                android:layout_width="wrap_content"
                 style="@style/botones"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
                 android:text=" CANCELAR " />
         </TableRow>
 

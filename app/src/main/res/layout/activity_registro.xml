@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="false"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="20dp">
 
         <TableRow
             android:layout_width="match_parent"
@@ -32,7 +32,6 @@
                     android:id="@+id/radioDepositoGlp"
                     style="@style/altosEnlaces"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="Depósito GLP"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -40,7 +39,6 @@
                     android:id="@+id/radioTransporteGlp"
                     style="@style/altosEnlaces"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="Transporte GLP"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
             </RadioGroup>
@@ -60,7 +58,7 @@
             <EditText
                 android:id="@+id/etRuc"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/altosEnlaces"
                 android:ems="9"
                 android:hint="@string/hintIdentificacion"
                 android:inputType="number"
@@ -77,10 +75,11 @@
 
     <Button
         android:id="@+id/button3"
+        style="@style/botones"
         android:layout_width="200dp"
-        android:layout_height="71dp"
-        android:layout_gravity="right"
+        android:layout_gravity="center"
         android:onClick="buscarDistribuidores"
+        android:layout_marginTop="15dp"
         android:text="BUSCAR"
         android:textAppearance="@android:style/TextAppearance.Medium" />
 
