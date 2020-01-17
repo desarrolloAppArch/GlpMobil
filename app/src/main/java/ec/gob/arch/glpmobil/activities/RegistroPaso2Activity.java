@@ -1,6 +1,5 @@
 package ec.gob.arch.glpmobil.activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -8,16 +7,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.List;
@@ -26,13 +22,6 @@ import ec.gob.arch.glpmobil.R;
 import ec.gob.arch.glpmobil.constantes.ConstantesGenerales;
 import ec.gob.arch.glpmobil.entidades.GeVwClientesGlp;
 import ec.gob.arch.glpmobil.sesion.ObjetoAplicacion;
-import ec.gob.arch.glpmobil.task.TaskBuscarDistribuidor;
-import ec.gob.arch.glpmobil.utils.ClienteWebServices;
-import ec.gob.arch.glpmobil.utils.MensajeError;
-import ec.gob.arch.glpmobil.utils.TituloError;
-import ec.gob.arch.glpmobil.utils.UtilMensajes;
-
-import static ec.gob.arch.glpmobil.R.style.TextAppearance_AppCompat_Medium;
 
 /**
  * RegistroActivity manejará al XML activity_registro

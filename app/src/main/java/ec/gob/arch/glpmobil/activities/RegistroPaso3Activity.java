@@ -1,7 +1,10 @@
 package ec.gob.arch.glpmobil.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +27,7 @@ import ec.gob.arch.glpmobil.constantes.ConstantesGenerales;
 import ec.gob.arch.glpmobil.entidades.GeVwClientesGlp;
 import ec.gob.arch.glpmobil.entidades.Usuario;
 import ec.gob.arch.glpmobil.servicios.ServiciosUsuario;
+import ec.gob.arch.glpmobil.servicios.Sincronizador;
 import ec.gob.arch.glpmobil.sesion.ObjetoAplicacion;
 import ec.gob.arch.glpmobil.task.TaskRegistrarDistribuidor;
 import ec.gob.arch.glpmobil.utils.MensajeError;
@@ -103,6 +107,7 @@ public class RegistroPaso3Activity extends AppCompatActivity {
 
         tvIrLogin = (TextView) findViewById(R.id.tvIrLogin);
         tvIrLogin.setTextColor(getResources().getColor(R.color.colorPrimary));
+        tvIrLogin.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 
         etCorreo = (EditText) findViewById(R.id.etCorreo);
         etCorreoRepetido = (EditText) findViewById(R.id.etCorreoRepetido);
@@ -185,32 +190,15 @@ public class RegistroPaso3Activity extends AppCompatActivity {
         {
             if(esMismoCorreo())
             {
-                try
+                if(sujetoSeleccionado.getEstadoEquivalente().equals(ConstantesGenerales.CODIGO_ESTADO_EQUIVALENTE_AUTORIZADO))
                 {
-                    TaskRegistrarDistribuidor tareaRegistrar = new TaskRegistrarDistribuidor();
+                    TaskRegistrarDistribuidorProgress tareaRegistrar = new TaskRegistrarDistribuidorProgress();
                     sujetoSeleccionado.setCorreo(etCorreo.getText().toString());
                     tareaRegistrar.execute(sujetoSeleccionado);
-                    sujetoSeleccionado = (GeVwClientesGlp) tareaRegistrar.get();
-                    if(sujetoSeleccionado.getCodigoRespuesta().compareTo(ConstantesGenerales.CODIGO_RESPUESTA_USUARIO_REGISTRADO_EXISTOSAMENTE)==0)
-                    {
-                        insertar();
-                        tvCorreo.setText(etCorreo.getText());
-                        etCorreo.setVisibility(View.GONE);
-                        etCorreoRepetido.setVisibility(View.GONE);
-                        tvEtiquetaCorreoRepetir.setVisibility(View.GONE);
-                        btnAceptarRegistroUsuario.setVisibility(View.GONE);
-                        tvCorreo.setVisibility(View.VISIBLE);
 
-                        UtilMensajes.mostrarMsjInfo(MensajeInfo.REGISTRO_EXITOSO, TituloInfo.TITULO_INFO, this);
-                    }else if(sujetoSeleccionado.getCodigoRespuesta().compareTo(ConstantesGenerales.CODIGO_RESPUESTA_USUARIO_YA_EXISTE)==0)
-                    {
-                        guardarEnElMobil();
-                        UtilMensajes.mostrarMsjInfo(MensajeInfo.ACTUALIZACION_EXITOSA, TituloInfo.TITULO_INFO, this);
-                    }
-                }catch (Exception e)
+                }else
                 {
-                    e.printStackTrace();
-                    UtilMensajes.mostrarMsjInfo(MensajeInfo.REGISTRO_FALLO, TituloInfo.TITULO_INFO, this);
+                    UtilMensajes.mostrarMsjError(MensajeError.REGISTRO_USUARIO_NO_AUTORIZADO, TituloError.TITULO_ERROR, this);
                 }
             }else
             {
@@ -223,6 +211,80 @@ public class RegistroPaso3Activity extends AppCompatActivity {
         }
 
     }
+
+
+
+    public class TaskRegistrarDistribuidorProgress extends AsyncTask {
+
+        private Sincronizador sincronizador;
+        private ProgressDialog progressDialog;
+
+        @Override
+        protected GeVwClientesGlp doInBackground(Object... params) {
+            Log.i("log_glp ---------->","INFO RegistroPaso3Activity --> TaskRegistrarDistribuidorProgress --> doInBackground() ");
+            try {
+                sincronizador = new Sincronizador();
+                sujetoSeleccionado = sincronizador.registrarUsuarioWS((GeVwClientesGlp) params[0]);
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+            return sujetoSeleccionado;
+        }
+
+
+        /**
+         * Método que se ejecuta antes de llamar al doInBackground()
+         */
+        @Override
+        protected void onPreExecute() {
+            Log.i("log_glp ---------->","INFO RegistroPaso3Activity --> TaskRegistrarDistribuidorProgress --> onPreExecute()");
+            progressDialog = UtilMensajes.mostrarMsjProcesando(RegistroPaso3Activity.this,
+                                                            ConstantesGenerales.TITULO_REGISTRO_USUARIO_PROGRESS_DIALOG,
+                                                            ConstantesGenerales.MENSAJE_PROGRESS_DIALOG_ESPERA);
+
+        }
+
+
+        /**
+         * Método que se ejecuta una vez que termina de ejecutar el doInBackground()
+         * @param o
+         */
+        @Override
+        protected void onPostExecute(Object o) {
+            Log.i("log_glp ---------->","INFO RegistroPaso3Activity --> TaskRegistrarDistribuidorProgress --> onPostExecute()");
+            UtilMensajes.cerrarMsjProcesando(progressDialog);
+            try
+            {
+                if(sujetoSeleccionado.getCodigoRespuesta().compareTo(ConstantesGenerales.CODIGO_RESPUESTA_USUARIO_REGISTRADO_EXISTOSAMENTE)==0)
+                {
+                    insertar();
+                    tvCorreo.setText(etCorreo.getText());
+                    etCorreo.setVisibility(View.GONE);
+                    etCorreoRepetido.setVisibility(View.GONE);
+                    tvEtiquetaCorreoRepetir.setVisibility(View.GONE);
+                    btnAceptarRegistroUsuario.setVisibility(View.GONE);
+                    tvCorreo.setVisibility(View.VISIBLE);
+
+                    UtilMensajes.mostrarMsjInfo(MensajeInfo.REGISTRO_EXITOSO, TituloInfo.TITULO_INFO, RegistroPaso3Activity.this);
+                }else if(sujetoSeleccionado.getCodigoRespuesta().compareTo(ConstantesGenerales.CODIGO_RESPUESTA_USUARIO_YA_EXISTE)==0)
+                {
+                    guardarEnElMobil();
+                    UtilMensajes.mostrarMsjInfo(MensajeInfo.ACTUALIZACION_EXITOSA, TituloInfo.TITULO_INFO, RegistroPaso3Activity.this);
+                }
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+                UtilMensajes.mostrarMsjError(MensajeError.REGISTRO_FALLO+e.getMessage(), TituloError.TITULO_ERROR, RegistroPaso3Activity.this);
+            }
+
+        }
+
+
+    }
+
+
+
+
 
     /**
      * Método que antes de guardar la información de un usuario , valida si el usuario ya existe en la base de datos del móvil

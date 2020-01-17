@@ -32,12 +32,16 @@ public interface ConstantesGenerales {
 	public final int CODIGO_PERMITIR_DIGITACION = 0;
 
 	public final String TITULO_GENERAL_PROGRESS_DIALOG = "Proceso En Ejecución";
-	public final String TITULO_CUPOS_PROGRESS_DIALOG = "Actualizando Cupos en la ARCH";
+	public final String TITULO_BUSCANDO_SUJETO_PROGRESS_DIALOG = "Buscando Sujeto de Control en la ARCH";
+	public final String TITULO_REGISTRO_USUARIO_PROGRESS_DIALOG = "Registrando usuario en la ARCH";
+	public final String TITULO_CUPOS_PROGRESS_DIALOG = "Descargando Cupos de la ARCH";
 	public final String TITULO_VENTAS_PROGRESS_DIALOG = "Enviando Ventas a la ARCH";
 	public final String MENSAJE_PROGRESS_DIALOG_ESPERA = "Por favor, espera unos minutos!   No interrumpir.";
-	public final String MENSAJE_PROGRESS_DIALOG_GUARDANDO_BASE = "Por favor, espera unos minutos! Guardando el la base local del dispositivo ";
+	public final String MENSAJE_PROGRESS_DIALOG_ESPERA_GUARDANDO_LOCALMENTE = "Por favor, espera unos minutos!    Guardando en la base de datos local del dispositivo.";
 
 	public final Integer CODIGO_HISTORIAL_ESTADO_EXITOSO = 1;
 	public final Integer CODIGO_HISTORIAL_ESTADO_FALLIDO = 0;
+
+	public final String CODIGO_ESTADO_EQUIVALENTE_AUTORIZADO = "AUTORIZADO";
 
 }

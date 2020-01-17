@@ -1,7 +1,8 @@
 package ec.gob.arch.glpmobil.activities;
 
-import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,8 +15,8 @@ import java.util.List;
 import ec.gob.arch.glpmobil.R;
 import ec.gob.arch.glpmobil.constantes.ConstantesGenerales;
 import ec.gob.arch.glpmobil.entidades.GeVwClientesGlp;
+import ec.gob.arch.glpmobil.servicios.Sincronizador;
 import ec.gob.arch.glpmobil.sesion.ObjetoAplicacion;
-import ec.gob.arch.glpmobil.task.TaskBuscarDistribuidor;
 import ec.gob.arch.glpmobil.utils.ClienteWebServices;
 import ec.gob.arch.glpmobil.utils.MensajeError;
 import ec.gob.arch.glpmobil.utils.MensajeInfo;
@@ -62,22 +63,11 @@ public class RegistroActivity extends AppCompatActivity {
         try {
             nuevoRegistro();
             if (ClienteWebServices.validarConexionRed(this)){
-                if (validarTipo())
-                {
+                if (validarTipo()){
                     if(etRuc.getText().toString().compareTo("")!=0){
                         sujetoGlp.setRuc(etRuc.getText().toString());
-                        TaskBuscarDistribuidor tarea = new TaskBuscarDistribuidor();
+                        TaskBuscarDistribuidorProgress tarea = new TaskBuscarDistribuidorProgress();
                         tarea.execute(sujetoGlp);
-                        List<GeVwClientesGlp> listaResultados= (List<GeVwClientesGlp>) tarea.get();
-                        if (listaResultados!=null && listaResultados.size()>0){
-                            Log.i("log_glp ---------->","INFO RegistroActivity --> buscarDistribuidores() --> RESULTADO:" +listaResultados.size());
-                            objetosSesion.setListaSujetos(listaResultados);
-                            Intent irActivityRegistroPaso2 = new Intent(RegistroActivity.this, RegistroPaso2Activity.class);
-                            startActivity(irActivityRegistroPaso2);
-                        }else {
-                            Log.i("log_glp ---------->","INFO RegistroActivity --> buscarDistribuidores() --> RESULTADO: NINGUNO");
-                            UtilMensajes.mostrarMsjInfo(MensajeInfo.SIN_RESULTADOS, TituloInfo.TITULO_INFO, this);
-                        }
                     }else
                     {
                         UtilMensajes.mostrarMsjError(MensajeError.REGISTRO_RUC_SUJETO_NULL, TituloError.TITULO_ERROR, this);
@@ -95,6 +85,60 @@ public class RegistroActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+
+    public class TaskBuscarDistribuidorProgress extends AsyncTask {
+
+        private Sincronizador sincronizador;
+        private List<GeVwClientesGlp> listaResultados;
+        private ProgressDialog progressDialog;
+
+        @Override
+        protected List<GeVwClientesGlp> doInBackground(Object... params) {
+            Log.i("log_glp ---------->","INFO RegistroActivity --> TaskBuscarDistribuidorProgress --> doInBackground()");
+            try {
+                sincronizador = new Sincronizador();
+                listaResultados = sincronizador.obtenerDistribuidoresWS((GeVwClientesGlp) params[0]);
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+            return listaResultados;
+        }
+
+
+        /**
+         * Método que se ejecuta antes de llamar al doInBackground()
+         */
+        @Override
+        protected void onPreExecute() {
+            Log.i("log_glp ---------->","INFO TaskConsultarCupoProgress --> onPreExecute()");
+            progressDialog = UtilMensajes.mostrarMsjProcesando(RegistroActivity.this,
+                    ConstantesGenerales.TITULO_BUSCANDO_SUJETO_PROGRESS_DIALOG,
+                    ConstantesGenerales.MENSAJE_PROGRESS_DIALOG_ESPERA);
+        }
+
+
+        /**
+         * Método que se ejecuta una vez que termina de ejecutar el doInBackground()
+         * @param o
+         */
+        @Override
+        protected void onPostExecute(Object o) {
+            UtilMensajes.cerrarMsjProcesando(progressDialog);
+            if (listaResultados!=null && listaResultados.size()>0){
+                Log.i("log_glp ---------->","INFO RegistroActivity --> buscarDistribuidores() --> RESULTADO:" +listaResultados.size());
+                objetosSesion.setListaSujetos(listaResultados);
+                Intent irActivityRegistroPaso2 = new Intent(RegistroActivity.this, RegistroPaso2Activity.class);
+                startActivity(irActivityRegistroPaso2);
+            }else {
+                Log.i("log_glp ---------->","INFO RegistroActivity --> buscarDistribuidores() --> RESULTADO: NINGUNO");
+                UtilMensajes.mostrarMsjInfo(MensajeInfo.SIN_RESULTADOS, TituloInfo.TITULO_INFO, RegistroActivity.this);
+            }
+        }
+    }
+
+
+
 
     /**
      * Método que valida si ha seleccionado uno de los tipo de sujeto Depósito Glp o Transporte Glp

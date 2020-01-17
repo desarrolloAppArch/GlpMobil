@@ -71,7 +71,7 @@ public class UtilMensajes {
 		progressDialog.setMessage(mensaje);
 		//Abro el progressDialog
 		progressDialog.show();
-		Log.i("log_glp ---------->","INFO UtilMensajes --> mostrarMsjProcesando()");
+		Log.i("log_glp ---------->","INFO UtilMensajes --> mostrarMsjProcesando()"+mensaje);
 		return progressDialog;
 	}
 

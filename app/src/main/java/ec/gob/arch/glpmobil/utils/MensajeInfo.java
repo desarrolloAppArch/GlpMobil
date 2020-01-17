@@ -5,7 +5,7 @@ public interface MensajeInfo {
 	public static String LOGIN_USUARIO_ENCONTRADO ="Usuario encontrado";
 	public static String SIN_RESULTADOS ="No se encontraron resultados";
 	public static String REGISTRO_EXITOSO ="Usuario registrado exitosamente, su clave ha sido enviada a su correo electrónico";
-	public static String REGISTRO_FALLO ="Usuario no pudo ser registrado";
+
 	public static String ACTUALIZACION_EXITOSA ="El usuario ya existe, no es posible volver a registrarlo";
 	public static String LOGIN_USUARIO_REGISTRADO ="Usuario registrado exitosamente en la base del telefono";
 	public static String LOGIN_O ="Usuario encontrado";
@@ -32,7 +32,7 @@ public interface MensajeInfo {
 	public static String USUARIO_NO_EXISTE ="Usuario no se encuentra registrado en la ARCH";
 	public static String USUARIO_NO_TIENE_PERMISOS ="Usuario no tiene permisos para esta app";
 
-	public static String VENTA_HOGAR_NO_EXISTE ="El hogar no existe, verifique que haya descargado cupos luego de su último envío de ventas";
+	public static String VENTA_HOGAR_NO_EXISTE ="Persona no existe en la base local, verifique que haya descargado cupos el usuario en sesión ";
 	public static String ENVIO_VENTAS_EXITOSO ="El envío de las ventas fue exitoso.    Toda la base de datos de cupos a sido eliminada de su dispositivo, para seguir realizando ventas ACTUALIZAR CUPOS.";
 
 	public static String NO_TIENE_VENTAS="No tiene ventas pendientes de enviar";

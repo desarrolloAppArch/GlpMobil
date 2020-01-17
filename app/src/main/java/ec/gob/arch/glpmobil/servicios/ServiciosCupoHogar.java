@@ -106,6 +106,40 @@ public class ServiciosCupoHogar extends ServicioBase{
         return  cupoHogar;
     }
 
+
+
+    /**
+     * Método que busca el cupo de un hogar
+     * @param hog_codigo
+     * @return VwCupoHogar
+     */
+    public VwCupoHogar buscarPorHogar(Integer hog_codigo, String  disIdentifica) throws Exception {
+        VwCupoHogar cupoHogar = null;
+        Cursor cursor = null;
+        try {
+            abrir();
+            String condicion = CtCupoHogar.HOG_CODIGO+"='"+hog_codigo+"' AND "+CtCupoHogar.DIS_IDENTIFICA+"='"+disIdentifica+"' ";
+            cursor = db.query(CtCupoHogar.TABLA_CUPO_HOGAR, columnas, condicion, null,null, null,null);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()){
+                cupoHogar = obtenerCupoHogar(cursor);
+                cursor.moveToNext();
+            }
+            Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> buscarPorHogar() "+hog_codigo+" --> RESULTADO ENCONTRADO : "+cupoHogar);
+        }catch (Exception e){
+            Log.v("log_glp ---------->", "ERROR ServiciosCupoHogar --> buscarPorHogar() --> EXCEPCION AL BUSCAR: "+hog_codigo);
+            e.printStackTrace();
+        }finally {
+            if(cursor!=null){
+                cursor.close();
+                Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> buscarPorHogar() --> Cerrando cursor");
+            }
+            cerrar();
+        }
+        return  cupoHogar;
+    }
+
+
     public VwCupoHogar obtenerCupoHogar(Cursor cursor){
         Log.v("log_glp ---------->", "INFO ServiciosCupoHogar --> obtenerCupoHogar()");
         VwCupoHogar cupoHogar = new VwCupoHogar();

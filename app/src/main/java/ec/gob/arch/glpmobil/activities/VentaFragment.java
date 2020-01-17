@@ -330,7 +330,7 @@ public class VentaFragment extends Fragment{
         if(fechaExpedicionAceptada(persona)){
             VwCupoHogar cupoHogar = null;
             try {
-                cupoHogar = serviciosCupoHogar.buscarPorHogar(persona.getHogCodigo());
+                cupoHogar = serviciosCupoHogar.buscarPorHogar(persona.getHogCodigo(),objetosSesion.getUsuario().getId());
                 if(cupoHogar!=null){
                     if(cupoHogar.getCmhDisponible()>0){
                         Log.v("log_glp ---------->", "INFO VentaFragment --> validarCupo() --> CUPO DISPONIBLE: "+cupoHogar.getCmhDisponible());
@@ -358,7 +358,7 @@ public class VentaFragment extends Fragment{
                         UtilMensajes.mostrarMsjInfo(MensajeInfo.VENTA_HOGAR_SIN_CUPO_DISPONIBLE+cupoHogar.getCmhDisponible(), TituloInfo.TITULO_INFO, getContext());
                     }
                 }else{
-                    UtilMensajes.mostrarMsjInfo(MensajeInfo.VENTA_HOGAR_NO_EXISTE+cupoHogar, TituloInfo.TITULO_INFO, getContext());
+                    UtilMensajes.mostrarMsjInfo(MensajeInfo.VENTA_HOGAR_NO_EXISTE+objetosSesion.getUsuario().getId(), TituloInfo.TITULO_INFO, getContext());
                 }
             } catch (Exception e) {
                 e.printStackTrace();

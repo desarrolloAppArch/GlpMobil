@@ -6,11 +6,13 @@ public interface MensajeError {
 	public static String LOGIN_CLAVE_INCORRECTA ="Contraseña incorrecta";
 	public static String LOGIN_NO_TIENE_PERMISOS ="Usuario NO tiene permisos para esta aplicación";
 	public static String LOGIN_USUARIO_NO_EXISTE ="EL usuario NO existe o se encuentra INACTIVO";
+	public static String REGISTRO_FALLO ="Usuario no pudo ser registrado. ";
 
 	public static String REGISTRO_TIPO_SUJETO_NULL ="Seleccione el tipo de sujeto que desea registrar";
 	public static String REGISTRO_RUC_SUJETO_NULL ="Ingrese el RUC del sujeto para realizar la búsqueda";
 	public static String REGISTRO_CORREO_NO_IGUAL ="Los correos ingresados no coinciden";
 	public static String REGISTRO_CORREO_NULL ="Los correos son campos obligatorios";
+	public static String REGISTRO_USUARIO_NO_AUTORIZADO ="El sujeto de control no se puede registrar, ya que se encuentra en estado NO AUTORIZADO";
 
 	public static String CONEXION_SERVIDOR_NULL ="Error al intentar conectarse con el servidor, intente nuevamente si el problema continua reportar a la mesa de ayuda de ARCH.   ";
 	public static String CONEXION_NULL ="Compruebe su conexión de Internet para poder realizar esta acción";

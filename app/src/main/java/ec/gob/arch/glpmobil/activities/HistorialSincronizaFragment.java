@@ -151,7 +151,7 @@ public class HistorialSincronizaFragment extends Fragment {
                 try {
                     if (ClienteWebServices.validarConexionRed(getContext())){
                         if (validarTablaVentaVacia()){
-                            Log.i("log_glp_cupo ---->","INFO CupoFragment --> Sincronizar() --> ingresa a Onclick:" );
+                            Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> btnSincronizar.setOnClickListener()" );
                             vwCupoHogar = new VwCupoHogar();
                             vwCupoHogar.setDisIdentifica(usuario);
                             TaskConsultarCupoProgress tarea = new TaskConsultarCupoProgress();
@@ -189,7 +189,7 @@ public class HistorialSincronizaFragment extends Fragment {
 
         @Override
         protected List<VwCupoHogar> doInBackground(Object... params) {
-            Log.i("log_glp ---------->","INFO TaskConsultarCupoProgress --> doInBackground()");
+            Log.i("log_glp ---------->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress --> doInBackground()");
             listaCupoHogares=null;
             try {
                 sincronizador = new Sincronizador();
@@ -205,11 +205,13 @@ public class HistorialSincronizaFragment extends Fragment {
          */
         @Override
         protected void onPreExecute() {
-            Log.i("log_glp ---------->","INFO TaskConsultarCupoProgress --> onPreExecute()");
+            Log.i("log_glp ---------->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress --> onPreExecute()");
             progressDialog = UtilMensajes.mostrarMsjProcesando(getContext(),
                                                                 ConstantesGenerales.TITULO_CUPOS_PROGRESS_DIALOG,
                                                                 ConstantesGenerales.MENSAJE_PROGRESS_DIALOG_ESPERA);
+
         }
+
 
         /**
          * Método que se ejecuta una vez que termina de ejecutar el doInBackground()
@@ -217,8 +219,9 @@ public class HistorialSincronizaFragment extends Fragment {
          */
         @Override
         protected void onPostExecute(Object o) {
+
             int numero_registros =0;
-            Log.i("log_glp ---------->","INFO TaskConsultarCupoProgress --> onPostExecute()");
+            Log.i("log_glp ---------->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress --> onPostExecute()");
             //Actualizo en la base local del dispositivo
             if (listaCupoHogares==null ){
                 insertarHistorial(accion, usuario,ConstantesGenerales.CODIGO_HISTORIAL_ESTADO_FALLIDO,0);
@@ -237,7 +240,7 @@ public class HistorialSincronizaFragment extends Fragment {
             lsHistorialSincronizacion = serviciosHistorialSincroniza.buscarVentaPorUsuarioAcccion(usuario, accion);
             llenarListaHistorial(lsHistorialSincronizacion);
             mostrarUltimoHistorialActualiza();
-            Log.i("log_glp_cupo ---->","INFO CupoFragment --> Sincronizar() --> después de ejecutar:"+objetoSesion.getListaCupoHogar().size() );
+            Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> después de insertar en base");
 
             //Cierro el progressDialog
             UtilMensajes.cerrarMsjProcesando(progressDialog);
@@ -248,7 +251,7 @@ public class HistorialSincronizaFragment extends Fragment {
             }else if(numero_registros==1){
                 for (VwCupoHogar cupo :listaCupoHogares){
                     if (cupo.getCodigoRespuesta().equals(ConstantesGenerales.CODIGO_RESPUESTA_CUPOS_ENCONTRADOS)){
-                        Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> onPostExecute() --> RESULTADO:" +listaCupoHogares.size());
+                        Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> onPostExecute() --> RESULTADO:" +numero_registros);
                         objetoSesion.setListaCupoHogar(listaCupoHogares);
                         UtilMensajes.mostrarMsjInfo(MensajeInfo.HISTORIAL_SINCRONIZA_OK+numero_registros, TituloInfo.TITULO_INFO, getContext());
                     }else if(cupo.getCodigoRespuesta().equals(ConstantesGenerales.CODIGO_RESPUESTA_CUPOS_NO_ENCONTRADOS)){

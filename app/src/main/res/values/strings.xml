@@ -1,9 +1,8 @@
 <resources>
-    <string name="app_name">Distribución de GLP v1.1</string>
-    <string name="titulo_activity_registro">PASO 1. BUSCAR SUJETO</string>
-    <string name="titulo_activity_registro_paso2">PASO 2. SELECCIONAR SUJETO</string>
+    <string name="app_name">Distribución de GLP v1.2</string>
+    <string name="titulo_activity_registro">PASO 1. BUSCAR</string>
+    <string name="titulo_activity_registro_paso2">PASO 2. SELECCIONAR </string>
     <string name="titulo_activity_registro_paso3">PASO 3. COMPLETAR INFORMACION </string>
-    <string name="titulo_activity_registro_paso4">PASO 4. ACEPTAR TÉRMINOS </string>
     <string name="ok">ACEPTAR</string>
 
 
@@ -42,7 +41,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="btn_Actualizar">ACTUALIZAR</string>
     <string name="regresar">Regresar</string>
-    <string name="hintIdentificacion">Número de Identificación</string>
+    <string name="hintIdentificacion">RUC propietario</string>
     <string name="hintUsuario">Ingrese usuario</string>
     <string name="hintIngreseClave">Ingrese la clave</string>
 

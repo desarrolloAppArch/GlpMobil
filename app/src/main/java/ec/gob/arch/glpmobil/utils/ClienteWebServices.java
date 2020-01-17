@@ -12,7 +12,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
-import android.widget.Toast;
 
 
 public class ClienteWebServices {
@@ -26,13 +25,12 @@ public class ClienteWebServices {
 	 */
 	public static String recuperarObjetoGson(String urlString, String requestJson) throws IOException {
 		String respuesta=null;
+		HttpURLConnection conexion=null;
 		try{
 			URL url = new URL(urlString);
-			HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
+			conexion = (HttpURLConnection) url.openConnection();
 
 			//Configuro la conexión con los parámetros con los que se publica el web service
-			conexion.setReadTimeout(360000);
-			conexion.setConnectTimeout(420000);
 			// Se prepara para recibir y enviar datos del servidor
 			conexion.setDoInput(true);
 			conexion.setDoOutput(true);
@@ -42,18 +40,30 @@ public class ClienteWebServices {
 			conexion.setRequestProperty("Accept", "application/json");
 			// Tipo de contenido que se va a enviar
 			conexion.setRequestProperty("Content-type", "application/json");
+			conexion.setConnectTimeout(10000);// Expirar a los 10 segundos si la conexión no se establece
+			conexion.setReadTimeout(360000);// Esperar solo 6 minutos para que finalice la lectura
 			// Escribir en la conexion
+			Log.i("log_glp ---------->", "INFO ClienteWebServices --> recuperarObjetoGson() --> UNO");
 			OutputStream stream = conexion.getOutputStream();
+			Log.i("log_glp ---------->", "INFO ClienteWebServices --> recuperarObjetoGson() --> DOS");
 			OutputStreamWriter envia = new OutputStreamWriter(stream);
+			Log.i("log_glp ---------->", "INFO ClienteWebServices --> recuperarObjetoGson() --> TRES");
 			envia.write(requestJson);
+			Log.i("log_glp ---------->", "INFO ClienteWebServices --> recuperarObjetoGson() --> CUATRO");
+			envia.flush();
+			Log.i("log_glp ---------->", "INFO ClienteWebServices --> recuperarObjetoGson() --> CINCO");
 			envia.close();
-			Log.i("log_glp ---------->", "INFO ClienteWebServices --> recuperarObjetoGson() --> INICIANDO CONSUMO WS..."+urlString);
+			stream.close();
+			Log.i("log_glp ---------->", "INFO ClienteWebServices --> recuperarObjetoGson() --> INICIANDO CONSUMO WS..."+Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
 
 
 			//Leo la respuesta
 			InputStreamReader recibe = new InputStreamReader(conexion.getInputStream());
+			Log.i("log_glp ---------->", "INFO ClienteWebServices --> recuperarObjetoGson() --> SEIS");
 			BufferedReader lectura = new BufferedReader(recibe);
+			Log.i("log_glp ---------->", "INFO ClienteWebServices --> recuperarObjetoGson() --> SIETE");
 			respuesta = lectura.readLine();
+			Log.i("log_glp ---------->", "INFO ClienteWebServices --> recuperarObjetoGson() --> OCHO");
 
 
 			//Seteo el valor de la respuesta de la peticion del servidor, en caso de conexion nula queda el valor en el se inicializo la variable codigoRespuestaHTTP
@@ -66,9 +76,31 @@ public class ClienteWebServices {
 			e.printStackTrace();
 			respuesta=e.getMessage(); //Si el servidor de la ARCH esta abajo entra al catch
 			Log.i("log_glp ---------->", "ERROR ClienteWebServices --> recuperarObjetoGson() -- > PETICION FALLO: " +urlString + " PARAMETRO ENVIADO: " + requestJson + " RESPUESTA: "+ respuesta);
+		}finally {
+			if(conexion!=null){
+				Log.i("log_glp ---------->", "ERROR ClienteWebServices --> recuperarObjetoGson() -- > finally IF");
+				conexion.disconnect();
+			}else{
+				Log.i("log_glp ---------->", "ERROR ClienteWebServices --> recuperarObjetoGson() -- > finally ESLE ");
+			}
 		}
 		return respuesta;
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	/**
@@ -105,22 +137,11 @@ public class ClienteWebServices {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return respuesta;
-	}
+		return respuesta;	}
 
 
 
-	public static void toast(Context context, String mensaje) {
-		Toast toast = Toast.makeText(context, mensaje, Toast.LENGTH_SHORT);
-		toast.show();
-	}
-	
-	
 
-	public static void toastError(Context context, String mensaje) {
-		Toast toast = Toast.makeText(context, mensaje, Toast.LENGTH_LONG);
-		toast.show();
-	}
 
 	public static boolean validarConexionRed(Context context) {
 		boolean existeConexion=true;
