@@ -153,7 +153,7 @@ public class EditarVentaFragment extends Fragment {
                 int cantidadNueva;
                 int diferencia = 0;
                 Log.i("Log_glp------>", "rangoEdicion: " + rangoEdicion);
-                if (rangoEdicion <=120) {
+                if (rangoEdicion <=180) {
                     Log.i("Log_glp------>", " tiempo Edicion: " + rangoEdicion);
                     if (etCilindros.getText().toString().compareTo("") != 0) {
                         cantidadNueva = Integer.valueOf(etCilindros.getText().toString());

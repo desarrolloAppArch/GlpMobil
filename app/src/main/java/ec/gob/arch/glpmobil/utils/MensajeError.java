@@ -36,6 +36,10 @@ public interface MensajeError {
 	public static String HISTORIAL_SINCRONIZA_VENTA_LLENA ="Para actualizar primero debe enviar las ventas pendientes";
     public static String CONNEXION_OK_SIN_RESULTADOS ="Consulta se realizó exitosamente en la ARCH, no hay cupos pendientes para descargar a la fecha actual";
 	public static String HISTORIAL_SINCRONIZA_VENTA_LLENA_OTRO_USUARIO ="Para actualizar primero debe enviar las ventas pendientes del usuario: ";
+	public static String SUJETO_DE_CONTROL_INACTIVO ="El sujeto de control no puede actualizar cupos, se encuentra en estado INACTIVO";
+	public static String SUJETO_DE_CONTROL_NO_TIENE_ASIGNADO_BARRIO ="El sujeto de control no puede actualizar cupos, el Depósito no tiene asignado ningún Barrio";
+	public static String SUJETO_DE_CONTROL_NO_TIENE_ASIGNADO_NINGUN_DEPOSITO="El sujeto de control no puede actualizar cupos, no tiene asignado ningún Depósito";
+	public static String TRANSPORTE_VINCULADO_AL_SUJETO_DE_CONTROL_INACTIVO_="El sujeto de control al que está vinculado el transporte se encuentra en estado INACTIVO";
 
 	public static String VENTA_ACTIVAR_CAMARA_PARA_ESTA_APP ="Es necesario que permita que esta app acceda a la cámara, para la venta de GLP";
 	public static String VENTA_TIEMPO_EDICION_PERMITIDO ="El tiempo de edición a excedido";

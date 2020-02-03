@@ -75,7 +75,7 @@ public class ConsultarVentaFragment extends Fragment {
                 long rangoEdicion= Convertidor.diferenciaEnSegundosFechas(ventaSeleccionada.getFecha_venta(),Convertidor.dateAString(Convertidor.horafechaSistemaDate()));
 
                 Log.i("log_glp ---------->", "parametrosEnvio: "+ventaSeleccionada.getNombre_compra());
-                if (rangoEdicion <=120) {
+                if (rangoEdicion <=180) {
                     //Creo ub objeto Bundle para enviarlo al siguiente Fragment
                     Bundle parametrosEnvio = new Bundle();
                     parametrosEnvio.putSerializable(CtVenta.CLAVE_VENTA_EDITAR, ventaSeleccionada);//Para que esto funcione la clase Venta debe implementar la interfaz Serializable

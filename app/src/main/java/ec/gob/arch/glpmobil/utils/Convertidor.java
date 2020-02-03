@@ -430,5 +430,84 @@ public class Convertidor {
 
 		return devolver;
 	}
+	/**
+	 * Devuelve la fecha seteada a 23 horas 59 minutos 59 segundos en formato
+	 * calendar
+	 *
+	 * @param fecha fecha para transformar
+	 * @return fecha con formato de hora 23:59:59
+	 * @author cggm
+	 */
+	public static Calendar fechaFinCalendar(Date fecha) {
+		Calendar fFin = Calendar.getInstance();
+		fFin.setTime(fecha);
+		fFin.set(Calendar.HOUR_OF_DAY, 23);
+		fFin.set(Calendar.MINUTE, 59);
+		fFin.set(Calendar.SECOND, 59);
+		fFin.set(Calendar.MILLISECOND, 0);
+		return fFin;
+	}
+	/**
+	 * Devuelve la fecha seteada a 00 horas 00 minutos 00 segundos en formato
+	 * calendar
+	 *
+	 * @param fecha fecha para transformar
+	 * @return fecha con formato de hora 00:00:00
+	 * @author cggm
+	 */
+	public static Calendar fechaInicioCalendar(Date fecha) {
+		Calendar fInicio = Calendar.getInstance();
+		fInicio.setTime(fecha);
+		fInicio.set(Calendar.HOUR_OF_DAY, 0);
+		fInicio.set(Calendar.MINUTE, 0);
+		fInicio.set(Calendar.SECOND, 0);
+		fInicio.set(Calendar.MILLISECOND, 0);
+		return fInicio;
+	}
+
+	/**
+	 * Devuelve la fecha seteada a 00 horas 00 minutos 00 segundos
+	 *
+	 * @param fecha fecha para transformar
+	 * @return fecha con formato de hora 00:00:00
+	 * @author cggm
+	 */
+	public static Date fechaInicio(Date fecha) {
+		try {
+			return fechaInicioCalendar(fecha).getTime();
+		} catch (Exception e) {
+			return fecha;
+		}
+	}
+
+	/**
+	 * Devuelve la fecha seteada a 23 horas 59 minutos 59 segundos
+	 *
+	 * @param fecha fecha para transformar
+	 * @return fecha con formato de hora 23:59:59
+	 * @author cggm
+	 */
+	public static Date fechaFin(Date fecha) {
+		try {
+			return fechaFinCalendar(fecha).getTime();
+		} catch (Exception e) {
+			return fecha;
+		}
+	}
+	/**
+	 * Permite restar dias a una fecha
+	 *
+	 * @author Blanca Yanguicela
+	 * @param fecha
+	 * @param cantidad
+	 * @return
+	 */
+	public static Date restarDia(Date fecha, int cantidad) {
+		cantidad=cantidad*-1;
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(fecha);
+		calendar.add(Calendar.DAY_OF_MONTH, cantidad);
+		return calendar.getTime();
+	}
 	
 }

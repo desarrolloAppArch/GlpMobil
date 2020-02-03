@@ -11,6 +11,7 @@ import java.util.List;
 
 import ec.gob.arch.glpmobil.constantes.CtHistorialSincroniza;
 import ec.gob.arch.glpmobil.entidades.HistorialSincronizacion;
+import ec.gob.arch.glpmobil.utils.Convertidor;
 
 public class ServiciosHistorialSincroniza extends ServicioBase{
 
@@ -134,11 +135,20 @@ public class ServiciosHistorialSincroniza extends ServicioBase{
 
     public List<HistorialSincronizacion> buscarVentaPorUsuarioAcccion(String usuario, String accion)
     {
+        String fechaInicio;
+        String fechaFin;
+        fechaInicio= Convertidor.dateAString(Convertidor.fechaInicio(Convertidor.restarDia(Convertidor.horafechaSistemaDate(),7)));
+        fechaFin= Convertidor.dateAString(Convertidor.fechaFin(Convertidor.horafechaSistemaDate()));
+        Log.v("log_glp ---------->", "INFO ServiciosHistorialSincroniza --> fechaInicio: "+fechaInicio);
+        Log.v("log_glp ---------->", "INFO ServiciosHistorialSincroniza --> fechaFin: "+fechaFin);
+
         List<HistorialSincronizacion> listaHistorial = null;
         try {
             listaHistorial = new ArrayList<>();
             abrir();
-            String condicion = CtHistorialSincroniza.USUARIO +"='"+usuario+"' and "+CtHistorialSincroniza.ACCION+ "='"+accion+"'" ;
+
+            String condicion = CtHistorialSincroniza.USUARIO +"='"+usuario+"' and "+CtHistorialSincroniza.ACCION+ "='"+accion+"' and "+CtHistorialSincroniza.FECHA_SINCRONIZA +" BETWEEN '"+fechaInicio+ "' AND '"+ fechaFin +"'";
+            Log.v("log_glp ---------->", "INFO ServiciosHistorialSincroniza --> condicion: "+condicion);
             String orderby = CtHistorialSincroniza.ID_SQLITE+" desc ";
                     Cursor cursor = db.query(CtHistorialSincroniza.TABLA_HISTORIAL, columnas, condicion, null, null, null,orderby);
             cursor.moveToFirst();
@@ -156,5 +166,35 @@ public class ServiciosHistorialSincroniza extends ServicioBase{
         }
         return  listaHistorial;
 
+    }
+
+    /**
+     * Método que elimina historial de acuerdo a la acción (Ventas o Sincronización), usuario que se logea, excepto los registros de los ultimos 7 días.
+     * @AUTHOR Blanca Yanguicela
+     * @param usuario
+     * @param accion
+     * @throws Exception
+     */
+    public void eliminarHistorialPorUsuarioAccionExceptoUltimosSieteDia(String usuario, String accion)throws Exception{
+        try {
+            String fechaInicio;
+            String fechaFin;
+            fechaInicio= Convertidor.dateAString(Convertidor.fechaInicio(Convertidor.restarDia(Convertidor.horafechaSistemaDate(),7)));// fecha de inicio será 7 días antes de la fecha actual.
+            fechaFin= Convertidor.dateAString(Convertidor.fechaFin(Convertidor.horafechaSistemaDate()));
+
+            abrir();
+            String condicion = CtHistorialSincroniza.USUARIO +"='"+usuario+"' and "+CtHistorialSincroniza.ACCION+ "='"+accion+"' and "+CtHistorialSincroniza.FECHA_SINCRONIZA +" NOT BETWEEN '"+fechaInicio+ "' AND '"+ fechaFin +"'";
+            long response= db.delete(CtHistorialSincroniza.TABLA_HISTORIAL,condicion, null);
+            Log.v("log_glp ---------->", "INFO ServicioVenta --> eliminar() venta : "+ usuario);
+
+
+        } catch (Exception e) {
+            Log.v("log_glp ---------->", "ERROR: ServicioVenta --> eliminar() venta : "+ usuario);
+            e.printStackTrace();
+        }
+        finally {
+
+            cerrar();
+        }
     }
 }

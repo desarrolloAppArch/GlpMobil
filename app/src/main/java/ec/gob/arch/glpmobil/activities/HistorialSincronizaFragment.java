@@ -115,6 +115,7 @@ public class HistorialSincronizaFragment extends Fragment {
             tvTituloHistorial.setText(CtHistorialSincroniza.TITULO_HISTORIAL_VENTAS);
             serviciosHistorialSincroniza= new ServiciosHistorialSincroniza(getContext());
             lsHistorialSincronizacion = serviciosHistorialSincroniza.buscarVentaPorUsuarioAcccion(usuario, accion);
+            eliminarHistorial(usuario, accion);
             llenarListaHistorial(lsHistorialSincronizacion);
         }else{
             getActivity().setTitle(R.string.title_activity_cupos);
@@ -171,7 +172,13 @@ public class HistorialSincronizaFragment extends Fragment {
         return view;
     }
 
-
+ public void eliminarHistorial(String usuario, String accion){
+     try {
+         serviciosHistorialSincroniza.eliminarHistorialPorUsuarioAccionExceptoUltimosSieteDia(usuario, accion);
+     } catch (Exception e) {
+         e.printStackTrace();
+     }
+ }
 
 
 
@@ -223,7 +230,9 @@ public class HistorialSincronizaFragment extends Fragment {
             int numero_registros =0;
             Log.i("log_glp ---------->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress --> onPostExecute()");
             //Actualizo en la base local del dispositivo
+            eliminarHistorial(usuario,accion);
             if (listaCupoHogares==null ){
+
                 insertarHistorial(accion, usuario,ConstantesGenerales.CODIGO_HISTORIAL_ESTADO_FALLIDO,0);
             }else{
                 numero_registros=listaCupoHogares.size();
@@ -250,7 +259,46 @@ public class HistorialSincronizaFragment extends Fragment {
                 UtilMensajes.mostrarMsjError(MensajeError.WEB_SERVICE_ERROR_APP, TituloError.TITULO_ERROR, getContext());
             }else if(numero_registros==1){
                 for (VwCupoHogar cupo :listaCupoHogares){
-                    if (cupo.getCodigoRespuesta().equals(ConstantesGenerales.CODIGO_RESPUESTA_CUPOS_ENCONTRADOS)){
+
+                    String codigoRespuesta=cupo.getCodigoRespuesta();
+
+                    switch(codigoRespuesta) {
+                        case ConstantesGenerales.CODIGO_RESPUESTA_CUPOS_ENCONTRADOS :
+                            Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> onPostExecute() --> RESULTADO:" +numero_registros);
+                            objetoSesion.setListaCupoHogar(listaCupoHogares);
+                            UtilMensajes.mostrarMsjInfo(MensajeInfo.HISTORIAL_SINCRONIZA_OK+numero_registros, TituloInfo.TITULO_INFO, getContext());
+                            break;
+                        case ConstantesGenerales.CODIGO_RESPUESTA_CUPOS_NO_ENCONTRADOS :
+                            Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> onPostExecute() --> RESULTADO: VACIO");
+                            UtilMensajes.mostrarMsjError(MensajeError.CONNEXION_OK_SIN_RESULTADOS, TituloError.TITULO_ERROR, getContext());
+                            break;
+                        case ConstantesGenerales.CODIGO_RESPUESTA_ERROR_SERVIDOR :
+                            Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> onPostExecute() --> RESULTADO: VACIO");
+                            UtilMensajes.mostrarMsjError(MensajeError.WEB_SERVICE_ERROR_SERVIDOR+" ERROR: "+cupo.getCodigoRespuesta(), TituloError.TITULO_ERROR, getContext());
+                            break;
+                        case ConstantesGenerales.CODIGO_RESPUESTA_ERROR_SUJETO_ESTADO_INACTIVO :
+                            Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> onPostExecute() --> RESULTADO: VACIO");
+                            UtilMensajes.mostrarMsjError(MensajeError.SUJETO_DE_CONTROL_INACTIVO+" ERROR: "+cupo.getCodigoRespuesta(), TituloError.TITULO_ERROR, getContext());
+                            break;
+                        case ConstantesGenerales.CODIGO_RESPUESTA_ERROR_SUJETO_NO_TIENE_BARRIO_ASIGNADO :
+                            Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> onPostExecute() --> RESULTADO: VACIO");
+                            UtilMensajes.mostrarMsjError(MensajeError.SUJETO_DE_CONTROL_NO_TIENE_ASIGNADO_BARRIO+" ERROR: "+cupo.getCodigoRespuesta(), TituloError.TITULO_ERROR, getContext());
+                            break;
+                        case ConstantesGenerales.CODIGO_RESPUESTA_ERROR_SUJETO_NO_TIENE_DEPOSITO_ASIGNADO :
+                            Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> onPostExecute() --> RESULTADO: VACIO");
+                            UtilMensajes.mostrarMsjError(MensajeError.SUJETO_DE_CONTROL_NO_TIENE_ASIGNADO_NINGUN_DEPOSITO+" ERROR: "+cupo.getCodigoRespuesta(), TituloError.TITULO_ERROR, getContext());
+                            break;
+                        case ConstantesGenerales.CODIGO_RESPUESTA_ERROR_DEPOSITO_VINCULADO_INACTIVO :
+                            Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> onPostExecute() --> RESULTADO: VACIO");
+                            UtilMensajes.mostrarMsjError(MensajeError.TRANSPORTE_VINCULADO_AL_SUJETO_DE_CONTROL_INACTIVO_+" ERROR: "+cupo.getCodigoRespuesta(), TituloError.TITULO_ERROR, getContext());
+                            break;
+
+                        default :
+                            Log.i("log_glp_cupo ---->","INFO INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> onPostExecute()) --> RESULTADO: VACIO");
+                            UtilMensajes.mostrarMsjError(MensajeError.CONEXION_SERVIDOR_NULL+" ERROR: "+cupo.getCodigoRespuesta(), TituloError.TITULO_ERROR, getContext());
+                    }
+
+                    /*if (cupo.getCodigoRespuesta().equals(ConstantesGenerales.CODIGO_RESPUESTA_CUPOS_ENCONTRADOS)){
                         Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> onPostExecute() --> RESULTADO:" +numero_registros);
                         objetoSesion.setListaCupoHogar(listaCupoHogares);
                         UtilMensajes.mostrarMsjInfo(MensajeInfo.HISTORIAL_SINCRONIZA_OK+numero_registros, TituloInfo.TITULO_INFO, getContext());
@@ -263,7 +311,7 @@ public class HistorialSincronizaFragment extends Fragment {
                     }else{
                         Log.i("log_glp_cupo ---->","INFO INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> onPostExecute()) --> RESULTADO: VACIO");
                         UtilMensajes.mostrarMsjError(MensajeError.CONEXION_SERVIDOR_NULL+" ERROR: "+cupo.getCodigoRespuesta(), TituloError.TITULO_ERROR, getContext());
-                    }
+                    }*/
                 }
             }else{
                 Log.i("log_glp_cupo ---->","INFO HistorialSincronizaFragment --> TaskConsultarCupoProgress() --> onPostExecute() --> RESULTADO:" +numero_registros);

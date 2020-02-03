@@ -17,16 +17,24 @@ public interface ConstantesGenerales {
 	public final String CODIGO_RESPUESTA_USUARIO_YA_EXISTE = "001";
 
 	public static final int CODIGO_PERMISOS_CAMARA = 1, CODIGO_INTENT = 2;
-
+	//Respuesta de usuarios
 	public final String CODIGO_RESPUESTA_CLAVE_ACTUALIZADA_EXISTOSAMENTE = "000";
 	public final String CODIGO_RESPUESTA_USUARIO_NO_ENCONTRADO = "001";
 	public final String CODIGO_RESPUESTA_NO_TIENE_PERMISOS_RESETEO = "002";
 	public final String CODIGO_RESPUESTA_ERROR_SERVIDOR = "003";;
-
+//Cupos respuestas de cupos
 	public final String CODIGO_RESPUESTA_CUPOS_ENCONTRADOS = "001";
 	public final String CODIGO_RESPUESTA_CUPOS_NO_ENCONTRADOS = "002";
+	public final String CODIGO_RESPUESTA_ERROR_SUJETO_ESTADO_INACTIVO = "004";
+	public final String CODIGO_RESPUESTA_ERROR_SUJETO_NO_TIENE_BARRIO_ASIGNADO = "005";
+	public final String CODIGO_RESPUESTA_ERROR_SUJETO_NO_TIENE_DEPOSITO_ASIGNADO = "006";
+	public final String CODIGO_RESPUESTA_ERROR_DEPOSITO_VINCULADO_INACTIVO = "007";
 
+
+
+//Respuestas del envio de ventas
 	public final String CODIGO_RESPUESTA_REGISTRO_EXISTOSO_VENTAS = "000";
+
 
 	public final String TITULO_CABECERA = "Usuario: ";
 	public final int CODIGO_PERMITIR_DIGITACION = 0;
