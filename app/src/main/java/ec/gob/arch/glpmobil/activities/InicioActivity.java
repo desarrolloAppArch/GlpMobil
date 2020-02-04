@@ -1,11 +1,20 @@
 package ec.gob.arch.glpmobil.activities;
 
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,12 +23,19 @@ import android.widget.TextView;
 import ec.gob.arch.glpmobil.R;
 import ec.gob.arch.glpmobil.constantes.ConstantesGenerales;
 import ec.gob.arch.glpmobil.sesion.ObjetoAplicacion;
+import ec.gob.arch.glpmobil.utils.MensajeError;
+import ec.gob.arch.glpmobil.utils.TituloError;
+import ec.gob.arch.glpmobil.utils.UtilMensajes;
 
 public class InicioActivity extends AppCompatActivity {
 
     private ObjetoAplicacion objetosSesion;
     private TextView tvUsuarioEnSesion;
     private TextView tvNombreUsuarioEnSesion;
+
+    //Variables para obtener el IMEI
+    static final Integer PHONESTATS = 0x1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +61,8 @@ public class InicioActivity extends AppCompatActivity {
             this.setTitle(R.string.app_name);
             tvUsuarioEnSesion.setText(ConstantesGenerales.TITULO_CABECERA);
         }
+
+        consultarPermiso(Manifest.permission.READ_PHONE_STATE, PHONESTATS);
     }
 
 
@@ -109,6 +127,59 @@ public class InicioActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
 
+    }
+
+    // Con este método mostramos en un Toast con un mensaje que el usuario ha concedido los permisos a la aplicación
+    private void consultarPermiso(String permission, Integer requestCode) {
+        if (ContextCompat.checkSelfPermission(InicioActivity.this, permission) != PackageManager.PERMISSION_GRANTED) {
+            Log.v("log_glp ---------->", "INFO InicioActivity --> consultarPermiso(): Asignando permisos");
+            if (ActivityCompat.shouldShowRequestPermissionRationale(InicioActivity.this, permission)) {
+                ActivityCompat.requestPermissions(InicioActivity.this, new String[]{permission}, requestCode);
+            } else {
+                ActivityCompat.requestPermissions(InicioActivity.this, new String[]{permission}, requestCode);
+            }
+        } else {
+            Log.v("log_glp ---------->", "INFO InicioActivity --> consultarPermiso(): Ya tenía permisos");
+            objetosSesion.setImei(obtenerIMEI());
+
+            //Toast.makeText(this,permission + " El permiso a la aplicación esta concedido.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    // Con este método consultamos al usuario si nos puede dar acceso a leer los datos internos del móvil
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        switch (requestCode) {
+            case 1: {
+                // Validamos si el usuario acepta el permiso para que la aplicación acceda a los datos internos del equipo, si no denegamos el acceso
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //imei = obtenerIMEI();
+                    objetosSesion.setImei(obtenerIMEI());
+
+                } else {
+                    Log.v("log_glp ---------->", "INFO InicioActivity --> consultarPermiso(): Haz negado el permiso a la aplicación");
+                    UtilMensajes.mostrarMsjError(MensajeError.PERMISOS_TELEFONO, TituloError.TITULO_ERROR, this);
+                }
+                return;
+            }
+        }
+    }
+
+
+    @SuppressLint("MissingPermission")
+    private String obtenerIMEI() {
+        final TelephonyManager telephonyManager= (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+        String imei;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            //Hacemos la validación de métodos, ya que el método getDeviceId() ya no se admite para android Oreo en adelante, debemos usar el método getImei()
+            imei = telephonyManager.getImei();
+        }else {
+            imei= telephonyManager.getDeviceId();
+        }
+        Log.v("log_glp ---------->", "INFO InicioActivity --> obtenerIMEI() --> IMEI: "+imei);
+        return imei;
     }
 
 

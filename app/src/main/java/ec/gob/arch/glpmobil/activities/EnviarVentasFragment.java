@@ -106,6 +106,9 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
                 if(listaVentasPorEnviar.size()>0) {
                     Log.i("log_glp ---------->", "INFO listaVentasPorEnviar --> " + listaVentasPorEnviar.size());
                     TaskEnviarVentasProgress tarea = new TaskEnviarVentasProgress();
+                    for (Venta venta:listaVentasPorEnviar) {
+                        venta.setImei(objetosSesion.getImei());
+                    }
                     tarea.execute(listaVentasPorEnviar);
                 }else{
                     UtilMensajes.mostrarMsjInfo(MensajeInfo.NO_TIENE_VENTAS, TituloInfo.TITULO_INFO, getContext());

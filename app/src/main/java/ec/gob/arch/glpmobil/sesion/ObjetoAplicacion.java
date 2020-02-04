@@ -23,6 +23,7 @@ public class ObjetoAplicacion extends Application {
 	private List<VwCupoHogar> listaCupoHogar;
 	private List<VwPersonaAutorizada> listaPersonas;
 	private Venta venta;
+	private String imei;
 
 	public ObjetoAplicacion() {
 
@@ -82,5 +83,13 @@ public class ObjetoAplicacion extends Application {
 
 	public void setVenta(Venta venta) {
 		this.venta = venta;
+	}
+
+	public String getImei() {
+		return imei;
+	}
+
+	public void setImei(String imei) {
+		this.imei = imei;
 	}
 }

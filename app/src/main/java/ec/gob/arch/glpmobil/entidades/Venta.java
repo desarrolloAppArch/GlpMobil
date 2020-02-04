@@ -18,6 +18,7 @@ public class Venta implements Serializable {
     private String fecha_venta;
     private String fecha_modificacion;
     private Integer cantidad;
+    private String imei;
 
     //variables temporales solo para mostrar información
     private Integer cupoDisponible;
@@ -123,5 +124,13 @@ public class Venta implements Serializable {
 
     public void setCupoDisponible(Integer cupoDisponible) {
         this.cupoDisponible = cupoDisponible;
+    }
+
+    public String getImei() {
+        return imei;
+    }
+
+    public void setImei(String imei) {
+        this.imei = imei;
     }
 }

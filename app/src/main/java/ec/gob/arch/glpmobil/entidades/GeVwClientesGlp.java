@@ -56,6 +56,8 @@ public class GeVwClientesGlp {
 
 	private String clave;
 
+	private String rdhCodigo;
+
 	public GeVwClientesGlp() {
 
 	}
@@ -268,4 +270,11 @@ public class GeVwClientesGlp {
         this.clave = clave;
     }
 
+	public String getRdhCodigo() {
+		return rdhCodigo;
+	}
+
+	public void setRdhCodigo(String rdhCodigo) {
+		this.rdhCodigo = rdhCodigo;
+	}
 }

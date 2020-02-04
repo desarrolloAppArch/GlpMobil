@@ -56,4 +56,6 @@ public interface MensajeError {
 	public static String CLAVES_OBLIGATORIAS ="Ingresar la nueva clave y repetir la misma";
 	public static String CLAVES_NO_COINCIDEN ="Las claves ingresadas no coinciden, vuelva a digitar";
 	public static String CLAVES_MINIMO_CINCO_CARACTERES ="La nueva clave debe contener al menos 5 caracteres";
+
+	public static String PERMISOS_TELEFONO ="Haz negado el permiso para realizar y gestionar llamadas, el mismo que permitirá el envío de ventas de GLP. Habilite permiso en AJUSTES --> APLICACIONES --> Buscar la app --> PERMISOS --> TELÉFONO";
 }

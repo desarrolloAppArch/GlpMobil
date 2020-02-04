@@ -76,7 +76,7 @@ public class ServiciosPersona extends ServicioBase {
             cv.put(CtPersona.FECHA_EMISION_DOCUMENTO_DIA, personaAutorizada.getFechaEmisionDocumentoDia());
             cv.put(CtPersona.PERMITE_DIGITACION_IDEN, personaAutorizada.getPermitirDigitacionIden());
             db.insert(CtPersona.TABLA_PERSONA, null,cv);
-            Log.v("log_glp ---------->", "INFO ServiciosPersona --> insertar() persona id: "+ personaAutorizada.getNumeroDocumento()+"/"+personaAutorizada.getFechaEmisionDocumentoAnio()+personaAutorizada.getFechaEmisionDocumentoMes()+personaAutorizada.getFechaEmisionDocumentoDia());
+            Log.v("log_glp ---------->", "INFO ServiciosPersona --> insertar() persona id: "+ personaAutorizada.getNumeroDocumento()+" / "+personaAutorizada.getFechaEmisionDocumentoAnio()+personaAutorizada.getFechaEmisionDocumentoMes()+personaAutorizada.getFechaEmisionDocumentoDia()+" / "+personaAutorizada.getPermitirDigitacionIden());
 
 
         }catch (Exception e) {
