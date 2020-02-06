@@ -41,7 +41,7 @@ public class ClienteWebServices {
 			// Tipo de contenido que se va a enviar
 			conexion.setRequestProperty("Content-type", "application/json");
 			conexion.setConnectTimeout(10000);// Expirar a los 10 segundos si la conexión no se establece
-			conexion.setReadTimeout(600000);// Esperar solo 10 minutos para que finalice la lectura
+			conexion.setReadTimeout(1200000);// Esperar solo 20 minutos para que finalice la lectura
 			// Escribir en la conexion
 			Log.i("log_glp ---------->", "INFO ClienteWebServices --> recuperarObjetoGson() --> UNO");
 			OutputStream stream = conexion.getOutputStream();

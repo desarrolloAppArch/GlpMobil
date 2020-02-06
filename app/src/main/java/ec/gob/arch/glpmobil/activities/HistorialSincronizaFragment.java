@@ -93,6 +93,7 @@ public class HistorialSincronizaFragment extends Fragment {
         Log.i("log_glp_historial ---->","INFO HistorialFragment --> accion() --> accion:" + accion);
         objetoSesion = (ObjetoAplicacion) getActivity().getApplication();
         usuario=objetoSesion.getUsuario().getId();
+        Log.i("log_glp_historial ---->","INFO HistorialFragment --> usuario:" + usuario);
         btnSincronizar = (Button)view.findViewById(R.id.btnSincronizar);
         btnRegresar = (Button)view.findViewById(R.id.btnRegresar);
         tvTituloHistorial= (TextView)view.findViewById(R.id.tvTituloHistorial);
