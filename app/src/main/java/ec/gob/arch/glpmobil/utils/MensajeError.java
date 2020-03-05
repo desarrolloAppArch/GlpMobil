@@ -58,4 +58,6 @@ public interface MensajeError {
 	public static String CLAVES_MINIMO_CINCO_CARACTERES ="La nueva clave debe contener al menos 5 caracteres";
 
 	public static String PERMISOS_TELEFONO ="Haz negado el permiso para realizar y gestionar llamadas, el mismo que permitirá el envío de ventas de GLP. Habilite permiso en AJUSTES --> APLICACIONES --> Buscar la app --> PERMISOS --> TELÉFONO";
+
+	public static String ENVIO_VENTAS_EXISTE_PROCESO = "Ya existe un proceso de envío de ventas en ejecución, espere unos minutos para que finalice el proceso";
 }

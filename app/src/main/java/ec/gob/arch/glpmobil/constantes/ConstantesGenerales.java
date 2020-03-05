@@ -34,6 +34,7 @@ public interface ConstantesGenerales {
 
 //Respuestas del envio de ventas
 	public final String CODIGO_RESPUESTA_REGISTRO_EXISTOSO_VENTAS = "000";
+	public final String CODIGO_RESPUESTA_REGISTRO_VENTAS_EXISTE_PROCESO = "001";
 
 
 	public final String TITULO_CABECERA = "Usuario: ";

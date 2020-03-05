@@ -201,6 +201,9 @@ btnEnviarVentas.setOnClickListener(new View.OnClickListener() {
                 }else if(respuestaEnvio.equals(ConstantesGenerales.CODIGO_RESPUESTA_ERROR_SERVIDOR)){
                     Log.i("log_glp ---------->","ERROR EnviarVentasFragment --> TaskEnviarVentasProgress --> onPostExecute() --> RESPUESTA: "+ respuestaEnvio);
                     UtilMensajes.mostrarMsjError(MensajeError.WEB_SERVICE_ERROR_SERVIDOR+" ERROR: "+respuestaEnvio, TituloError.TITULO_ERROR, getContext());
+                }else if(respuestaEnvio.equals(ConstantesGenerales.CODIGO_RESPUESTA_REGISTRO_VENTAS_EXISTE_PROCESO)){
+                    Log.i("log_glp ---------->","ERROR EnviarVentasFragment --> TaskEnviarVentasProgress --> onPostExecute() --> RESPUESTA: "+ respuestaEnvio);
+                    UtilMensajes.mostrarMsjError(MensajeError.ENVIO_VENTAS_EXISTE_PROCESO+" ERROR: "+respuestaEnvio, TituloError.TITULO_ERROR, getContext());
                 }else {
                     Log.i("log_glp ---------->","ERROR EnviarVentasFragment --> TaskEnviarVentasProgress --> onPostExecute() --> RESPUESTA: "+ respuestaEnvio);
                     UtilMensajes.mostrarMsjError(MensajeError.CONEXION_SERVIDOR_NULL+" ERROR: "+respuestaEnvio, TituloError.TITULO_ERROR, getContext());
