@@ -17,8 +17,8 @@ public interface PathWebServices {
 
 	//String PATH_BASE="http://172.16.15.0:8080/webServiceGlpMobilWeb/rest";
 	//String PATH_BASE="http://172.16.41.77:8080/webServiceGlpMobilWeb/rest";
-	String PATH_BASE="https://siscoh-wsglp.controlhidrocarburos.gob.ec/webServiceGlpMobilWeb/rest";
-	//String PATH_BASE="http://siscoh-pr2.controlhidrocarburos.gob.ec/webServiceGlpMobilWeb/rest";
+	//String PATH_BASE="https://siscoh-wsglp.controlhidrocarburos.gob.ec/webServiceGlpMobilWeb/rest";
+	String PATH_BASE="http://siscoh-pr2.controlhidrocarburos.gob.ec/webServiceGlpMobilWeb/rest";
 	//String PATH_BASE="http://172.16.15.45:8080/webServiceGlpMobilWeb/rest";
 	//String PATH_BASE="http://172.16.14.169:8080/webServiceGlpMobilWeb/rest";
 	String WS_USUARIO = "/ws-usuario";
